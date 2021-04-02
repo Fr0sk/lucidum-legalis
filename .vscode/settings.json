@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "**/.dart_tool": true,
+        "**/android": true,
+        "**/ios": true
+    }
+}
