@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.frosklabs.lucidum_legalis">
+    package="com.example.lucidum_legalis">
    <application
         android:label="lucidum_legalis"
         android:icon="@mipmap/ic_launcher">

@@ -1,43 +1,84 @@
-import 'package:lucidum_legalis/generated/i18n.dart';
-import 'package:lucidum_legalis/models/app_model.dart';
+import 'dart:ffi';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:lucidum_legalis/pages/login_page.dart';
+import 'package:lucidum_legalis/pages/main_page/main_page.dart';
+import 'package:lucidum_legalis/services/app_settings.dart';
+import 'package:lucidum_legalis/utils/api.dart';
 import 'package:flutter/material.dart';
+import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:lucidum_legalis/config/routes/router.gr.dart';
+import 'package:sqlite3/open.dart';
 
-void main() {
-  //AppSettingsModel.init().then((value) => print(value.usersPath));
+void setupSqlitePlatformOverrides() {
+  //final script = File(Platform.script.toFilePath());
+  open.overrideFor(
+      OperatingSystem.linux, () => DynamicLibrary.open('libsqlcipher.so'));
+  open.overrideFor(
+      OperatingSystem.windows, () => DynamicLibrary.open('libsqlcipher.dll'));
+}
 
+Future<void> main() async {
+  // Shows splash screen while app is loading
+  //runApp(SplashScreen());
+
+  // Initializes application
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  setupSqlitePlatformOverrides();
+  await AppSettings().load();
+  final Api api = LocalApi();
+
+  // Auto loads saved user
+  if (AppSettings().savedUser.isNotEmpty) {
+    await api.loadUser(AppSettings().savedUser);
+  }
+
+  // Run the application
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => AppModel(),
-      child: CMS(),
+    EasyLocalization(
+      supportedLocales: [Locale('en'), Locale('pt', 'PT')],
+      fallbackLocale: Locale('en'),
+      path: 'assets/lang/lang.csv',
+      assetLoader: CsvAssetLoader(),
+      child: ChangeNotifierProvider.value(
+        value: api,
+        child: MyApp(),
+      ),
     ),
   );
 }
 
-class CMS extends StatelessWidget {
-  final _appRouter = AppRouter();
-
+class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final i18n = I18n.delegate;
+    return MaterialApp(
+      home: Text('AHAHAHAHAH'),
+    );
+  }
+}
 
-    return MaterialApp.router(
-      routerDelegate: _appRouter.delegate(),
-      routeInformationParser: _appRouter.defaultRouteParser(),
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: App.Title,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        shadowColor: Colors.grey,
+        selectedRowColor: Colors.blue[100],
       ),
-      localizationsDelegates: [
-        i18n,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: i18n.supportedLocales,
-      localeResolutionCallback: i18n.resolution(
-        fallback: Locale('en', 'US'),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: Consumer<Api>(
+        builder: (context, api, child) {
+          if (api.user == null) {
+            return LoginPage();
+          } else {
+            return MainPage();
+          }
+        },
       ),
     );
   }
