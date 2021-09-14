@@ -8,7 +8,8 @@ class SnackbarBuilder {
       backgroundColor: Theme.of(context).cardColor,
       content: Row(
         children: [
-          Icon(Icons.info_outline, color: Theme.of(context).accentColor),
+          Icon(Icons.info_outline,
+              color: Theme.of(context).colorScheme.secondary),
           SizedBox(width: 8),
           Text(text, style: Theme.of(context).textTheme.bodyText2),
         ],

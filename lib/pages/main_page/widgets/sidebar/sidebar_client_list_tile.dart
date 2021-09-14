@@ -25,8 +25,9 @@ class SidebarClientListTile extends StatelessWidget {
           onTap: onTap,
           leading: constants.AppIcons.client,
           selected: selected,
-          selectedTileColor:
-              selected ? Theme.of(context).accentColor.withAlpha(40) : null,
+          selectedTileColor: selected
+              ? Theme.of(context).colorScheme.secondary.withAlpha(40)
+              : null,
         );
       },
     );

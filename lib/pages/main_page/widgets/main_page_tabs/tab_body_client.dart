@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/page_header.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/file_explorer_tab.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:lucidum_legalis/utils/constants.dart' as constants;
@@ -38,6 +39,13 @@ class TabBodyClient extends TabBodyBase<Client> {
             ClientInformationTab(),
             Container(color: Colors.green),
             FileExplorerTab(
+                header: PageHeader(
+                  icon: constants.AppIcons.client,
+                  label: StreamBuilder<Client>(
+                    stream: state.data,
+                    builder: (_, snapshot) => Text(snapshot.data?.name ?? ''),
+                  ),
+                ),
                 path:
                     context.read<Api>().user!.getClientDir(id: state.id).path),
           ],

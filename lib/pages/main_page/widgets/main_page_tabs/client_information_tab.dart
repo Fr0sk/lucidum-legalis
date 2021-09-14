@@ -148,7 +148,7 @@ class _Header extends StatelessWidget {
             IconButton(
               onPressed: onEdit,
               icon: constants.AppIcons.edit,
-              color: readOnly ? null : Theme.of(context).accentColor,
+              color: readOnly ? null : Theme.of(context).colorScheme.secondary,
             ),
           ],
         ),

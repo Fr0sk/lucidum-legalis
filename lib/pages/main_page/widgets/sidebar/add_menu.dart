@@ -23,7 +23,6 @@ class AddMenu extends StatelessWidget {
     return AnimatedSize(
       duration: duration,
       curve: Curves.easeOut,
-      vsync: vsync,
       child: Container(
         height: opened ? null : 0.0,
         child: Column(

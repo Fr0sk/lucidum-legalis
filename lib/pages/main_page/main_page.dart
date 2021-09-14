@@ -6,7 +6,6 @@ import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/dialogs/unlock_db_dialog.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:lucidum_legalis/utils/builders.dart';
-import 'package:lucidum_legalis/utils/constants.dart' as constants;
 import 'package:provider/provider.dart';
 import 'widgets/main_page_tabs/tab_body_client.dart';
 import 'widgets/sidebar/sidebar.dart';
