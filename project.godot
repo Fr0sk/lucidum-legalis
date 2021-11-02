@@ -1,0 +1,43 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "TabReference",
+"language": "GDScript",
+"path": "res://Data/tab_reference.gd"
+} ]
+_global_script_class_icons={
+"TabReference": ""
+}
+
+[application]
+
+config/name="Lucidum Legalis"
+run/main_scene="res://Application.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+FileSystem="*res://Systems/file_system.gd"
+Database="*res://Data/Database/database.gd"
+MainTabSystem="*res://Systems/main_tab_system.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-sqlite/plugin.cfg" )
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
