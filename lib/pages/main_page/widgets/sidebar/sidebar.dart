@@ -29,7 +29,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   @override
   void initState() {
     _api = context.read<Api>();
-    _db = _api.user!.db;
+    _db = _api.database;
 
     // Creates the data stream for clients and lawsuites
     _clientsStream = _db.clientDao.watchAllClients();
@@ -48,8 +48,9 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
     _closeAddMenu();
   }
 
-  void _addClient() {
-    _api.createClient();
+  Future<void> _addClient() async {
+    final id = await _api.createClient();
+    final result = await _api.openClient(id: id);
     _closeAddMenu();
   }
 
@@ -60,18 +61,18 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
 
   void _clientSelected(int id) async {
     var result = await _api.openClient(id: id);
-    if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
+    /*if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
       // TODO show dialog asking to save changes
       print('TODO show dialog asking to save changes');
-    }
+    }*/
   }
 
   void _lawsuiteSelected(int id) async {
     var result = await _api.openLawsuite(id: id);
-    if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
+    /*if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
       // TODO show dialog asking to save changes
       print('TODO show dialog asking to save changes');
-    }
+    }*/
   }
 
   void _closeAddMenu() {

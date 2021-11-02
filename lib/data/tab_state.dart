@@ -16,4 +16,10 @@ class TabState<T> extends ChangeNotifier {
   void toggleEdit() => edit = !_edit;
 
   bool get edit => _edit;
+
+  /*@override
+  bool operator ==(o) => o is TabState<T> && o.id == id;
+
+  @override
+  int get hashCode => '${T.runtimeType.toString()}$id'.hashCode;*/
 }

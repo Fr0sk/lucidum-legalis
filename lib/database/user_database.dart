@@ -19,14 +19,9 @@ part 'user_database.g.dart';
 
 const SQLITE_ERR_NOTADB = 26;
 
-QueryExecutor _openConnection(
-    {required String userFolder, required String password}) {
+QueryExecutor _openConnection({required String userFolder}) {
   final file = File(p.join(userFolder, 'db.sqlite'));
-  return VmDatabase(file, setup: (rawDb) {
-    if (password.isNotEmpty) {
-      rawDb.execute('PRAGMA key = \'$password\';');
-    }
-  });
+  return VmDatabase(file);
 }
 
 @UseMoor(tables: [
@@ -42,8 +37,8 @@ QueryExecutor _openConnection(
   LawsuiteDao
 ])
 class UserDatabase extends _$UserDatabase {
-  UserDatabase({required String userFolder, required String password})
-      : super(_openConnection(userFolder: userFolder, password: password));
+  UserDatabase({required String userFolder})
+      : super(_openConnection(userFolder: userFolder));
 
   @override
   int get schemaVersion => 1;

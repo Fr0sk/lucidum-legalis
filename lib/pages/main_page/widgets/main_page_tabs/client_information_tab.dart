@@ -42,7 +42,8 @@ class _ClientInformationTabState extends State<ClientInformationTab> {
   }
 
   void _onDelete(Api api, Client client) {
-    api.closeTab();
+    // Todo Fix _onDelete
+    //api.closeTab();
     api.deleteClient(client);
   }
 

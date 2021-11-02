@@ -4,11 +4,10 @@ import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/page_header.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/file_explorer_tab.dart';
-import 'package:lucidum_legalis/utils/api.dart';
+import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart' as constants;
 import 'package:lucidum_legalis/widgets/button_group.dart';
 import 'package:lucidum_legalis/widgets/custom_tabs.dart';
-import 'package:provider/provider.dart';
 
 import 'client_information_tab.dart';
 import 'tab_body_base.dart';
@@ -46,8 +45,7 @@ class TabBodyClient extends TabBodyBase<Client> {
                     builder: (_, snapshot) => Text(snapshot.data?.name ?? ''),
                   ),
                 ),
-                path:
-                    context.read<Api>().user!.getClientDir(id: state.id).path),
+                path: AppDirectories.getClientDir(id: state.id).path),
           ],
         ),
       ],

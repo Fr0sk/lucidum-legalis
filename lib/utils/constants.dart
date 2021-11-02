@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
 class Fonts {
@@ -30,4 +31,6 @@ class AppIcons {
   static const information = Icon(LineIcons.infoCircle);
   static const files = Icon(LineIcons.folder);
   static const notes = Icon(LineIcons.stickyNote);
+  static const loading = Icon(LineIcons.spinner);
+  static const close = Icon(LineIcons.times);
 }

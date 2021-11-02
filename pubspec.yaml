@@ -40,6 +40,8 @@ dependencies:
   animate_icons: ^2.0.0                   # Animate icons for open/close sidebar menu
   file_explorer:
     path: 'packages/file_explorer'
+  tuple: ^2.0.0
+  tabpanel: ^0.2.2
 
 dev_dependencies:
   flutter_test:

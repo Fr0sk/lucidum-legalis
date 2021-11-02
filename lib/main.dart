@@ -1,7 +1,6 @@
 import 'dart:ffi';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
-import 'package:lucidum_legalis/pages/login_page.dart';
 import 'package:lucidum_legalis/pages/main_page/main_page.dart';
 import 'package:lucidum_legalis/services/app_settings.dart';
 import 'package:lucidum_legalis/utils/api.dart';
@@ -13,9 +12,9 @@ import 'package:sqlite3/open.dart';
 void setupSqlitePlatformOverrides() {
   //final script = File(Platform.script.toFilePath());
   open.overrideFor(
-      OperatingSystem.linux, () => DynamicLibrary.open('libsqlcipher.so'));
+      OperatingSystem.linux, () => DynamicLibrary.open('libsqlite.so'));
   open.overrideFor(
-      OperatingSystem.windows, () => DynamicLibrary.open('libsqlcipher.dll'));
+      OperatingSystem.windows, () => DynamicLibrary.open('sqlite3.dll'));
 }
 
 Future<void> main() async {
@@ -27,12 +26,11 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   setupSqlitePlatformOverrides();
   await AppSettings().load();
-  final Api api = LocalApi();
 
   // Auto loads saved user
-  if (AppSettings().savedUser.isNotEmpty) {
+  /*if (AppSettings().savedUser.isNotEmpty) {
     await api.loadUser(AppSettings().savedUser);
-  }
+  }*/
 
   // Run the application
   runApp(
@@ -41,8 +39,8 @@ Future<void> main() async {
       fallbackLocale: Locale('en'),
       path: 'assets/lang/lang.csv',
       assetLoader: CsvAssetLoader(),
-      child: ChangeNotifierProvider.value(
-        value: api,
+      child: ChangeNotifierProvider(
+        create: (_) => Api(),
         child: MyApp(),
       ),
     ),
@@ -71,7 +69,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: Consumer<Api>(
+      home: MainPage(),
+      /*home: Consumer<Api>(
         builder: (context, api, child) {
           if (api.user == null) {
             return LoginPage();
@@ -79,7 +78,7 @@ class MyApp extends StatelessWidget {
             return MainPage();
           }
         },
-      ),
+      ),*/
     );
   }
 }

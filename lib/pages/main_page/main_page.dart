@@ -1,13 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lucidum_legalis/data/tab_state.dart';
-import 'package:lucidum_legalis/data/user.dart';
-import 'package:lucidum_legalis/database/user_database.dart';
-import 'package:lucidum_legalis/dialogs/unlock_db_dialog.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/api.dart';
-import 'package:lucidum_legalis/utils/builders.dart';
 import 'package:provider/provider.dart';
-import 'widgets/main_page_tabs/tab_body_client.dart';
 import 'widgets/sidebar/sidebar.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,55 +14,15 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late final Api _api;
-  late final User _user;
-  var _loading = true;
-
-  @override
-  void initState() {
-    () async {
-      _api = context.read<Api>();
-      _user = _api.user!;
-
-      var unlocked = await _user.db.unlock(_user.password);
-
-      while (!unlocked) {
-        if (_user.password.isNotEmpty) {
-          SnackbarBuilder.show(
-              context: context,
-              text: 'Incorrect Password, please try again'.tr());
-        }
-
-        final result = await UnlockDbDialog.show(context);
-        await Future.delayed(Duration(milliseconds: 500));
-        if (result == null) {
-          await context.read<Api>().unloadUser();
-          return;
-        }
-
-        _user.password = result;
-        unlocked = await _user.db.unlock(_user.password);
-      }
-
-      setState(() {
-        _loading = false;
-      });
-    }();
-
-    super.initState();
-  }
+  final _headerScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
-      return Container();
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
-            Text('Welcome {}'.tr(args: [_user.name])),
+            Text('Welcome {}'.tr(args: ['Hehehe'])),
             Spacer(),
             /*Selector<Api, TabState?>(
                 builder: (_, tabState, __) {
@@ -110,7 +66,7 @@ class _MainPageState extends State<MainPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () => _api.unloadUser(),
+            onPressed: () => print('TODO: Implement Settings'),
             icon: Icon(Icons.settings),
           )
         ],
@@ -125,19 +81,42 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           Expanded(
-            child: Selector<Api, TabState?>(
-              selector: (_, api) => api.openTabState,
-              builder: (_, tabState, _child) {
-                if (tabState == null) {
-                  return Container();
-                }
-                if (tabState is TabState<Client>) {
-                  return ChangeNotifierProvider.value(
-                    value: tabState,
-                    child: TabBodyClient(tabState),
-                  );
-                }
-                return Container(color: Colors.red);
+            child: Consumer<Api>(
+              builder: (_, api, __) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Tab Headers
+                    SizedBox(
+                      height: 40,
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(
+                            dragDevices: {
+                              PointerDeviceKind.touch,
+                              PointerDeviceKind.mouse
+                            }),
+                        child: Scrollbar(
+                          controller: _headerScrollController,
+                          isAlwaysShown: true,
+                          child: ListView.builder(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: api.tabs.length,
+                            controller: _headerScrollController,
+                            itemBuilder: (_, idx) =>
+                                TabHeader(tabState: api.tabs[idx]),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Current selected tab body
+                    Expanded(
+                      child: Container(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                );
               },
             ),
           ),
