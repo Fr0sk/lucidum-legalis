@@ -10,11 +10,23 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "BaseDao",
+"language": "GDScript",
+"path": "res://Data/Database/DAOs/base_dao.gd"
+}, {
+"base": "BaseDao",
+"class": "ClientDao",
+"language": "GDScript",
+"path": "res://Data/Database/DAOs/client_dao.gd"
+}, {
+"base": "Reference",
 "class": "TabReference",
 "language": "GDScript",
 "path": "res://Data/tab_reference.gd"
 } ]
 _global_script_class_icons={
+"BaseDao": "",
+"ClientDao": "",
 "TabReference": ""
 }
 

@@ -10,6 +10,8 @@ onready var _db: DatabaseCore
 
 func _ready() -> void:
 	_db = DatabaseCore.new()
-	print('Schema: ' + str(_db.get_user_version()))
 	Migrations.migrate(_db)
-	print('Schema: ' + str(_db.get_user_version()))
+
+
+func insert_row(table: String, row: Dictionary) -> bool:
+	return _db.sqlite.insert_row(table, row)

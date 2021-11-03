@@ -6,8 +6,8 @@ static func migrate(db: DatabaseCore) -> void:
 		0:
 			_v0(db)
 			db.set_user_version(1)
-		_:
-			print_debug('Database updated')
+		#_:
+		#	print_debug('Database updated')
 
 
 static func _v0(db: DatabaseCore) -> void:
