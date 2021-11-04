@@ -1,5 +1,5 @@
 extends Control
 
 
-func _on_Button_pressed() -> void:
-	MainTabSystem.open_client(0)
+func _ready() -> void:
+	OS.min_window_size = Vector2(600, 400)

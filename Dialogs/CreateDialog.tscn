@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Dialogs/create_dialog.gd" type="Script" id=1]
+
+[node name="WindowDialog" type="WindowDialog"]
+margin_right = 48.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 300, 150 )
+window_title = "Create new..."
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateClient" type="Button" parent="VBox"]
+margin_top = 43.0
+margin_right = 260.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 0, 30 )
+text = "Create new Client"
+
+[node name="CreateLawsuite" type="Button" parent="VBox"]
+margin_top = 77.0
+margin_right = 260.0
+margin_bottom = 107.0
+rect_min_size = Vector2( 0, 30 )
+text = "Create new Lawsuite"
+
+[connection signal="pressed" from="VBox/CreateClient" to="." method="_on_create_client_pressed"]
+[connection signal="pressed" from="VBox/CreateLawsuite" to="." method="_on_create_lawsuite_pressed"]

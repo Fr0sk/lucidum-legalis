@@ -2,7 +2,7 @@ extends PanelContainer
 
 
 func _ready() -> void:
-	if MainTabSystem.connect('tab_selected', self, '_on_tab_selected') != OK:
+	if UiSystem.connect('tab_selected', self, '_on_tab_selected') != OK:
 		print_debug('Error connecting signal')
 
 

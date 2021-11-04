@@ -4,10 +4,23 @@ extends Node
 signal tab_created(tab_reference)
 signal tab_selected(tab_idx, tab_reference)
 signal tab_closed(tab_idx)
+signal clients_list_requested()
+signal lawsuites_list_requested()
+signal create_dialog_requested()
+
+
+const CreateDialog = preload('res://Dialogs/CreateDialog.tscn')
 
 
 var _tabs := []
 var _selected_tab := -1
+var _create_dialog
+
+func _ready() -> void:
+	# Defaults
+	show_clients_list()
+	_create_dialog = CreateDialog.instance()
+	add_child(_create_dialog)
 
 
 var _id := 0
@@ -51,3 +64,13 @@ func reposition_selected_tab(tab_idx_to: int) -> void:
 		_tabs.insert(tab_idx_to, ref)
 
 
+func show_clients_list() -> void:
+	emit_signal('clients_list_requested')
+
+
+func show_lawsuites_list() -> void:
+	emit_signal('lawsuites_list_requested')
+
+
+func show_create_dialog() -> void:
+	emit_signal('create_dialog_requested')

@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Pages/Main/Sidebar/client_card.gd" type="Script" id=1]
+
+[node name="ClientCard" type="Button"]
+anchor_right = 1.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 55 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="HBox"]
+margin_right = 7.0
+margin_bottom = 60.0
+size_flags_vertical = 3
+custom_constants/margin_top = 1
+custom_constants/margin_left = 1
+custom_constants/margin_bottom = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatusColor" type="ColorRect" parent="HBox/MarginContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 7.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 6, 0 )
+size_flags_vertical = 3
+color = Color( 1, 0.376471, 0, 1 )
+
+[node name="Icon" type="TextureRect" parent="HBox"]
+margin_left = 11.0
+margin_right = 11.0
+margin_bottom = 60.0
+stretch_mode = 7
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+margin_left = 15.0
+margin_right = 1024.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="HBox/VBox"]
+margin_top = 14.0
+margin_right = 1009.0
+margin_bottom = 28.0
+text = "This is client title"
+
+[node name="Label2" type="Label" parent="HBox/VBox"]
+margin_top = 32.0
+margin_right = 1009.0
+margin_bottom = 46.0
+text = "Some description"

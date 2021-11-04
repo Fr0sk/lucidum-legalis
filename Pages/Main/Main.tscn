@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Pages/Main/tabs.gd" type="Script" id=1]
 [ext_resource path="res://Pages/Main/main.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Themes/arc_bak.tres" type="Theme" id=3]
 [ext_resource path="res://Pages/Main/tab_body.gd" type="Script" id=4]
+[ext_resource path="res://Pages/Main/Sidebar/Sidebar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Dialogs/CreateDialog.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -41,20 +43,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sidebar" type="Panel" parent="Panel/VBox/HBox"]
-self_modulate = Color( 0.91, 0.91, 0.91, 1 )
-margin_right = 240.0
-margin_bottom = 540.0
-rect_min_size = Vector2( 240, 0 )
-
-[node name="Button" type="Button" parent="Panel/VBox/HBox/Sidebar"]
-margin_left = 38.0
-margin_top = 18.0
-margin_right = 201.0
-margin_bottom = 98.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Sidebar" parent="Panel/VBox/HBox" instance=ExtResource( 5 )]
 
 [node name="VBox" type="VBoxContainer" parent="Panel/VBox/HBox"]
 margin_left = 244.0
@@ -79,7 +68,8 @@ margin_bottom = 540.0
 size_flags_vertical = 3
 script = ExtResource( 4 )
 
-[connection signal="pressed" from="Panel/VBox/HBox/Sidebar/Button" to="." method="_on_Button_pressed"]
+[node name="WindowDialog" parent="." instance=ExtResource( 6 )]
+
 [connection signal="gui_input" from="Panel/VBox/HBox/VBox/Tabs" to="Panel/VBox/HBox/VBox/Tabs" method="_on_tabs_gui_input"]
 [connection signal="reposition_active_tab_request" from="Panel/VBox/HBox/VBox/Tabs" to="Panel/VBox/HBox/VBox/Tabs" method="_on_reposition_active_tab_request"]
 [connection signal="tab_changed" from="Panel/VBox/HBox/VBox/Tabs" to="Panel/VBox/HBox/VBox/Tabs" method="_on_tab_changed"]

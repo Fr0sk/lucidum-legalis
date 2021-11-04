@@ -5,6 +5,10 @@ class_name BaseDao
 const REFERENCE_PROERTY_COUNT = 3
 
 
+signal updated()
+signal deleted()
+
+
 func get_table_name() -> String:
 	return 'Undefined'
 
@@ -42,9 +46,17 @@ func select_by_id(id: int) -> bool:
 
 
 func update() -> bool:
-	return Database.update_rows(get_table_name(), 'id=' + get_id(), as_dictionary())
+	if Database.update_rows(get_table_name(), 'id=' + get_id(), as_dictionary()):
+		emit_signal('updated')
+		return true
+	else:
+		return false
 
 
 func delete() -> bool:
 	#TODO: Disable instead of delete?
-	return Database.delete_rows(get_table_name(), 'id=' + get_id())
+	if Database.delete_rows(get_table_name(), 'id=' + get_id()):
+		emit_signal('deleted')
+		return true
+	else:
+		return false

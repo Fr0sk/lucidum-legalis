@@ -40,7 +40,8 @@ config/icon="res://icon.png"
 
 FileSystem="*res://Systems/file_system.gd"
 Database="*res://Data/Database/database.gd"
-MainTabSystem="*res://Systems/main_tab_system.gd"
+UiSystem="*res://Systems/ui_system.gd"
+Api="*res://Systems/api.gd"
 
 [editor_plugins]
 
