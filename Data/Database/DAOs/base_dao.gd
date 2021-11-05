@@ -5,12 +5,19 @@ class_name BaseDao
 const REFERENCE_PROERTY_COUNT = 3
 
 
+static func get_table_name() -> String:
+	return 'Undefined'
+
+
 signal updated()
 signal deleted()
 
 
-func get_table_name() -> String:
-	return 'Undefined'
+func _init() -> void:
+	if Database.connect('updated', self, '_on_database_updated') != OK:
+		print_debug('Failed to connect updated signal')
+	if Database.connect('deleted', self, '_on_database_deleted') != OK:
+		print_debug('Failed to connect deleted signal')
 
 
 func get_id() -> String:
@@ -32,8 +39,11 @@ func from_dictionary(dict: Dictionary) -> void:
 		set(key, dict[key])
 
 
-func insert() -> bool:
-	return Database.insert_row(get_table_name(), as_dictionary(true))
+func insert() -> int:
+	if Database.insert_row(get_table_name(), as_dictionary(true)):
+		return Database.last_insert_rowid()
+	else:
+		return 0
 
 
 func select_by_id(id: int) -> bool:
@@ -46,17 +56,19 @@ func select_by_id(id: int) -> bool:
 
 
 func update() -> bool:
-	if Database.update_rows(get_table_name(), 'id=' + get_id(), as_dictionary()):
-		emit_signal('updated')
-		return true
-	else:
-		return false
+	return Database.update_rows(get_table_name(), 'id=' + get_id(), as_dictionary())
 
 
 func delete() -> bool:
 	#TODO: Disable instead of delete?
-	if Database.delete_rows(get_table_name(), 'id=' + get_id()):
+	return Database.delete_by_id(get_table_name(), get_id())
+
+
+func _on_database_updated(table_name: String, id: String) -> void:
+	if table_name == get_table_name() && id == get_id():
+		emit_signal('updated')
+
+
+func _on_database_deleted(table_name: String, id: String) -> void:
+	if table_name == get_table_name() && id == get_id():
 		emit_signal('deleted')
-		return true
-	else:
-		return false

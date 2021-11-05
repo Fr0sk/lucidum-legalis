@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Pages/Main/tabs.gd" type="Script" id=1]
 [ext_resource path="res://Pages/Main/main.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Themes/arc_bak.tres" type="Theme" id=3]
+[ext_resource path="res://Assets/Themes/godot.tres" type="Theme" id=3]
 [ext_resource path="res://Pages/Main/tab_body.gd" type="Script" id=4]
 [ext_resource path="res://Pages/Main/Sidebar/Sidebar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Dialogs/CreateDialog.tscn" type="PackedScene" id=6]

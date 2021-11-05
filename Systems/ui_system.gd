@@ -16,6 +16,7 @@ var _tabs := []
 var _selected_tab := -1
 var _create_dialog
 
+
 func _ready() -> void:
 	# Defaults
 	show_clients_list()
