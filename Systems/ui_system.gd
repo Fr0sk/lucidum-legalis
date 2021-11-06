@@ -24,17 +24,24 @@ func _ready() -> void:
 	add_child(_create_dialog)
 
 
-var _id := 0
 func open_client(id: int) -> void:
-	var ref = TabReference.new()
-	ref.id = _id
-	ref.title = 'Tab #'+ str(_id)
-	var body = Label.new()
-	body.text = 'This is tab with id: ' + str(_id)
-	ref.body = body
-	_id += 1
+	# First search for already open tab
+	for i in range(_tabs.size()):
+		if _tabs[i].id == id && _tabs[i].tab_type == TabReference.TabType.CLIENT:
+			select_tab(i)
+			return
 	
-	_tabs.append(ref)
+	# If tab not in stack, open a new one
+	var ref = TabReference.new(TabReference.TabType.CLIENT)
+	var client = ClientDao.new()
+	if client.select_by_id(id):
+		ref.id = client.id
+		ref.title = client.name
+		var body = Label.new()
+		body.text = 'This is tab with id: ' + str(client.id) + ' ' + str(client.name)
+		ref.body = body
+		_tabs.append(ref)
+		
 	emit_signal('tab_created', ref)
 	select_tab(_tabs.size() - 1)
 

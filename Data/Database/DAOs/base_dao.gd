@@ -34,6 +34,18 @@ func as_dictionary(exclude_id: bool = false) -> Dictionary:
 	return dict
 
 
+func get_all_rows() -> Array:
+	var all_rows = []
+	var unparsed_rows = Database.select_rows(get_table_name(), "")
+	
+	for row in unparsed_rows:
+		# Creates a new instance of the same class
+		var instance = load(get_script().get_path()).new()
+		instance.from_dictionary(row)
+		all_rows.append(instance)
+	return all_rows
+
+
 func from_dictionary(dict: Dictionary) -> void:
 	for key in dict.keys():
 		set(key, dict[key])

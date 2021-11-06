@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Assets/Themes/arc_bak.tres" type="Theme" id=1]
 [ext_resource path="res://Pages/Main/Main.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Themes/godot.tres" type="Theme" id=3]
 
 [node name="Application" type="Control"]
 anchor_right = 1.0
@@ -13,4 +12,3 @@ __meta__ = {
 }
 
 [node name="Main" parent="." instance=ExtResource( 2 )]
-theme = ExtResource( 3 )

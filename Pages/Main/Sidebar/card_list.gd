@@ -22,6 +22,14 @@ func _init() -> void:
 func _on_clients_list_requested() -> void:
 	_current_view = CurrentView.clients
 	_remove_children()
+	var clients = ClientDao.new().get_all_rows()
+	for client in clients:
+		var card := ClientCard.instance()
+		card.load_client_by_id(client.id)
+		if  card.connect("pressed", self, "_on_client_pressed", [client.id]) != OK:
+			print_debug("Failed to connect pressed signal")
+		add_child(card)
+	
 	# TODO Load all client cards
 	#var num_cards = rand_range(1, 30)
 	#for _i in range(num_cards):
@@ -51,3 +59,7 @@ func _on_database_inserted(table_name: String, id: int) -> void:
 	#elif _current_view == CurrentView.lawsuites and table_name == ClientDao.get_table_name():
 	else:
 		print_debug('TODO Implement lawsuite')
+
+
+func _on_client_pressed(id: int) -> void:
+	UiSystem.open_client(id)
