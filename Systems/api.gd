@@ -7,6 +7,9 @@ func create_client() -> void:
 		UiSystem.open_tab(client_dao, true) # Open a new tab in edit mode
 
 
-func create_lawsuite() -> void:
-	#TODO: Create lawsuite and open it
-	pass
+func create_lawsuite(client_id: int = -1) -> void:
+	#TODO: Create lawsuite
+	if client_id >= 0:
+		#TODO: Associate lawsuite with client
+		pass
+	#TODO: Open lawsuite

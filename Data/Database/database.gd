@@ -32,17 +32,19 @@ func insert_dao(dao: BaseDao) -> bool:
 
 
 func update_dao(dao: BaseDao) -> bool:
+	dao.update_requested()
 	var ok = _db.sqlite.update_rows(
 			dao.get_table_name(), 
 			"id=" + dao.get_id(), 
 			dao.as_dictionary()
 		)
 	if ok:
-		dao.dao_updated()
+		dao.updated()
 	return ok
 
 
 func delete_dao(dao: BaseDao) -> bool:
+	dao.delete_requested()
 	var ok = _db.sqlite.delete_rows(dao.get_table_name(), "id=" + dao.get_id())
 	if ok:
 		dao.deleted()

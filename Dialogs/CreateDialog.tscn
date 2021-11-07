@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Dialogs/create_dialog.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Themes/godot.tres" type="Theme" id=2]
+[ext_resource path="res://Assets/Icons/client-add.svg" type="Texture" id=3]
+[ext_resource path="res://Assets/Icons/file-add.svg" type="Texture" id=4]
 
 [node name="WindowDialog" type="WindowDialog"]
 margin_right = 48.0
@@ -30,6 +32,7 @@ margin_right = 260.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 0, 30 )
 text = "Create new Client"
+icon = ExtResource( 3 )
 
 [node name="CreateLawsuite" type="Button" parent="VBox"]
 margin_top = 77.0
@@ -37,6 +40,7 @@ margin_right = 260.0
 margin_bottom = 107.0
 rect_min_size = Vector2( 0, 30 )
 text = "Create new Lawsuite"
+icon = ExtResource( 4 )
 
 [connection signal="pressed" from="VBox/CreateClient" to="." method="_on_create_client_pressed"]
 [connection signal="pressed" from="VBox/CreateLawsuite" to="." method="_on_create_lawsuite_pressed"]

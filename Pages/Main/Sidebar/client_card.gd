@@ -39,7 +39,11 @@ func _on_deleted() -> void:
 
 func _on_pressed() -> void:
 	UiSystem.open_tab(_client_dao)
+	# Remove focus from button
+	var temp_focus := focus_mode
+	focus_mode = Control.FOCUS_NONE
+	focus_mode = temp_focus
 
 
 func _on_tab_selected(_idx: int, ref: TabReference) -> void:
-	_selected_border.visible = ref.get_dao() == _client_dao
+	_selected_border.visible = ref != null and ref.get_dao() == _client_dao

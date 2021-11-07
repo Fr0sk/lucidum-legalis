@@ -9,7 +9,9 @@ static func get_table_name() -> String:
 	return "Undefined"
 
 
+signal update_requested()
 signal updated()
+signal delete_requested()
 signal deleted()
 
 
@@ -21,12 +23,20 @@ func set_id(id: int) -> void:
 	set("id", id)
 
 
+func update_requested() -> void:
+	emit_signal("update_requested")
+
+
 func updated() -> void:
 	emit_signal("updated")
 
 
 func deleted() -> void:
 	emit_signal("deleted")
+
+
+func delete_requested() -> void:
+	emit_signal("delete_requested")
 
 
 func as_dictionary(exclude_id: bool = false) -> Dictionary:

@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://CustomControls/responsive_grid.gd" type="Script" id=1]
-[ext_resource path="res://Pages/Main/client_body.gd" type="Script" id=2]
+[ext_resource path="res://Pages/Main/ClientBody/client_body.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Icons/menu-x0.5.svg" type="Texture" id=3]
+[ext_resource path="res://Assets/Icons/delete.svg" type="Texture" id=4]
+[ext_resource path="res://Assets/Icons/client-edit.svg" type="Texture" id=5]
+[ext_resource path="res://Assets/Icons/file-add.svg" type="Texture" id=6]
+[ext_resource path="res://CustomControls/dao_text_edit.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Icons/save.svg" type="Texture" id=8]
+[ext_resource path="res://Assets/Icons/discard.svg" type="Texture" id=9]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_color = Color( 0, 0, 0, 1 )
 
 [node name="ClientBody" type="Control"]
 anchor_right = 1.0
@@ -16,7 +27,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
 size_flags_vertical = 3
-tab_align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -67,13 +77,16 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "Name:"
 
-[node name="TeName" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "name"
 
 [node name="VBox2" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer"]
 margin_left = 513.0
@@ -89,13 +102,16 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "ID Number:"
 
-[node name="TeIdNumber" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox2"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox2"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "id_number"
 
 [node name="VBox3" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer"]
 margin_top = 56.0
@@ -111,13 +127,16 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "Tax Number:"
 
-[node name="TeTaxNumber" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox3"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox3"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "tax_number"
 
 [node name="VBox4" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer"]
 margin_left = 513.0
@@ -134,13 +153,16 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "Civil Status:"
 
-[node name="TeCivilStatus" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox4"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox4"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "civil_status"
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Identification/ScrollContainer/VBox"]
 margin_top = 116.0
@@ -181,18 +203,22 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "Street:"
 
-[node name="TeStreet" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "street"
 
 [node name="VBox2" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2"]
 margin_left = 513.0
 margin_right = 1016.0
 margin_bottom = 48.0
+rect_pivot_offset = Vector2( -51, -376 )
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -203,18 +229,22 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "Zip Code:"
 
-[node name="TeZipCode" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox2"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox2"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "zip_code"
 
 [node name="VBox3" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2"]
 margin_top = 56.0
 margin_right = 503.0
 margin_bottom = 104.0
+rect_pivot_offset = Vector2( -425, -583 )
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -225,13 +255,16 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "City"
 
-[node name="TeCity" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox3"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox3"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "city"
 
 [node name="VBox4" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2"]
 margin_left = 513.0
@@ -248,13 +281,16 @@ margin_right = 503.0
 margin_bottom = 14.0
 text = "County:"
 
-[node name="TeCounty" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox4"]
+[node name="DaoTextEdit" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox4"]
 margin_top = 18.0
 margin_right = 503.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 30 )
-size_flags_horizontal = 3
-text = "teste"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+dao_key = "conty"
 
 [node name="Lawsuites" type="Control" parent="TabContainer"]
 visible = false
@@ -275,7 +311,6 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-show_behind_parent = true
 anchor_right = 1.0
 margin_bottom = 20.0
 mouse_filter = 2
@@ -284,20 +319,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="HBoxContainer"]
-margin_left = 956.0
-margin_right = 975.0
-margin_bottom = 20.0
-text = "E"
-
-[node name="Button2" type="Button" parent="HBoxContainer"]
-margin_left = 979.0
-margin_right = 998.0
-margin_bottom = 20.0
-text = "S"
-
-[node name="Button3" type="Button" parent="HBoxContainer"]
-margin_left = 1002.0
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+margin_left = 996.0
 margin_right = 1024.0
-margin_bottom = 20.0
-text = "D"
+margin_bottom = 22.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="MenuButton" type="MenuButton" parent="HBoxContainer/PanelContainer"]
+margin_right = 28.0
+margin_bottom = 22.0
+icon = ExtResource( 3 )
+flat = false
+items = [ "Edit Client", ExtResource( 5 ), 0, false, false, 0, 0, null, "", false, "Save Changes", ExtResource( 8 ), 0, false, true, 1, 0, null, "", false, "Discard Changes", ExtResource( 9 ), 0, false, true, 2, 0, null, "", false, "Delete Client", ExtResource( 4 ), 0, false, false, 3, 0, null, "", false, "", null, 0, false, true, 99, 0, null, "", true, "Add Lawsuite", ExtResource( 6 ), 0, false, false, 4, 0, null, "", false ]

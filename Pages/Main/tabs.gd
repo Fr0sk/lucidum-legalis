@@ -1,6 +1,5 @@
 extends Tabs
 
-
 var _hovered_tab := -1
 
 
@@ -10,6 +9,8 @@ func _ready() -> void:
 	if UiSystem.connect("tab_selected", self, "_on_tab_selected") != OK:
 		print_debug("Error connecting signal")
 	if UiSystem.connect("tab_closed", self, "_on_tab_closed") != OK:
+		print_debug("Error connecting signal")
+	if UiSystem.connect("tab_ref_updated", self, "_on_tab_ref_updated") != OK:
 		print_debug("Error connecting signal")
 
 
@@ -27,6 +28,11 @@ func _on_tab_selected(idx: int, _ref: TabReference) -> void:
 func _on_tab_closed(idx: int) -> void:
 	remove_tab(idx)
 	UiSystem.select_tab(current_tab)
+
+
+func _on_tab_ref_updated(tab_idx: int, tab_ref: TabReference) -> void:
+	set_tab_title(tab_idx, tab_ref.title)
+	set_tab_icon(tab_idx, tab_ref.icon)
 
 
 # Handles the close tab button request
