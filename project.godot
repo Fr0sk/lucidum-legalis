@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Data/Database/DAOs/client_dao.gd"
 }, {
+"base": "GridContainer",
+"class": "ResponsiveGridContainer",
+"language": "GDScript",
+"path": "res://CustomControls/responsive_grid.gd"
+}, {
 "base": "Reference",
 "class": "TabReference",
 "language": "GDScript",
@@ -27,6 +32,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BaseDao": "",
 "ClientDao": "",
+"ResponsiveGridContainer": "",
 "TabReference": ""
 }
 

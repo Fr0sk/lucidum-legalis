@@ -1,18 +1,18 @@
-extends BaseDao
 class_name ClientDao
+extends BaseDao
 
 
 enum ClientType { person, company }
 
 
 static func get_table_name() -> String:
-	return 'Clients'
+	return "Clients"
 
 
 var id: int = 0
-var name: String = tr('New Client')
+var name: String = tr("New Client")
 var type: int = ClientType.person
-var id_number: String
+var id_number: String 
 var tax_number: String
 var civil_status: String
 var street: String

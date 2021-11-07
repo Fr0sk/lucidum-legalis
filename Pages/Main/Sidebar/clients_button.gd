@@ -2,12 +2,12 @@ extends Button
 
 
 func _init() -> void:
-	if connect('pressed', self, '_on_pressed') != OK:
-		print_debug('Error connecting pressed signal')
-	if UiSystem.connect('clients_list_requested', self, '_on_show_clients', [true]) != OK:
-		print_debug('Error connecting clients_list_requested signal')
-	if UiSystem.connect('lawsuites_list_requested', self, '_on_show_clients', [false]) != OK:
-		print_debug('Error connecting lawsuites_list_requested signal')
+	if connect("pressed", self, "_on_pressed") != OK:
+		print_debug("Error connecting pressed signal")
+	if UiSystem.connect("clients_list_requested", self, "_on_show_clients", [true]) != OK:
+		print_debug("Error connecting clients_list_requested signal")
+	if UiSystem.connect("lawsuites_list_requested", self, "_on_show_clients", [false]) != OK:
+		print_debug("Error connecting lawsuites_list_requested signal")
 
 
 func _on_pressed() -> void:

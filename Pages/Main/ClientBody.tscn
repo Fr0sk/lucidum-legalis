@@ -1,0 +1,303 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://CustomControls/responsive_grid.gd" type="Script" id=1]
+[ext_resource path="res://Pages/Main/client_body.gd" type="Script" id=2]
+
+[node name="ClientBody" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+size_flags_vertical = 3
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Identification" type="Control" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Identification"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer"]
+margin_right = 1016.0
+margin_bottom = 564.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResponsiveGridContainer" type="GridContainer" parent="TabContainer/Identification/ScrollContainer/VBox"]
+margin_right = 1016.0
+margin_bottom = 104.0
+custom_constants/vseparation = 8
+custom_constants/hseparation = 10
+columns = 2
+script = ExtResource( 1 )
+
+[node name="VBox" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer"]
+margin_right = 503.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "Name:"
+
+[node name="TeName" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="VBox2" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer"]
+margin_left = 513.0
+margin_right = 1016.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox2"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "ID Number:"
+
+[node name="TeIdNumber" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox2"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="VBox3" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer"]
+margin_top = 56.0
+margin_right = 503.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox3"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "Tax Number:"
+
+[node name="TeTaxNumber" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox3"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="VBox4" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer"]
+margin_left = 513.0
+margin_top = 56.0
+margin_right = 1016.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox4"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "Civil Status:"
+
+[node name="TeCivilStatus" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer/VBox4"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Identification/ScrollContainer/VBox"]
+margin_top = 116.0
+margin_right = 1016.0
+margin_bottom = 120.0
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox"]
+margin_top = 132.0
+margin_right = 1016.0
+margin_bottom = 146.0
+size_flags_horizontal = 3
+text = "Address"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResponsiveGridContainer2" type="GridContainer" parent="TabContainer/Identification/ScrollContainer/VBox"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 564.0
+size_flags_vertical = 3
+custom_constants/vseparation = 8
+custom_constants/hseparation = 10
+columns = 2
+script = ExtResource( 1 )
+
+[node name="VBox" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2"]
+margin_right = 503.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "Street:"
+
+[node name="TeStreet" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="VBox2" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2"]
+margin_left = 513.0
+margin_right = 1016.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox2"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "Zip Code:"
+
+[node name="TeZipCode" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox2"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="VBox3" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2"]
+margin_top = 56.0
+margin_right = 503.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox3"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "City"
+
+[node name="TeCity" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox3"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="VBox4" type="VBoxContainer" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2"]
+margin_left = 513.0
+margin_top = 56.0
+margin_right = 1016.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox4"]
+margin_right = 503.0
+margin_bottom = 14.0
+text = "County:"
+
+[node name="TeCounty" type="TextEdit" parent="TabContainer/Identification/ScrollContainer/VBox/ResponsiveGridContainer2/VBox4"]
+margin_top = 18.0
+margin_right = 503.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "teste"
+
+[node name="Lawsuites" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Files" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+margin_bottom = 20.0
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+margin_left = 956.0
+margin_right = 975.0
+margin_bottom = 20.0
+text = "E"
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+margin_left = 979.0
+margin_right = 998.0
+margin_bottom = 20.0
+text = "S"
+
+[node name="Button3" type="Button" parent="HBoxContainer"]
+margin_left = 1002.0
+margin_right = 1024.0
+margin_bottom = 20.0
+text = "D"

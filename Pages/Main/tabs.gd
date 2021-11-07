@@ -5,12 +5,12 @@ var _hovered_tab := -1
 
 
 func _ready() -> void:
-	if UiSystem.connect('tab_created', self, '_on_tab_created') != OK:
-		print_debug('Error connecting signal')
-	if UiSystem.connect('tab_selected', self, '_on_tab_selected') != OK:
-		print_debug('Error connecting signal')
-	if UiSystem.connect('tab_closed', self, '_on_tab_closed') != OK:
-		print_debug('Error connecting signal')
+	if UiSystem.connect("tab_created", self, "_on_tab_created") != OK:
+		print_debug("Error connecting signal")
+	if UiSystem.connect("tab_selected", self, "_on_tab_selected") != OK:
+		print_debug("Error connecting signal")
+	if UiSystem.connect("tab_closed", self, "_on_tab_closed") != OK:
+		print_debug("Error connecting signal")
 
 
 # Adds a new tab when the UiSystem creates it
