@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
@@ -6,7 +7,6 @@ import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/services/app_settings.dart';
-import 'package:moor_flutter/moor_flutter.dart';
 
 enum OpenTabBodyResult { SUCCESS, UNSAVED_CHANGES }
 
@@ -25,7 +25,7 @@ class Api extends ChangeNotifier {
 
   Future<int> createClient() async {
     final id = await (_db.clientDao.insertClient(ClientsCompanion.insert(
-        name: 'New Client'.tr(), type: ClientType.person)));
+        name: 'New Client'.tr(), type: Value(ClientType.person))));
     await AppDirectories.getClientDir(id: id).create(recursive: true);
     return id;
   }

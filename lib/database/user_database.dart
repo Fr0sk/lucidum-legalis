@@ -1,5 +1,8 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:lucidum_legalis/database/daos/client_dao.dart';
 import 'package:lucidum_legalis/database/daos/lawsuite_dao.dart';
 import 'package:lucidum_legalis/database/tables/client_notes.dart';
@@ -10,21 +13,12 @@ import 'package:lucidum_legalis/database/tables/lawsuite_notes.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/tables/settings.dart';
 import 'package:lucidum_legalis/utils/logger.dart';
-import 'package:moor_flutter/moor_flutter.dart';
-import 'package:moor/moor.dart';
-import 'package:moor/ffi.dart';
+import 'package:sqlite3/open.dart';
 import 'package:path/path.dart' as p;
 
 part 'user_database.g.dart';
 
-const SQLITE_ERR_NOTADB = 26;
-
-QueryExecutor _openConnection({required String userFolder}) {
-  final file = File(p.join(userFolder, 'db.sqlite'));
-  return VmDatabase(file);
-}
-
-@UseMoor(tables: [
+@DriftDatabase(tables: [
   ClientNotes,
   ClientsLawsuites,
   Clients,
@@ -37,6 +31,19 @@ QueryExecutor _openConnection({required String userFolder}) {
   LawsuiteDao
 ])
 class UserDatabase extends _$UserDatabase {
+  static void setupSqlitePlatformOverrides() {
+    //final script = File(Platform.script.toFilePath());
+    open.overrideFor(
+        OperatingSystem.linux, () => DynamicLibrary.open('libsqlite.so'));
+    open.overrideFor(
+        OperatingSystem.windows, () => DynamicLibrary.open('sqlite3.dll'));
+  }
+
+  static QueryExecutor _openConnection({required String userFolder}) {
+    final file = File(p.join(userFolder, 'app.db'));
+    return NativeDatabase(file);
+  }
+
   UserDatabase({required String userFolder})
       : super(_openConnection(userFolder: userFolder));
 
@@ -49,31 +56,4 @@ class UserDatabase extends _$UserDatabase {
         await customStatement('PRAGMA foreing_keys = ON');
       },
       onUpgrade: (migrator, from, to) async {});
-
-  Future<void> ensureOpen() async {
-    await select(settings).get();
-  }
-
-  Future<bool> unlock(String password) async {
-    try {
-      await customStatement('PRAGMA key = \'$password\';');
-      await ensureOpen();
-      return true;
-    } catch (e) {
-      if (e is SqliteException && e.extendedResultCode == SQLITE_ERR_NOTADB) {
-        return false;
-      }
-      rethrow;
-    }
-  }
-
-  Future<bool> changePassword(String newPassword) async {
-    try {
-      await customStatement('PRAGMA rekey = \'$newPassword\';');
-      return true;
-    } catch (e) {
-      Logger.error(key: toString(), message: e.toString());
-      return false;
-    }
-  }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
-import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:lucidum_legalis/utils/api.dart';
+import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
-import 'package:provider/provider.dart';
 
 class TabHeader extends StatelessWidget {
   final TabState<dynamic> tabState;
@@ -15,7 +14,6 @@ class TabHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final api = context.read<Api>();
     return StreamBuilder(
         stream: tabState.data,
         builder: (_, snapshot) {

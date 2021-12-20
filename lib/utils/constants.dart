@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icon.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Fonts {
   static const Logo = GoogleFonts.parisienne;
@@ -9,6 +8,7 @@ class Fonts {
 
 class App {
   static const Title = 'Lucidum Legalis';
+  static const windowMinSize = Size(600, 400);
 }
 
 class Widgets {
@@ -21,16 +21,17 @@ class Locales {
 }
 
 class AppIcons {
-  static const client = Icon(LineIcons.user);
-  static const addClient = Icon(LineIcons.userPlus);
-  static const lawsuite = Icon(LineIcons.fileAlt);
-  static const addLawsuite = Icon(LineIcons.medicalFile);
-  static const edit = Icon(LineIcons.edit);
-  static const save = Icon(LineIcons.save);
-  static const delete = Icon(LineIcons.alternateTrashAlt);
-  static const information = Icon(LineIcons.infoCircle);
-  static const files = Icon(LineIcons.folder);
-  static const notes = Icon(LineIcons.stickyNote);
-  static const loading = Icon(LineIcons.spinner);
-  static const close = Icon(LineIcons.times);
+  static const client = Icon(MdiIcons.account);
+  static const addClient = Icon(MdiIcons.accountPlus);
+  static const lawsuite = Icon(MdiIcons.fileDocument);
+  static const addLawsuite = Icon(MdiIcons.filePlus);
+  static const edit = Icon(MdiIcons.pencil);
+  static const save = Icon(MdiIcons.contentSave);
+  static const delete = Icon(MdiIcons.trashCan);
+  static const information = Icon(MdiIcons.information);
+  static const files = Icon(MdiIcons.folder);
+  static const notes = Icon(MdiIcons.noteMultiple);
+  static const addNnote = Icon(MdiIcons.notePlus);
+  static const loading = Icon(MdiIcons.loading);
+  static const close = Icon(MdiIcons.close);
 }

@@ -1,10 +1,10 @@
+import 'package:drift/drift.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
-import 'package:moor_flutter/moor_flutter.dart';
 
 part 'lawsuite_dao.g.dart';
 
-@UseDao(tables: [Lawsuites])
+@DriftAccessor(tables: [Lawsuites])
 class LawsuiteDao extends DatabaseAccessor<UserDatabase>
     with _$LawsuiteDaoMixin {
   LawsuiteDao(UserDatabase db) : super(db);

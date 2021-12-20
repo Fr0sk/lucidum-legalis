@@ -6,7 +6,6 @@ import 'package:lucidum_legalis/services/app_settings.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
-import 'package:provider/provider.dart';
 import 'package:sqlite3/open.dart';
 
 void setupSqlitePlatformOverrides() {
@@ -16,6 +15,8 @@ void setupSqlitePlatformOverrides() {
   open.overrideFor(
       OperatingSystem.windows, () => DynamicLibrary.open('sqlite3.dll'));
 }
+
+final api = Api();
 
 Future<void> main() async {
   // Shows splash screen while app is loading
@@ -27,11 +28,6 @@ Future<void> main() async {
   setupSqlitePlatformOverrides();
   await AppSettings().load();
 
-  // Auto loads saved user
-  /*if (AppSettings().savedUser.isNotEmpty) {
-    await api.loadUser(AppSettings().savedUser);
-  }*/
-
   // Run the application
   runApp(
     EasyLocalization(
@@ -39,10 +35,7 @@ Future<void> main() async {
       fallbackLocale: Locale('en'),
       path: 'assets/lang/lang.csv',
       assetLoader: CsvAssetLoader(),
-      child: ChangeNotifierProvider(
-        create: (_) => Api(),
-        child: MyApp(),
-      ),
+      child: MyApp(),
     ),
   );
 }
@@ -70,15 +63,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       home: MainPage(),
-      /*home: Consumer<Api>(
-        builder: (context, api, child) {
-          if (api.user == null) {
-            return LoginPage();
-          } else {
-            return MainPage();
-          }
-        },
-      ),*/
     );
   }
 }

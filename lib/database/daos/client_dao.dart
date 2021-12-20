@@ -1,10 +1,10 @@
+import 'package:drift/drift.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
-import 'package:moor_flutter/moor_flutter.dart';
 
 part 'client_dao.g.dart';
 
-@UseDao(tables: [Clients])
+@DriftAccessor(tables: [Clients])
 class ClientDao extends DatabaseAccessor<UserDatabase> with _$ClientDaoMixin {
   ClientDao(UserDatabase db) : super(db);
 

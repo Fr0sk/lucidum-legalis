@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/sidebar/add_menu.dart';
 import 'sidebar_bottom_navigation.dart';
 import 'sidebar_tab.dart';
-import 'package:provider/provider.dart';
 
 class Siderbar extends StatefulWidget {
   const Siderbar({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _api = context.read<Api>();
+    _api = api;
     _db = _api.database;
 
     // Creates the data stream for clients and lawsuites

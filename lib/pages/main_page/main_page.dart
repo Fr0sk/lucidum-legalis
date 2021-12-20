@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
-import 'package:lucidum_legalis/utils/api.dart';
-import 'package:provider/provider.dart';
 import 'widgets/sidebar/sidebar.dart';
 
 class MainPage extends StatefulWidget {
@@ -81,43 +80,39 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           Expanded(
-            child: Consumer<Api>(
-              builder: (_, api, __) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Tab Headers
-                    SizedBox(
-                      height: 40,
-                      child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context).copyWith(
-                            dragDevices: {
-                              PointerDeviceKind.touch,
-                              PointerDeviceKind.mouse
-                            }),
-                        child: Scrollbar(
-                          controller: _headerScrollController,
-                          isAlwaysShown: true,
-                          child: ListView.builder(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: api.tabs.length,
-                            controller: _headerScrollController,
-                            itemBuilder: (_, idx) =>
-                                TabHeader(tabState: api.tabs[idx]),
-                          ),
-                        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Tab Headers
+                SizedBox(
+                  height: 40,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                        dragDevices: {
+                          PointerDeviceKind.touch,
+                          PointerDeviceKind.mouse
+                        }),
+                    child: Scrollbar(
+                      controller: _headerScrollController,
+                      isAlwaysShown: true,
+                      child: ListView.builder(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: api.tabs.length,
+                        controller: _headerScrollController,
+                        itemBuilder: (_, idx) =>
+                            TabHeader(tabState: api.tabs[idx]),
                       ),
                     ),
-                    // Current selected tab body
-                    Expanded(
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                );
-              },
+                  ),
+                ),
+                // Current selected tab body
+                Expanded(
+                  child: Container(
+                    color: Colors.red,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

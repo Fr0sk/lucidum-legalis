@@ -1,11 +1,12 @@
-import 'package:moor_flutter/moor_flutter.dart';
+import 'package:drift/drift.dart';
 
 enum ClientType { person, company }
 
 class Clients extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text()();
-  IntColumn get type => intEnum<ClientType>()();
+  IntColumn get type =>
+      intEnum<ClientType>().withDefault(Constant(ClientType.person.index))();
   TextColumn get idNumber => text().nullable()();
   IntColumn get taxNumber => integer().nullable()();
   TextColumn get civilStatus => text().nullable()();

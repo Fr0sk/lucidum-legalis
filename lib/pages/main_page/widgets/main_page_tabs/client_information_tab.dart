@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/api.dart';
-import 'package:provider/provider.dart';
 import 'package:lucidum_legalis/utils/constants.dart' as constants;
 
 class ClientInformationTab extends StatefulWidget {
@@ -49,47 +49,42 @@ class _ClientInformationTabState extends State<ClientInformationTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TabState<Client>>(
-      builder: (_, state, _child) {
-        return StreamBuilder<Client>(
-          stream: state.data,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.active) {
-              return Container();
-            }
+    var state = api.openTabState as TabState<Client>;
+    return StreamBuilder<Client>(
+      stream: state.data,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.active) {
+          return Container();
+        }
 
-            final client = snapshot.data!;
+        final client = snapshot.data!;
 
-            return Column(
-              children: [
-                _Header(
-                  nameController: _nameController..text = client.name,
-                  readOnly: !state.edit,
-                  onEdit: () => state.toggleEdit(),
-                  onSave: () => _onSave(context.read<Api>(), state, client),
-                  onDelete: () => _onDelete(context.read<Api>(), client),
-                ),
-                _Identification(
-                  idNumberController: _idNumberController
-                    ..text = client.idNumber ?? '',
-                  taxNumberController: _taxNumberController
-                    ..text = '${client.taxNumber ?? ""}',
-                  civilStatusController: _civilStatusController
-                    ..text = client.civilStatus ?? '',
-                  readOnly: !state.edit,
-                ),
-                _Address(
-                    streetController: _streetController
-                      ..text = client.street ?? '',
-                    zipCodeController: _zipCodeController
-                      ..text = client.zipCode ?? '',
-                    cityController: _cityController..text = client.city ?? '',
-                    countyController: _countyController
-                      ..text = client.county ?? '',
-                    readOnly: !state.edit),
-              ],
-            );
-          },
+        return Column(
+          children: [
+            _Header(
+              nameController: _nameController..text = client.name,
+              readOnly: !state.edit,
+              onEdit: () => state.toggleEdit(),
+              onSave: () => _onSave(api, state, client),
+              onDelete: () => _onDelete(api, client),
+            ),
+            _Identification(
+              idNumberController: _idNumberController
+                ..text = client.idNumber ?? '',
+              taxNumberController: _taxNumberController
+                ..text = '${client.taxNumber ?? ""}',
+              civilStatusController: _civilStatusController
+                ..text = client.civilStatus ?? '',
+              readOnly: !state.edit,
+            ),
+            _Address(
+                streetController: _streetController..text = client.street ?? '',
+                zipCodeController: _zipCodeController
+                  ..text = client.zipCode ?? '',
+                cityController: _cityController..text = client.city ?? '',
+                countyController: _countyController..text = client.county ?? '',
+                readOnly: !state.edit),
+          ],
         );
       },
     );

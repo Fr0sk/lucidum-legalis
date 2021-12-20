@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:file_explorer/file_explorer.dart';
 import 'package:file_explorer/file_explorer_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path/path.dart' as p;
 
 class FileExplorerTab extends StatelessWidget {
@@ -31,7 +31,7 @@ class FileExplorerTab extends StatelessWidget {
                 valueListenable: _controller,
                 builder: (_, __, ___) => IconButton(
                   onPressed: _controller.canGoBack() ? _controller.back : null,
-                  icon: Icon(LineIcons.arrowLeft),
+                  icon: Icon(MdiIcons.abTesting),
                 ),
               ),
               PopupMenuButton(

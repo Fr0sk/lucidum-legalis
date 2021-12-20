@@ -6,7 +6,7 @@ part of 'user_database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this, annotate_overrides
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class ClientNote extends DataClass implements Insertable<ClientNote> {
   final int id;
   final String? title;
@@ -14,8 +14,7 @@ class ClientNote extends DataClass implements Insertable<ClientNote> {
   final int clientId;
   ClientNote(
       {required this.id, this.title, this.content, required this.clientId});
-  factory ClientNote.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory ClientNote.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return ClientNote(
       id: const IntType()
@@ -56,7 +55,7 @@ class ClientNote extends DataClass implements Insertable<ClientNote> {
 
   factory ClientNote.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return ClientNote(
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String?>(json['title']),
@@ -66,7 +65,7 @@ class ClientNote extends DataClass implements Insertable<ClientNote> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'title': serializer.toJson<String?>(title),
@@ -95,8 +94,7 @@ class ClientNote extends DataClass implements Insertable<ClientNote> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(id.hashCode,
-      $mrjc(title.hashCode, $mrjc(content.hashCode, clientId.hashCode))));
+  int get hashCode => Object.hash(id, title, content, clientId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -187,24 +185,27 @@ class $ClientNotesTable extends ClientNotes
   final String? _alias;
   $ClientNotesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
   late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
       'title', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
+  @override
   late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
       'content', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _clientIdMeta = const VerificationMeta('clientId');
+  @override
   late final GeneratedColumn<int?> clientId = GeneratedColumn<int?>(
       'client_id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES clients(id)');
   @override
@@ -242,7 +243,7 @@ class $ClientNotesTable extends ClientNotes
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ClientNote map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return ClientNote.fromData(data, _db,
+    return ClientNote.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
@@ -258,8 +259,7 @@ class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
   final int lawsuiteId;
   ClientsLawsuite(
       {required this.id, required this.clientId, required this.lawsuiteId});
-  factory ClientsLawsuite.fromData(
-      Map<String, dynamic> data, GeneratedDatabase db,
+  factory ClientsLawsuite.fromData(Map<String, dynamic> data,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return ClientsLawsuite(
@@ -290,7 +290,7 @@ class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
 
   factory ClientsLawsuite.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return ClientsLawsuite(
       id: serializer.fromJson<int>(json['id']),
       clientId: serializer.fromJson<int>(json['clientId']),
@@ -299,7 +299,7 @@ class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'clientId': serializer.toJson<int>(clientId),
@@ -324,8 +324,7 @@ class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
   }
 
   @override
-  int get hashCode =>
-      $mrjf($mrjc(id.hashCode, $mrjc(clientId.hashCode, lawsuiteId.hashCode)));
+  int get hashCode => Object.hash(id, clientId, lawsuiteId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -403,21 +402,24 @@ class $ClientsLawsuitesTable extends ClientsLawsuites
   final String? _alias;
   $ClientsLawsuitesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _clientIdMeta = const VerificationMeta('clientId');
+  @override
   late final GeneratedColumn<int?> clientId = GeneratedColumn<int?>(
       'client_id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES clients(id)');
   final VerificationMeta _lawsuiteIdMeta = const VerificationMeta('lawsuiteId');
+  @override
   late final GeneratedColumn<int?> lawsuiteId = GeneratedColumn<int?>(
       'lawsuite_id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES lawsuites(id)');
   @override
@@ -455,7 +457,7 @@ class $ClientsLawsuitesTable extends ClientsLawsuites
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ClientsLawsuite map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return ClientsLawsuite.fromData(data, _db,
+    return ClientsLawsuite.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
@@ -487,8 +489,7 @@ class Client extends DataClass implements Insertable<Client> {
       this.zipCode,
       this.city,
       this.county});
-  factory Client.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory Client.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Client(
       id: const IntType()
@@ -573,7 +574,7 @@ class Client extends DataClass implements Insertable<Client> {
 
   factory Client.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Client(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
@@ -589,7 +590,7 @@ class Client extends DataClass implements Insertable<Client> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
@@ -645,24 +646,8 @@ class Client extends DataClass implements Insertable<Client> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          name.hashCode,
-          $mrjc(
-              type.hashCode,
-              $mrjc(
-                  idNumber.hashCode,
-                  $mrjc(
-                      taxNumber.hashCode,
-                      $mrjc(
-                          civilStatus.hashCode,
-                          $mrjc(
-                              street.hashCode,
-                              $mrjc(
-                                  zipCode.hashCode,
-                                  $mrjc(
-                                      city.hashCode, county.hashCode))))))))));
+  int get hashCode => Object.hash(id, name, type, idNumber, taxNumber,
+      civilStatus, street, zipCode, city, county);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -705,7 +690,7 @@ class ClientsCompanion extends UpdateCompanion<Client> {
   ClientsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
-    required ClientType type,
+    this.type = const Value.absent(),
     this.idNumber = const Value.absent(),
     this.taxNumber = const Value.absent(),
     this.civilStatus = const Value.absent(),
@@ -713,8 +698,7 @@ class ClientsCompanion extends UpdateCompanion<Client> {
     this.zipCode = const Value.absent(),
     this.city = const Value.absent(),
     this.county = const Value.absent(),
-  })  : name = Value(name),
-        type = Value(type);
+  }) : name = Value(name);
   static Insertable<Client> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -826,49 +810,61 @@ class $ClientsTable extends Clients with TableInfo<$ClientsTable, Client> {
   final String? _alias;
   $ClientsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
   late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
       'name', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
   late final GeneratedColumnWithTypeConverter<ClientType, int?> type =
       GeneratedColumn<int?>('type', aliasedName, false,
-              typeName: 'INTEGER', requiredDuringInsert: true)
+              type: const IntType(),
+              requiredDuringInsert: false,
+              defaultValue: Constant(ClientType.person.index))
           .withConverter<ClientType>($ClientsTable.$converter0);
   final VerificationMeta _idNumberMeta = const VerificationMeta('idNumber');
+  @override
   late final GeneratedColumn<String?> idNumber = GeneratedColumn<String?>(
       'id_number', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _taxNumberMeta = const VerificationMeta('taxNumber');
+  @override
   late final GeneratedColumn<int?> taxNumber = GeneratedColumn<int?>(
       'tax_number', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   final VerificationMeta _civilStatusMeta =
       const VerificationMeta('civilStatus');
+  @override
   late final GeneratedColumn<String?> civilStatus = GeneratedColumn<String?>(
       'civil_status', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _streetMeta = const VerificationMeta('street');
+  @override
   late final GeneratedColumn<String?> street = GeneratedColumn<String?>(
       'street', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _zipCodeMeta = const VerificationMeta('zipCode');
+  @override
   late final GeneratedColumn<String?> zipCode = GeneratedColumn<String?>(
       'zip_code', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _cityMeta = const VerificationMeta('city');
+  @override
   late final GeneratedColumn<String?> city = GeneratedColumn<String?>(
       'city', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _countyMeta = const VerificationMeta('county');
+  @override
   late final GeneratedColumn<String?> county = GeneratedColumn<String?>(
       'county', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -938,7 +934,7 @@ class $ClientsTable extends Clients with TableInfo<$ClientsTable, Client> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Client map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Client.fromData(data, _db,
+    return Client.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
@@ -961,8 +957,7 @@ class Contact extends DataClass implements Insertable<Contact> {
       required this.contactType,
       this.contact,
       required this.clientId});
-  factory Contact.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory Contact.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Contact(
       id: const IntType()
@@ -1003,7 +998,7 @@ class Contact extends DataClass implements Insertable<Contact> {
 
   factory Contact.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Contact(
       id: serializer.fromJson<int>(json['id']),
       contactType: serializer.fromJson<ContactType>(json['contactType']),
@@ -1013,7 +1008,7 @@ class Contact extends DataClass implements Insertable<Contact> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'contactType': serializer.toJson<ContactType>(contactType),
@@ -1045,8 +1040,7 @@ class Contact extends DataClass implements Insertable<Contact> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(id.hashCode,
-      $mrjc(contactType.hashCode, $mrjc(contact.hashCode, clientId.hashCode))));
+  int get hashCode => Object.hash(id, contactType, contact, clientId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1139,25 +1133,29 @@ class $ContactsTable extends Contacts with TableInfo<$ContactsTable, Contact> {
   final String? _alias;
   $ContactsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _contactTypeMeta =
       const VerificationMeta('contactType');
+  @override
   late final GeneratedColumnWithTypeConverter<ContactType, int?> contactType =
       GeneratedColumn<int?>('contact_type', aliasedName, false,
-              typeName: 'INTEGER', requiredDuringInsert: true)
+              type: const IntType(), requiredDuringInsert: true)
           .withConverter<ContactType>($ContactsTable.$converter0);
   final VerificationMeta _contactMeta = const VerificationMeta('contact');
+  @override
   late final GeneratedColumn<String?> contact = GeneratedColumn<String?>(
       'contact', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _clientIdMeta = const VerificationMeta('clientId');
+  @override
   late final GeneratedColumn<int?> clientId = GeneratedColumn<int?>(
       'client_id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES clients(id)');
   @override
@@ -1192,7 +1190,7 @@ class $ContactsTable extends Contacts with TableInfo<$ContactsTable, Contact> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Contact map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Contact.fromData(data, _db,
+    return Contact.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
@@ -1212,8 +1210,7 @@ class LawsuiteNote extends DataClass implements Insertable<LawsuiteNote> {
   final int clientId;
   LawsuiteNote(
       {required this.id, this.title, this.content, required this.clientId});
-  factory LawsuiteNote.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory LawsuiteNote.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return LawsuiteNote(
       id: const IntType()
@@ -1254,7 +1251,7 @@ class LawsuiteNote extends DataClass implements Insertable<LawsuiteNote> {
 
   factory LawsuiteNote.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return LawsuiteNote(
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String?>(json['title']),
@@ -1264,7 +1261,7 @@ class LawsuiteNote extends DataClass implements Insertable<LawsuiteNote> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'title': serializer.toJson<String?>(title),
@@ -1293,8 +1290,7 @@ class LawsuiteNote extends DataClass implements Insertable<LawsuiteNote> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(id.hashCode,
-      $mrjc(title.hashCode, $mrjc(content.hashCode, clientId.hashCode))));
+  int get hashCode => Object.hash(id, title, content, clientId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1385,23 +1381,27 @@ class $LawsuiteNotesTable extends LawsuiteNotes
   final String? _alias;
   $LawsuiteNotesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
   late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
       'title', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _contentMeta = const VerificationMeta('content');
+  @override
   late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
       'content', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _clientIdMeta = const VerificationMeta('clientId');
+  @override
   late final GeneratedColumn<int?> clientId = GeneratedColumn<int?>(
       'client_id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES lawsuites(id)');
   @override
@@ -1439,7 +1439,7 @@ class $LawsuiteNotesTable extends LawsuiteNotes
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   LawsuiteNote map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return LawsuiteNote.fromData(data, _db,
+    return LawsuiteNote.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
@@ -1471,8 +1471,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       this.court,
       this.judgement,
       this.form});
-  factory Lawsuite.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory Lawsuite.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Lawsuite(
       id: const IntType()
@@ -1556,7 +1555,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
 
   factory Lawsuite.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Lawsuite(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
@@ -1572,7 +1571,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
@@ -1628,24 +1627,8 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          name.hashCode,
-          $mrjc(
-              state.hashCode,
-              $mrjc(
-                  against.hashCode,
-                  $mrjc(
-                      code.hashCode,
-                      $mrjc(
-                          processNumber.hashCode,
-                          $mrjc(
-                              district.hashCode,
-                              $mrjc(
-                                  court.hashCode,
-                                  $mrjc(judgement.hashCode,
-                                      form.hashCode))))))))));
+  int get hashCode => Object.hash(id, name, state, against, code, processNumber,
+      district, court, judgement, form);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1810,49 +1793,59 @@ class $LawsuitesTable extends Lawsuites
   final String? _alias;
   $LawsuitesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
   late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
       'name', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _stateMeta = const VerificationMeta('state');
+  @override
   late final GeneratedColumnWithTypeConverter<LawsuiteState, int?> state =
       GeneratedColumn<int?>('state', aliasedName, false,
-              typeName: 'INTEGER', requiredDuringInsert: true)
+              type: const IntType(), requiredDuringInsert: true)
           .withConverter<LawsuiteState>($LawsuitesTable.$converter0);
   final VerificationMeta _againstMeta = const VerificationMeta('against');
+  @override
   late final GeneratedColumn<String?> against = GeneratedColumn<String?>(
       'against', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _codeMeta = const VerificationMeta('code');
+  @override
   late final GeneratedColumn<String?> code = GeneratedColumn<String?>(
       'code', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _processNumberMeta =
       const VerificationMeta('processNumber');
+  @override
   late final GeneratedColumn<String?> processNumber = GeneratedColumn<String?>(
       'process_number', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _districtMeta = const VerificationMeta('district');
+  @override
   late final GeneratedColumn<String?> district = GeneratedColumn<String?>(
       'district', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _courtMeta = const VerificationMeta('court');
+  @override
   late final GeneratedColumn<String?> court = GeneratedColumn<String?>(
       'court', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _judgementMeta = const VerificationMeta('judgement');
+  @override
   late final GeneratedColumn<String?> judgement = GeneratedColumn<String?>(
       'judgement', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _formMeta = const VerificationMeta('form');
+  @override
   late final GeneratedColumn<String?> form = GeneratedColumn<String?>(
       'form', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: const StringType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -1922,7 +1915,7 @@ class $LawsuitesTable extends Lawsuites
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Lawsuite map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Lawsuite.fromData(data, _db,
+    return Lawsuite.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
@@ -1940,8 +1933,7 @@ class Setting extends DataClass implements Insertable<Setting> {
   final String name;
   final String value;
   Setting({required this.id, required this.name, required this.value});
-  factory Setting.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory Setting.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Setting(
       id: const IntType()
@@ -1971,7 +1963,7 @@ class Setting extends DataClass implements Insertable<Setting> {
 
   factory Setting.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Setting(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
@@ -1980,7 +1972,7 @@ class Setting extends DataClass implements Insertable<Setting> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
@@ -2004,8 +1996,7 @@ class Setting extends DataClass implements Insertable<Setting> {
   }
 
   @override
-  int get hashCode =>
-      $mrjf($mrjc(id.hashCode, $mrjc(name.hashCode, value.hashCode)));
+  int get hashCode => Object.hash(id, name, value);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2082,19 +2073,22 @@ class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
   final String? _alias;
   $SettingsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
   late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
       'name', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _valueMeta = const VerificationMeta('value');
+  @override
   late final GeneratedColumn<String?> value = GeneratedColumn<String?>(
       'value', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [id, name, value];
   @override
@@ -2128,7 +2122,7 @@ class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Setting map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Setting.fromData(data, _db,
+    return Setting.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
