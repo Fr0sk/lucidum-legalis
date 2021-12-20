@@ -6,9 +6,8 @@ import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
-import 'package:lucidum_legalis/services/app_settings.dart';
 
-enum OpenTabBodyResult { SUCCESS, UNSAVED_CHANGES }
+enum OpenTabBodyResult { success, unsavedChanges }
 
 class Api extends ChangeNotifier {
   final UserDatabase _db;
@@ -16,7 +15,7 @@ class Api extends ChangeNotifier {
   final _tabHistory = <TabState>[];
   TabState? _openTabState;
 
-  Api() : _db = UserDatabase(userFolder: AppSettings().usersDir);
+  Api() : _db = UserDatabase(databaseDir: AppDirectories.appDocDir);
 
   UserDatabase get database => _db;
   List<TabState> get tabs => _tabs;
@@ -25,7 +24,7 @@ class Api extends ChangeNotifier {
 
   Future<int> createClient() async {
     final id = await (_db.clientDao.insertClient(ClientsCompanion.insert(
-        name: 'New Client'.tr(), type: Value(ClientType.person))));
+        name: 'New Client'.tr(), type: const Value(ClientType.person))));
     await AppDirectories.getClientDir(id: id).create(recursive: true);
     return id;
   }
@@ -75,13 +74,13 @@ class Api extends ChangeNotifier {
   Future<OpenTabBodyResult> openLawsuite(
       {required int id, editMode = false}) async {
     if (_openTabState?.edit == true) {
-      return OpenTabBodyResult.UNSAVED_CHANGES;
+      return OpenTabBodyResult.unsavedChanges;
     }
 
     _openTabState = TabState<Lawsuite>(
         id: id, data: _db.lawsuiteDao.watchLawsuiteById(id), edit: editMode);
     notifyListeners();
-    return OpenTabBodyResult.SUCCESS;
+    return OpenTabBodyResult.success;
   }
 
   void closeTab({required TabState tabState}) {

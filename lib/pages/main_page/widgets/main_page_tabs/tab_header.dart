@@ -72,8 +72,8 @@ class _TabHeaderButton extends StatelessWidget {
         Text(text),
         InkWell(
           onTap: onClosed,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+          child: const Padding(
+            padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
             child: AppIcons.close,
           ),
         ),

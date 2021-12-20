@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
+import 'package:lucidum_legalis/utils/constants.dart';
 import 'widgets/sidebar/sidebar.dart';
 
 class MainPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _MainPageState extends State<MainPage> {
         title: Row(
           children: [
             Text('Welcome {}'.tr(args: ['Hehehe'])),
-            Spacer(),
+            const Spacer(),
             /*Selector<Api, TabState?>(
                 builder: (_, tabState, __) {
                   if (tabState == null) {
@@ -59,20 +60,20 @@ class _MainPageState extends State<MainPage> {
               color: Colors.red,
               height: 30,
               width: 200,
-              child: Text('[F1] Search'),
+              child: const Text('[F1] Search'),
             ),
           ],
         ),
         actions: [
           IconButton(
-            onPressed: () => print('TODO: Implement Settings'),
-            icon: Icon(Icons.settings),
+            onPressed: () {}, //TODO: Implement Settings'
+            icon: AppIcons.settings,
           )
         ],
       ),
       body: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 250,
             child: Material(
               elevation: 5,
@@ -96,7 +97,7 @@ class _MainPageState extends State<MainPage> {
                       controller: _headerScrollController,
                       isAlwaysShown: true,
                       child: ListView.builder(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                         scrollDirection: Axis.horizontal,
                         itemCount: api.tabs.length,
                         controller: _headerScrollController,

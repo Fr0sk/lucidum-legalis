@@ -10,7 +10,7 @@ class SnackbarBuilder {
         children: [
           Icon(Icons.info_outline,
               color: Theme.of(context).colorScheme.secondary),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(text, style: Theme.of(context).textTheme.bodyText2),
         ],
       ),

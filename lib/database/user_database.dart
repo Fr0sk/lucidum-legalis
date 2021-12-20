@@ -12,7 +12,6 @@ import 'package:lucidum_legalis/database/tables/contacts.dart';
 import 'package:lucidum_legalis/database/tables/lawsuite_notes.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/tables/settings.dart';
-import 'package:lucidum_legalis/utils/logger.dart';
 import 'package:sqlite3/open.dart';
 import 'package:path/path.dart' as p;
 
@@ -44,8 +43,8 @@ class UserDatabase extends _$UserDatabase {
     return NativeDatabase(file);
   }
 
-  UserDatabase({required String userFolder})
-      : super(_openConnection(userFolder: userFolder));
+  UserDatabase({required Directory databaseDir})
+      : super(_openConnection(userFolder: databaseDir.path));
 
   @override
   int get schemaVersion => 1;

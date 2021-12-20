@@ -1,27 +1,34 @@
 import 'dart:io';
 import 'package:lucidum_legalis/database/user_database.dart';
-import 'package:lucidum_legalis/services/app_settings.dart';
+import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class AppDirectories {
-  // Clients related directories
-  static Directory getClientsDir() {
-    return Directory('${AppSettings().usersDir}/clients');
+  static Future<void> ensureInitialized() async {
+    _appDocDir = Directory(
+        p.join((await getApplicationDocumentsDirectory()).path, App.title));
   }
+
+  static late final Directory _appDocDir;
+  static Directory get appDocDir => _appDocDir;
+
+  // Clients related directories
+  static Directory get clientsDir => Directory('${_appDocDir.path}/clients');
 
   static Directory getClientDir({Client? client, int? id}) {
     assert(client != null || id != null);
     id = id ?? client?.id;
-    return Directory('${getClientsDir().path}/$id');
+    return Directory('${clientsDir.path}/$id');
   }
 
   // Lawsuites related directories
-  static Directory getLawsuitesDir() {
-    return Directory('${AppSettings().usersDir}/lawsuites');
-  }
+  static Directory get lawsuitesDir =>
+      Directory('${_appDocDir.path}/lawsuites');
 
   static Directory getLawsuiteDir({Lawsuite? lawsuite, int? id}) {
     assert(lawsuite != null || id != null);
     id = id ?? lawsuite?.id;
-    return Directory('${getLawsuitesDir().path}/$id');
+    return Directory('${lawsuitesDir.path}/$id');
   }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Logger {
   static final Logger _instance = Logger._internal();
   factory Logger() => _instance;
@@ -5,7 +7,9 @@ class Logger {
 
   static void log(
       {required String key, required String type, required String message}) {
-    print('[$key] [$type] $message');
+    if (kDebugMode) {
+      print('[$key] [$type] $message');
+    }
   }
 
   static void debug({required String key, required String message}) =>

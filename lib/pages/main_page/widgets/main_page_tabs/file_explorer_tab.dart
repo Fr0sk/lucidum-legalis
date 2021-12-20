@@ -31,12 +31,12 @@ class FileExplorerTab extends StatelessWidget {
                 valueListenable: _controller,
                 builder: (_, __, ___) => IconButton(
                   onPressed: _controller.canGoBack() ? _controller.back : null,
-                  icon: Icon(MdiIcons.abTesting),
+                  icon: const Icon(MdiIcons.abTesting),
                 ),
               ),
               PopupMenuButton(
                 onSelected: (selected) {
-                  print('selected');
+                  // TODO handle selected
                 },
                 itemBuilder: (_) => <PopupMenuEntry>[
                   PopupMenuItem(
@@ -44,17 +44,17 @@ class FileExplorerTab extends StatelessWidget {
                         Directory(p.join(_controller.directory.path, 'Teste'))
                             .create(recursive: true),
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(Icons.folder),
                         SizedBox(width: 8),
                         Text('Add Directory')
                       ],
                     ),
                   ),
-                  PopupMenuDivider(),
+                  const PopupMenuDivider(),
                   PopupMenuItem(
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(Icons.folder),
                         SizedBox(width: 8),
                         Text('Add Directory')

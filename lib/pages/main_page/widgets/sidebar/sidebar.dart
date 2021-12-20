@@ -20,8 +20,8 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   late final UserDatabase _db;
   late final Stream<List<Client>> _clientsStream;
   late final Stream<List<Lawsuite>> _lawsuitesStream;
-  late final _controller =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+  late final _controller = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 200));
 
   var _isAddMenuOpen = false;
   var _selectedTab = Tabs.clients;
@@ -50,7 +50,8 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
 
   Future<void> _addClient() async {
     final id = await _api.createClient();
-    final result = await _api.openClient(id: id);
+    /*final result = */ await _api.openClient(id: id);
+    // TODO use result
     _closeAddMenu();
   }
 
@@ -60,7 +61,8 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   }
 
   void _clientSelected(int id) async {
-    var result = await _api.openClient(id: id);
+    /*var result = */ await _api.openClient(id: id);
+    // TODO use result
     /*if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
       // TODO show dialog asking to save changes
       print('TODO show dialog asking to save changes');
@@ -68,7 +70,8 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   }
 
   void _lawsuiteSelected(int id) async {
-    var result = await _api.openLawsuite(id: id);
+    /*var result = */ await _api.openLawsuite(id: id);
+    // TODO use result
     /*if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
       // TODO show dialog asking to save changes
       print('TODO show dialog asking to save changes');
@@ -94,7 +97,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
         onPressed: () => setState(() => _isAddMenuOpen = !_isAddMenuOpen),
         child: RotationTransition(
           turns: Tween<double>(begin: 0, end: 45 / 360).animate(_controller),
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

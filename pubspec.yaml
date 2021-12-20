@@ -42,18 +42,13 @@ dependencies:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
       ref: 03d957e
-  #json_annotation: ^4.0.1                   # Json annotations for code gen
-  #provider: ^6.0.0                        # State manager
-  #tuple: ^2.0.0
-  #tabpanel: ^0.2.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.1.1              # Code generation
   drift_dev: ^1.1.0                 # Database code generation
-  #json_serializable: ^4.1.4         # Json serialization
-  #pedantic: ^1.11.1                 # Linter
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

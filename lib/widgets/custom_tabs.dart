@@ -36,20 +36,18 @@ class _CustomTabsState extends State<CustomTabs> {
     assert(widget.bodies.length == widget.headers.length);
 
     return Expanded(
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            ButtonGroup(
-              radioMode: true,
-              height: widget.headerHeight,
-              initialSelected: widget.startIndex ?? 0,
-              onPressed: (index, _) => setState(() => _selectedIndex = index),
-              children: widget.headers,
-            ),
-            Expanded(child: widget.bodies[_selectedIndex])
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          ButtonGroup(
+            radioMode: true,
+            height: widget.headerHeight,
+            initialSelected: widget.startIndex ?? 0,
+            onPressed: (index, _) => setState(() => _selectedIndex = index),
+            children: widget.headers,
+          ),
+          Expanded(child: widget.bodies[_selectedIndex])
+        ],
       ),
     );
   }

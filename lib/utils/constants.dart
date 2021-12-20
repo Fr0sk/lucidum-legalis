@@ -3,21 +3,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Fonts {
-  static const Logo = GoogleFonts.parisienne;
+  static const logo = GoogleFonts.parisienne;
 }
 
 class App {
-  static const Title = 'Lucidum Legalis';
+  static const title = 'Lucidum Legalis';
   static const windowMinSize = Size(600, 400);
 }
 
 class Widgets {
-  static const LargeButtonWidth = 100.0;
+  static const largeButtonWidth = 100.0;
 }
 
 class Locales {
-  static const En = Locale('en');
-  static const Pt = Locale('pt', 'PT');
+  static const en = Locale('en');
+  static const pt = Locale('pt', 'PT');
 }
 
 class AppIcons {
@@ -34,4 +34,5 @@ class AppIcons {
   static const addNnote = Icon(MdiIcons.notePlus);
   static const loading = Icon(MdiIcons.loading);
   static const close = Icon(MdiIcons.close);
+  static const settings = Icon(MdiIcons.cog);
 }

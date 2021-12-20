@@ -126,7 +126,7 @@ class _Header extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             readOnly
                 ? Container()
                 : IconButton(

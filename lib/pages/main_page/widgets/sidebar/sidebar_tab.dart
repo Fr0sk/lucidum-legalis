@@ -21,7 +21,7 @@ class SidebarTab extends StatelessWidget {
       stream: dataStream,
       builder: (_, snapshot) {
         if (snapshot.data == null) {
-          return SingleChildScrollView();
+          return const SingleChildScrollView();
         }
 
         final list = snapshot.data!;
@@ -30,7 +30,7 @@ class SidebarTab extends StatelessWidget {
           itemCount: list.length + 1,
           itemBuilder: (_, index) {
             if (index == list.length) {
-              return SizedBox(height: 25);
+              return const SizedBox(height: 25);
             }
 
             if (list is List<Client>) {
@@ -47,7 +47,7 @@ class SidebarTab extends StatelessWidget {
               return Container(color: Colors.red);
             }
           },
-          separatorBuilder: (_, __) => Divider(
+          separatorBuilder: (_, __) => const Divider(
             height: 0,
           ),
         );

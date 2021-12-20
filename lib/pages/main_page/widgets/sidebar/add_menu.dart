@@ -5,7 +5,7 @@ import 'package:lucidum_legalis/utils/constants.dart' as constants;
 class AddMenu extends StatelessWidget {
   final Duration duration;
   final TickerProvider vsync;
-  final opened;
+  final bool opened;
   final void Function()? onAddClient;
   final void Function()? onAddLawsuite;
 
@@ -23,7 +23,7 @@ class AddMenu extends StatelessWidget {
     return AnimatedSize(
       duration: duration,
       curve: Curves.easeOut,
-      child: Container(
+      child: SizedBox(
         height: opened ? null : 0.0,
         child: Column(
           children: [
@@ -32,7 +32,7 @@ class AddMenu extends StatelessWidget {
               leading: constants.AppIcons.addClient,
               onTap: onAddClient,
             ),
-            Divider(height: 0),
+            const Divider(height: 0),
             ListTile(
               title: Text('Add Lawsuite'.tr()),
               leading: constants.AppIcons.addLawsuite,
