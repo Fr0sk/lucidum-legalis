@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lucidum_legalis/main.dart';
-import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:lucidum_legalis/widgets/tab_panel.dart';
 import 'widgets/sidebar/sidebar.dart';
 
 class MainPage extends StatefulWidget {
@@ -87,7 +85,11 @@ class _MainPageState extends State<MainPage> {
                 // Tab Headers
                 SizedBox(
                   height: 40,
-                  child: ScrollConfiguration(
+                  child: TabPanel(
+                    tabs: const [],
+                  ),
+
+                  /*ScrollConfiguration(
                     behavior: ScrollConfiguration.of(context).copyWith(
                         dragDevices: {
                           PointerDeviceKind.touch,
@@ -105,7 +107,7 @@ class _MainPageState extends State<MainPage> {
                             TabHeader(tabState: api.tabs[idx]),
                       ),
                     ),
-                  ),
+                  ),*/
                 ),
                 // Current selected tab body
                 Expanded(

@@ -13,8 +13,8 @@ class SidebarClientListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selected = api.openTabState is TabState<Client> &&
-        api.openTabState!.id == client.id;
+    final selected = api.openTabStateNotifier.value is TabState<Client> &&
+        api.openTabStateNotifier.value?.id == client.id;
 
     return ListTile(
       title: Text(client.name),

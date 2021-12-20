@@ -13,8 +13,8 @@ class SidebarLawsuiteListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selected = api.openTabState is TabState<Lawsuite> &&
-        api.openTabState!.id == lawsuite.id;
+    final selected = api.openTabStateNotifier.value is TabState<Lawsuite> &&
+        api.openTabStateNotifier.value?.id == lawsuite.id;
 
     return ListTile(
       title: Text(lawsuite.name),

@@ -49,7 +49,7 @@ class _ClientInformationTabState extends State<ClientInformationTab> {
 
   @override
   Widget build(BuildContext context) {
-    var state = api.openTabState as TabState<Client>;
+    var state = api.openTabStateNotifier.value as TabState<Client>;
     return StreamBuilder<Client>(
       stream: state.data,
       builder: (context, snapshot) {

@@ -13,14 +13,16 @@ class Api extends ChangeNotifier {
   final UserDatabase _db;
   final _tabs = <TabState>[];
   final _tabHistory = <TabState>[];
-  TabState? _openTabState;
+  final _openTabStateNotifier = ValueNotifier<TabState?>(null);
+  //TabState? _openTabState;
 
   Api() : _db = UserDatabase(databaseDir: AppDirectories.appDocDir);
 
   UserDatabase get database => _db;
   List<TabState> get tabs => _tabs;
   List<TabState> get tabHistory => _tabHistory;
-  TabState? get openTabState => _openTabState;
+  //TabState? get openTabState => _openTabState;
+  ValueNotifier<TabState?> get openTabStateNotifier => _openTabStateNotifier;
 
   Future<int> createClient() async {
     final id = await (_db.clientDao.insertClient(ClientsCompanion.insert(
@@ -73,11 +75,11 @@ class Api extends ChangeNotifier {
 
   Future<OpenTabBodyResult> openLawsuite(
       {required int id, editMode = false}) async {
-    if (_openTabState?.edit == true) {
+    if (_openTabStateNotifier.value?.edit == true) {
       return OpenTabBodyResult.unsavedChanges;
     }
 
-    _openTabState = TabState<Lawsuite>(
+    _openTabStateNotifier.value = TabState<Lawsuite>(
         id: id, data: _db.lawsuiteDao.watchLawsuiteById(id), edit: editMode);
     notifyListeners();
     return OpenTabBodyResult.success;
