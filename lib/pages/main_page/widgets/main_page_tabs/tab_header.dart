@@ -14,32 +14,30 @@ class TabHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: tabState.data,
-        builder: (_, snapshot) {
-          if (snapshot.data is Client) {
-            final client = snapshot.data as Client?;
+    return ValueListenableBuilder(
+        valueListenable: tabState.dataNotifier,
+        builder: (_, data, __) {
+          if (data is Client) {
+            final client = data;
             return _TabHeaderButton(
-              text: client?.name ?? 'Loading'.tr(),
+              text: client.name,
               icon: AppIcons.client,
               isActive: tabState == api.tabHistory.last,
-              onPressed: () =>
-                  client == null ? null : api.openClient(id: client.id),
+              onPressed: () => api.openClient(id: client.id),
               onClosed: () => api.closeTab(tabState: tabState),
             );
-          } else if (snapshot.data is Lawsuite) {
-            final lawsuite = snapshot.data as Lawsuite?;
+          } else if (data is Lawsuite) {
+            final lawsuite = data;
             return _TabHeaderButton(
-              text: (snapshot.data as Lawsuite?)?.name ?? 'Loading'.tr(),
+              text: lawsuite.name,
               icon: AppIcons.lawsuite,
               isActive: tabState == api.tabHistory.last,
-              onPressed: () =>
-                  lawsuite == null ? null : api.openLawsuite(id: lawsuite.id),
+              onPressed: () => api.openLawsuite(id: lawsuite.id),
               onClosed: () => api.closeTab(tabState: tabState),
             );
           } else {
             return _TabHeaderButton(
-              text: (snapshot.data as Client?)?.name ?? 'Loading'.tr(),
+              text: 'Loading'.tr(),
               icon: AppIcons.loading,
               isActive: tabState == api.tabHistory.last,
               onClosed: () => api.closeTab(tabState: tabState),
@@ -67,17 +65,20 @@ class _TabHeaderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = Row(
-      children: [
-        Text(text),
-        InkWell(
-          onTap: onClosed,
-          child: const Padding(
-            padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-            child: AppIcons.close,
+    final content = SizedBox(
+      height: 40,
+      child: Row(
+        children: [
+          Text(text),
+          InkWell(
+            onTap: onClosed,
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+              child: AppIcons.close,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
 
     return isActive

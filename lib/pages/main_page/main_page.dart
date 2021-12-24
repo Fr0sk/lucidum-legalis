@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:lucidum_legalis/data/tab_state.dart';
+import 'package:lucidum_legalis/main.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/tab_panel.dart';
 import 'widgets/sidebar/sidebar.dart';
@@ -85,8 +88,15 @@ class _MainPageState extends State<MainPage> {
                 // Tab Headers
                 SizedBox(
                   height: 40,
-                  child: TabPanel(
-                    tabs: const [],
+                  child: ValueListenableBuilder<List<TabState>>(
+                    valueListenable: api.tabHistoryNotifier,
+                    builder: (context, tabHistory, _) => TabPanel(
+                      tabs:
+                          api.tabs.map((t) => TabHeader(tabState: t)).toList(),
+                      selected: tabHistory.isEmpty
+                          ? -1
+                          : api.tabs.indexOf(tabHistory.last),
+                    ),
                   ),
 
                   /*ScrollConfiguration(

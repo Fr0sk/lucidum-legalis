@@ -51,7 +51,7 @@ class _ClientInformationTabState extends State<ClientInformationTab> {
   Widget build(BuildContext context) {
     var state = api.openTabStateNotifier.value as TabState<Client>;
     return StreamBuilder<Client>(
-      stream: state.data,
+      stream: state.dataStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.active) {
           return Container();

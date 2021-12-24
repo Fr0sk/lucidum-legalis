@@ -11,16 +11,18 @@ enum OpenTabBodyResult { success, unsavedChanges }
 
 class Api extends ChangeNotifier {
   final UserDatabase _db;
-  final _tabs = <TabState>[];
-  final _tabHistory = <TabState>[];
+  //final _tabs = <TabState>[];
+  //final _tabHistory = <TabState>[];
   final _openTabStateNotifier = ValueNotifier<TabState?>(null);
+  final tabsNotifier = ValueNotifier<List<TabState>>([]);
+  final tabHistoryNotifier = ValueNotifier<List<TabState>>([]);
   //TabState? _openTabState;
 
   Api() : _db = UserDatabase(databaseDir: AppDirectories.appDocDir);
 
   UserDatabase get database => _db;
-  List<TabState> get tabs => _tabs;
-  List<TabState> get tabHistory => _tabHistory;
+  List<TabState> get tabs => tabsNotifier.value;
+  List<TabState> get tabHistory => tabHistoryNotifier.value;
   //TabState? get openTabState => _openTabState;
   ValueNotifier<TabState?> get openTabStateNotifier => _openTabStateNotifier;
 
@@ -50,25 +52,27 @@ class Api extends ChangeNotifier {
 
     // Checks if there is a client tab with the same ID opened and
     // retreives it's index
-    var idx = _tabs.indexWhere((ts) => ts is TabState<Client> && ts.id == id);
+    var idx = tabs.indexWhere((ts) => ts is TabState<Client> && ts.id == id);
 
     // If the tab isn't already open, create a new TabState object
     // to represent the tab and add it to the _tabs array
     if (idx < 0) {
-      idx = _tabs.length;
-      _tabs.add(TabState<Client>(
+      idx = tabs.length;
+      tabs.add(TabState<Client>(
         id: id,
-        data: _db.clientDao.watchClientById(id),
+        dataStream: _db.clientDao.watchClientById(id),
         edit: editMode,
       ));
+      tabsNotifier.notifyListeners();
     } else {
       // Removes the TabState from the history.
       // It will be added as the last element later
-      _tabHistory.remove(_tabs[idx]);
+      tabHistory.remove(tabs[idx]);
     }
 
     // Adds the new or existing TabState to the end of history
-    _tabHistory.add(_tabs[idx]);
+    tabHistory.add(tabs[idx]);
+    tabHistoryNotifier.notifyListeners();
 
     notifyListeners();
   }
@@ -80,15 +84,20 @@ class Api extends ChangeNotifier {
     }
 
     _openTabStateNotifier.value = TabState<Lawsuite>(
-        id: id, data: _db.lawsuiteDao.watchLawsuiteById(id), edit: editMode);
+        id: id,
+        dataStream: _db.lawsuiteDao.watchLawsuiteById(id),
+        edit: editMode);
     notifyListeners();
     return OpenTabBodyResult.success;
   }
 
   void closeTab({required TabState tabState}) {
-    _tabs.remove(tabState);
-    _tabHistory.remove(tabState);
-    notifyListeners();
+    if (tabs.contains(tabState)) {
+      tabs.remove(tabState);
+      tabsNotifier.notifyListeners();
+      tabHistory.remove(tabState);
+      tabHistoryNotifier.notifyListeners();
+    }
   }
 
   Future<bool>? saveClient(Insertable<Client> client) =>

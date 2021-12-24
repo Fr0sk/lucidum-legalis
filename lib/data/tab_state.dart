@@ -1,21 +1,27 @@
 import 'package:flutter/widgets.dart';
 
-class TabState<T> extends ChangeNotifier {
-  final Stream<T> data;
+class TabState<T> {
   final int id;
-  bool _edit;
+  final Stream<T> dataStream;
+  final dataNotifier = ValueNotifier<T?>(null);
+  final ValueNotifier<bool> editNotifier;
 
-  TabState({required this.data, required this.id, bool edit = false})
-      : _edit = edit;
-
-  set edit(bool edit) {
-    _edit = edit;
-    notifyListeners();
+  TabState({required this.dataStream, required this.id, bool edit = false})
+      : editNotifier = ValueNotifier(edit) {
+    dataStream.listen((event) {
+      dataNotifier.value = event;
+      //dataNotifier.notifyListeners();
+    });
   }
 
-  void toggleEdit() => edit = !_edit;
+  set edit(bool edit) {
+    editNotifier.value = edit;
+    //editNotifier.notifyListeners();
+  }
 
-  bool get edit => _edit;
+  void toggleEdit() => edit = !editNotifier.value;
+
+  bool get edit => editNotifier.value;
 
   /*@override
   bool operator ==(o) => o is TabState<T> && o.id == id;

@@ -42,7 +42,7 @@ class TabBodyClient extends TabBodyBase<Client> {
                 header: PageHeader(
                   icon: constants.AppIcons.client,
                   label: StreamBuilder<Client>(
-                    stream: state.data,
+                    stream: state.dataStream,
                     builder: (_, snapshot) => Text(snapshot.data?.name ?? ''),
                   ),
                 ),
