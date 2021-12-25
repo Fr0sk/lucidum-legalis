@@ -6,15 +6,24 @@ class TabPanel extends StatelessWidget {
   final _scrollController = ScrollController();
   final _tabs = <Widget>[];
   final _keys = <GlobalKey>[];
-  final _scrollbarKey = GlobalKey();
+  final GlobalKey _scrollbarKey;
 
   //TODO: Drag&Drop tabs: https://www.youtube.com/watch?v=WhVXkCFPmK4
-  TabPanel({Key? key, this.selected = -1, required List<Widget> tabs})
-      : super(key: key) {
-    _tabs.addAll(tabs.map((t) {
-      _keys.add(GlobalKey());
-      return Container(key: _keys.last, child: t);
-    }));
+  TabPanel({
+    Key? key,
+    required List<Widget> tabs,
+    this.selected = -1,
+    GlobalKey? scrollbarKey,
+  })  : _scrollbarKey = scrollbarKey ?? GlobalKey(),
+        super(key: key) {
+    _tabs.addAll(
+      tabs.map(
+        (t) {
+          _keys.add(GlobalKey());
+          return Container(key: _keys.last, child: t);
+        },
+      ),
+    );
   }
 
   @override

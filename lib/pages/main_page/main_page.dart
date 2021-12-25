@@ -1,21 +1,56 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
+import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/tab_panel.dart';
 import 'widgets/sidebar/sidebar.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class MainPage extends StatelessWidget {
+  final _tabHeaderKey = GlobalKey();
+  final _tabBodies = <TabState, Widget>{};
 
-  @override
-  _MainPageState createState() => _MainPageState();
-}
+  MainPage({Key? key}) : super(key: key) {
+    api.tabs.addListener(() {
+      // If a new tab was open
+      if (api.tabs.length > _tabBodies.length) {
+        for (final tab in api.tabs.value) {
+          // If the _tabBodies dictionary does not contain this tab
+          if (!_tabBodies.keys.contains(tab)) {
+            _tabBodies[tab] = _getTabBodyFromState(tab);
+          }
+        }
+        // If a tab was removed
+      } else if (api.tabs.length < _tabBodies.length) {
+        var idx = 0;
+        while (idx < _tabBodies.keys.length) {
+          // If the tab in _tabBodies does not exist in the api.tabs
+          final tab = _tabBodies.keys.elementAt(idx);
+          if (!api.tabs.contains(tab)) {
+            _tabBodies.remove(tab);
+          } else {
+            idx++;
+          }
+        }
+      }
+    });
+  }
 
-class _MainPageState extends State<MainPage> {
-  final _headerScrollController = ScrollController();
+  Widget _getTabBodyFromState(TabState state) {
+    if (state is TabState<Client>) {
+      return Container(
+        color: Colors.red,
+      );
+    } else if (state is TabState<Lawsuite>) {
+      return Container(
+        color: Colors.blue,
+      );
+    } else {
+      return Container();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,38 +60,6 @@ class _MainPageState extends State<MainPage> {
           children: [
             Text('Welcome {}'.tr(args: ['Hehehe'])),
             const Spacer(),
-            /*Selector<Api, TabState?>(
-                builder: (_, tabState, __) {
-                  if (tabState == null) {
-                    return Container();
-                  }
-
-                  return StreamBuilder(
-                    stream: tabState.data,
-                    builder: (_, snapshot) {
-                      if (snapshot.data is Client) {
-                        final client = snapshot.data as Client;
-                        return Row(
-                          children: [
-                            constants.AppIcons.client,
-                            Text(client.name),
-                          ],
-                        );
-                      } else if (snapshot.data is Lawsuite) {
-                        final lawsuite = snapshot.data as Lawsuite;
-                        return Row(
-                          children: [
-                            constants.AppIcons.lawsuite,
-                            Text(lawsuite.name)
-                          ],
-                        );
-                      }
-                      return Container();
-                    },
-                  );
-                },
-                selector: (_, api) => api.openTabState),
-            Spacer(),*/
             Container(
               color: Colors.red,
               height: 30,
@@ -66,6 +69,7 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
         actions: [
+          // Settings button
           IconButton(
             onPressed: () {}, //TODO: Implement Settings'
             icon: AppIcons.settings,
@@ -74,6 +78,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: Row(
         children: [
+          // Sidebar
           const SizedBox(
             width: 250,
             child: Material(
@@ -89,8 +94,9 @@ class _MainPageState extends State<MainPage> {
                 SizedBox(
                   height: 40,
                   child: ValueListenableBuilder<List<TabState>>(
-                    valueListenable: api.tabHistoryNotifier,
+                    valueListenable: api.tabHistory,
                     builder: (context, tabHistory, _) => TabPanel(
+                      scrollbarKey: _tabHeaderKey,
                       tabs:
                           api.tabs.map((t) => TabHeader(tabState: t)).toList(),
                       selected: tabHistory.isEmpty
@@ -98,31 +104,19 @@ class _MainPageState extends State<MainPage> {
                           : api.tabs.indexOf(tabHistory.last),
                     ),
                   ),
-
-                  /*ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(context).copyWith(
-                        dragDevices: {
-                          PointerDeviceKind.touch,
-                          PointerDeviceKind.mouse
-                        }),
-                    child: Scrollbar(
-                      controller: _headerScrollController,
-                      isAlwaysShown: true,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: api.tabs.length,
-                        controller: _headerScrollController,
-                        itemBuilder: (_, idx) =>
-                            TabHeader(tabState: api.tabs[idx]),
-                      ),
-                    ),
-                  ),*/
                 ),
-                // Current selected tab body
+
+                // Tab Body
                 Expanded(
-                  child: Container(
-                    color: Colors.red,
+                  child: ValueListenableBuilder<List<TabState>>(
+                    valueListenable: api.tabHistory,
+                    builder: (_, history, __) {
+                      if (history.isEmpty) {
+                        return Container();
+                      }
+
+                      return _tabBodies[history.last] ?? Container();
+                    },
                   ),
                 ),
               ],
