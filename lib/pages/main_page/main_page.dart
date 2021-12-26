@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_client.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/tab_panel.dart';
@@ -19,7 +20,7 @@ class MainPage extends StatelessWidget {
         for (final tab in api.tabs.value) {
           // If the _tabBodies dictionary does not contain this tab
           if (!_tabBodies.keys.contains(tab)) {
-            _tabBodies[tab] = _getTabBodyFromState(tab);
+            _tabBodies[tab] = _createTabBodyFromState(tab);
           }
         }
         // If a tab was removed
@@ -38,11 +39,9 @@ class MainPage extends StatelessWidget {
     });
   }
 
-  Widget _getTabBodyFromState(TabState state) {
+  Widget _createTabBodyFromState(TabState state) {
     if (state is TabState<Client>) {
-      return Container(
-        color: Colors.red,
-      );
+      return TabBodyClient(state: state);
     } else if (state is TabState<Lawsuite>) {
       return Container(
         color: Colors.blue,

@@ -6,14 +6,9 @@ import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:lucidum_legalis/utils/constants.dart' as constants;
 
-class ClientInformationTab extends StatefulWidget {
-  const ClientInformationTab({Key? key}) : super(key: key);
+class ClientInformationTab extends StatelessWidget {
+  final TabState<Client> tabState;
 
-  @override
-  _ClientInformationTabState createState() => _ClientInformationTabState();
-}
-
-class _ClientInformationTabState extends State<ClientInformationTab> {
   final _nameController = TextEditingController();
   final _idNumberController = TextEditingController();
   final _taxNumberController = TextEditingController();
@@ -22,6 +17,8 @@ class _ClientInformationTabState extends State<ClientInformationTab> {
   final _zipCodeController = TextEditingController();
   final _cityController = TextEditingController();
   final _countyController = TextEditingController();
+
+  ClientInformationTab({Key? key, required this.tabState}) : super(key: key);
 
   void _onSave(Api api, TabState tabState, Client client) {
     api.saveClient(
@@ -49,42 +46,56 @@ class _ClientInformationTabState extends State<ClientInformationTab> {
 
   @override
   Widget build(BuildContext context) {
-    var state = api.openTabStateNotifier.value as TabState<Client>;
-    return StreamBuilder<Client>(
-      stream: state.dataStream,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.active) {
+    final state = tabState;
+
+    return ValueListenableBuilder<Client?>(
+      valueListenable: state.dataNotifier,
+      builder: (_, client, __) {
+        if (client == null) {
+          // Client is loading
           return Container();
         }
 
-        final client = snapshot.data!;
+        return ValueListenableBuilder(
+          valueListenable: state.editNotifier,
+          builder: (_, editMode, __) {
+            if (!state.edit) {
+              // If loading data
+              _nameController.text = client.name;
+              _idNumberController.text = client.idNumber ?? '';
+              _taxNumberController.text = client.taxNumber?.toString() ?? '';
+              _civilStatusController.text = client.civilStatus ?? '';
+              _streetController.text = client.street ?? '';
+              _zipCodeController.text = client.zipCode ?? '';
+              _cityController.text = client.city ?? '';
+              _countyController.text = client.county ?? '';
+            }
 
-        return Column(
-          children: [
-            _Header(
-              nameController: _nameController..text = client.name,
-              readOnly: !state.edit,
-              onEdit: () => state.toggleEdit(),
-              onSave: () => _onSave(api, state, client),
-              onDelete: () => _onDelete(api, client),
-            ),
-            _Identification(
-              idNumberController: _idNumberController
-                ..text = client.idNumber ?? '',
-              taxNumberController: _taxNumberController
-                ..text = '${client.taxNumber ?? ""}',
-              civilStatusController: _civilStatusController
-                ..text = client.civilStatus ?? '',
-              readOnly: !state.edit,
-            ),
-            _Address(
-                streetController: _streetController..text = client.street ?? '',
-                zipCodeController: _zipCodeController
-                  ..text = client.zipCode ?? '',
-                cityController: _cityController..text = client.city ?? '',
-                countyController: _countyController..text = client.county ?? '',
-                readOnly: !state.edit),
-          ],
+            return Column(
+              children: [
+                _Header(
+                  nameController: _nameController,
+                  readOnly: !state.edit,
+                  onEdit: () => state.toggleEdit(),
+                  onSave: () => _onSave(api, state, client),
+                  onDelete: () => _onDelete(api, client),
+                ),
+                _Identification(
+                  idNumberController: _idNumberController,
+                  taxNumberController: _taxNumberController,
+                  civilStatusController: _civilStatusController,
+                  readOnly: !state.edit,
+                ),
+                _Address(
+                  streetController: _streetController,
+                  zipCodeController: _zipCodeController,
+                  cityController: _cityController,
+                  countyController: _countyController,
+                  readOnly: !state.edit,
+                ),
+              ],
+            );
+          },
         );
       },
     );

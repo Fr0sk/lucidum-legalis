@@ -13,8 +13,11 @@ import 'client_information_tab.dart';
 import 'tab_body_base.dart';
 
 class TabBodyClient extends TabBodyBase<Client> {
-  const TabBodyClient({required TabState<Client> state, Key? key})
-      : super(key: key, state: state);
+  final ClientInformationTab _clientInformationTab;
+
+  TabBodyClient({required TabState<Client> state, Key? key})
+      : _clientInformationTab = ClientInformationTab(tabState: state),
+        super(key: key, state: state);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class TabBodyClient extends TabBodyBase<Client> {
             ),
           ],
           bodies: [
-            const ClientInformationTab(),
+            _clientInformationTab,
             Container(color: Colors.green),
             FileExplorerTab(
                 header: PageHeader(

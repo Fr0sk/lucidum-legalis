@@ -13,17 +13,25 @@ class SidebarClientListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selected = api.openTabStateNotifier.value is TabState<Client> &&
-        api.openTabStateNotifier.value?.id == client.id;
+    /*final selected = api.openTabStateNotifier is TabState<Client> &&
+        api.openTabStateNotifier?.id == client.id;*/
 
-    return ListTile(
-      title: Text(client.name),
-      onTap: onTap,
-      leading: constants.AppIcons.client,
-      selected: selected,
-      selectedTileColor: selected
-          ? Theme.of(context).colorScheme.secondary.withAlpha(40)
-          : null,
+    return ValueListenableBuilder<List<TabState>>(
+      valueListenable: api.tabHistory,
+      builder: (_, tabHistory, __) {
+        final selected = api.openTabState is TabState<Client> &&
+            api.openTabState?.id == client.id;
+
+        return ListTile(
+          title: Text(client.name),
+          onTap: onTap,
+          leading: constants.AppIcons.client,
+          selected: selected,
+          selectedTileColor: selected
+              ? Theme.of(context).colorScheme.secondary.withAlpha(40)
+              : null,
+        );
+      },
     );
   }
 }

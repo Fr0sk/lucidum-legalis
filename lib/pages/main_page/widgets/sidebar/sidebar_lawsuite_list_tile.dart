@@ -13,17 +13,22 @@ class SidebarLawsuiteListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selected = api.openTabStateNotifier.value is TabState<Lawsuite> &&
-        api.openTabStateNotifier.value?.id == lawsuite.id;
+    return ValueListenableBuilder<List<TabState>>(
+      valueListenable: api.tabHistory,
+      builder: (_, tabHistory, __) {
+        final selected = api.openTabState is TabState<Lawsuite> &&
+            api.openTabState?.id == lawsuite.id;
 
-    return ListTile(
-      title: Text(lawsuite.name),
-      onTap: onTap,
-      leading: constants.AppIcons.lawsuite,
-      selected: selected,
-      selectedTileColor: selected
-          ? Theme.of(context).colorScheme.secondary.withAlpha(40)
-          : null,
+        return ListTile(
+          title: Text(lawsuite.name),
+          onTap: onTap,
+          leading: constants.AppIcons.lawsuite,
+          selected: selected,
+          selectedTileColor: selected
+              ? Theme.of(context).colorScheme.secondary.withAlpha(40)
+              : null,
+        );
+      },
     );
   }
 }

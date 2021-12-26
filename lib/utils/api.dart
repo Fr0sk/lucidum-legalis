@@ -12,9 +12,6 @@ enum OpenTabBodyResult { success, unsavedChanges }
 
 class Api {
   final UserDatabase _db;
-  //final _tabs = <TabState>[];
-  //final _tabHistory = <TabState>[];
-  final _openTabStateNotifier = ValueNotifier<TabState?>(null);
   final tabs = ListNotifier<TabState>([]); //ValueNotifier<List<TabState>>([]);
   final tabHistory =
       ListNotifier<TabState>([]); //ValueNotifier<List<TabState>>([]);
@@ -24,10 +21,7 @@ class Api {
   Api() : _db = UserDatabase(databaseDir: AppDirectories.appDocDir);
 
   UserDatabase get database => _db;
-  //List<TabState> get tabs => tabsNotifier.value;
-  //List<TabState> get tabHistory => tabHistoryNotifier.value;
-  //TabState? get openTabState => _openTabState;
-  ValueNotifier<TabState?> get openTabStateNotifier => _openTabStateNotifier;
+  TabState? get openTabState => tabHistory.isEmpty ? null : tabHistory.last;
 
   Future<int> createClient() async {
     final id = await (_db.clientDao.insertClient(ClientsCompanion.insert(
