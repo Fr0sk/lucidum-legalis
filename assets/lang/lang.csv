@@ -1,33 +1,40 @@
-﻿ keys,en,pt_PT
+﻿" keys",en,pt_PT
 Add Client,Add Client,Adicionar Cliente
 Add Lawsuite,Add Lawsuite,Adicionar Processo
 Address,Address,Morada
+Against,Against,Parte Contrária
 Cancel,Cancel,Cancelar
 City,City,Cidade
 Civil Status,Civil Status,Estado Civil
 County,County,Distrito
+Court,Court,Juizo
 CreateAccount,Create Account,Criar Conta
 Database Locked,Database Locked,Base de Dados Bloqueada
 Delete,Delete,Apagar
 Dismiss,Dismiss,Ignorar
+District,District,Comarca
 Edit,Edit,Editar
 Enter the password to unlock the database:,Enter the password to unlock the database:,Introduza a palavra-passe para desbloquear a base de dados:
 Error creating user,Error creating user,Erro a criar o utilizador
 Error loading user,Error loading user,Erro a carregar o utilizador
+Form,Form,Forma
 ID Number,ID Number,Número de Cartão de Cidadão
 Identification,Identification,Identificação
 Invalid username,Invalid username,Nome de utilizador inválido
+Judge/Section,Judge,Juiz/Secção
+Judgement,Judgement,Juízo
 Leave,Leave,Sair
 Login,Login,Entrar
 LoginAutomatically,Login Automatically,Entrar Automaticamente
 Name,Name,Nome
 New Client,New Client,Novo Cliente
 New Lawsuite,New Lawsuite,Novo Processo
-NewAccount?,New Account?, Nova Conta?
+NewAccount?,New Account?," Nova Conta?"
 Password,Password,Palavra Passe
 PasswordConfirmOptional,Confirm Password (Optional),Confirmar Palavra-passe (Opcional)
 PasswordOptional,Password (Optional),Palavra-passe (Opcional)
 Passwords do not match,Passwords do not match,As palavras-passe não são iguais
+Process Number,Process Number,Número de Processo
 Save,Save,Guardar
 Street,Street,Rua
 Tax Number,Tax Number,Número de Contribuinte

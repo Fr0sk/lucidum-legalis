@@ -18,61 +18,100 @@ class _Address extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(
-          'Address'.tr(),
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        subtitle: Column(children: [
-          Row(children: [
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                child: TextField(
-                  controller: streetController,
-                  readOnly: readOnly,
-                  decoration: InputDecoration(labelText: 'Street'.tr()),
-                ),
-              ),
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                child: TextField(
-                  controller: zipCodeController,
-                  readOnly: readOnly,
-                  decoration: InputDecoration(labelText: 'Zip Code'.tr()),
-                ),
-              ),
-            ),
-          ]),
+    return TitledCard(
+      titleText: 'Address'.tr(),
+      child: Column(
+        children: [
           Row(
             children: [
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  child: TextField(
-                    controller: cityController,
-                    readOnly: readOnly,
-                    decoration: InputDecoration(labelText: 'City'.tr()),
-                  ),
-                ),
+              FlexibleTextField(
+                controller: streetController,
+                readOnly: readOnly,
+                labelText: 'Street'.tr(),
               ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  child: TextField(
-                    controller: countyController,
-                    readOnly: readOnly,
-                    decoration: InputDecoration(labelText: 'County'.tr()),
-                  ),
-                ),
+              FlexibleTextField(
+                controller: zipCodeController,
+                readOnly: readOnly,
+                labelText: 'Zip Code'.tr(),
               ),
             ],
           ),
-        ]),
+          Row(
+            children: [
+              FlexibleTextField(
+                controller: cityController,
+                readOnly: readOnly,
+                labelText: 'City'.tr(),
+              ),
+              FlexibleTextField(
+                controller: countyController,
+                readOnly: readOnly,
+                labelText: 'County'.tr(),
+              ),
+            ],
+          )
+        ],
       ),
     );
+
+    /*
+    GridView.count(
+        crossAxisCount: 2,
+        children: [
+          FlexibleTextField(
+            controller: streetController,
+            readOnly: readOnly,
+            labelText: 'Street'.tr(),
+          ),
+          FlexibleTextField(
+            controller: zipCodeController,
+            readOnly: readOnly,
+            labelText: 'Zip Code'.tr(),
+          ),
+          FlexibleTextField(
+            controller: cityController,
+            readOnly: readOnly,
+            labelText: 'City'.tr(),
+          ),
+          FlexibleTextField(
+            controller: countyController,
+            readOnly: readOnly,
+            labelText: 'County'.tr(),
+          ),
+        ],
+      ),
+    Column(
+        children: [
+          Row(
+            children: [
+              FlexibleTextField(
+                controller: streetController,
+                readOnly: readOnly,
+                labelText: 'Street'.tr(),
+              ),
+              FlexibleTextField(
+                controller: zipCodeController,
+                readOnly: readOnly,
+                labelText: 'Zip Code'.tr(),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              FlexibleTextField(
+                controller: cityController,
+                readOnly: readOnly,
+                labelText: 'City'.tr(),
+              ),
+              FlexibleTextField(
+                controller: countyController,
+                readOnly: readOnly,
+                labelText: 'County'.tr(),
+              ),
+            ],
+          )
+        ],
+      ),
+    */
   }
 }

@@ -9,6 +9,8 @@ import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/button_group.dart';
 import 'package:lucidum_legalis/widgets/custom_tabs.dart';
+import 'package:lucidum_legalis/widgets/flexible_text_field.dart';
+import 'package:lucidum_legalis/widgets/titled_card.dart';
 
 import '../information_header.dart';
 import '../tab_body_base.dart';

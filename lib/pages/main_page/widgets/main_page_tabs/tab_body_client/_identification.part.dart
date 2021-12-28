@@ -16,46 +16,27 @@ class _Identification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(
-          'Identification'.tr(),
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        subtitle: Row(
-          children: [
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                child: TextField(
-                  controller: idNumberController,
-                  readOnly: readOnly,
-                  decoration: InputDecoration(labelText: 'ID Number'.tr()),
-                ),
-              ),
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                child: TextField(
-                  controller: taxNumberController,
-                  readOnly: readOnly,
-                  decoration: InputDecoration(labelText: 'Tax Number'.tr()),
-                ),
-              ),
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                child: TextField(
-                  controller: civilStatusController,
-                  readOnly: readOnly,
-                  decoration: InputDecoration(labelText: 'Civil Status'.tr()),
-                ),
-              ),
-            ),
-          ],
-        ),
+    return TitledCard(
+      titleText: 'Identification'.tr(),
+      child: Row(
+        children: [
+          FlexibleTextField(
+            controller: idNumberController,
+            readOnly: readOnly,
+            labelText: 'ID Number'.tr(),
+          ),
+          FlexibleTextField(
+            controller: taxNumberController,
+            readOnly: readOnly,
+            labelText: 'Tax Number'.tr(),
+            numberOnly: true,
+          ),
+          FlexibleTextField(
+            controller: civilStatusController,
+            readOnly: readOnly,
+            labelText: 'Civil Status'.tr(),
+          ),
+        ],
       ),
     );
   }

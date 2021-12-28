@@ -72,30 +72,33 @@ class _ClientInformationTab extends StatelessWidget {
               _countyController.text = client.county ?? '';
             }
 
-            return Column(
-              children: [
-                InformationHeader(
-                  nameController: _nameController,
-                  readOnly: !state.edit,
-                  icon: AppIcons.client,
-                  onEdit: state.toggleEdit,
-                  onSave: _onSave,
-                  onDelete: _onDelete,
-                ),
-                _Identification(
-                  idNumberController: _idNumberController,
-                  taxNumberController: _taxNumberController,
-                  civilStatusController: _civilStatusController,
-                  readOnly: !state.edit,
-                ),
-                _Address(
-                  streetController: _streetController,
-                  zipCodeController: _zipCodeController,
-                  cityController: _cityController,
-                  countyController: _countyController,
-                  readOnly: !state.edit,
-                ),
-              ],
+            return SingleChildScrollView(
+              controller: ScrollController(),
+              child: Column(
+                children: [
+                  InformationHeader(
+                    nameController: _nameController,
+                    readOnly: !state.edit,
+                    icon: AppIcons.client,
+                    onEdit: state.toggleEdit,
+                    onSave: _onSave,
+                    onDelete: _onDelete,
+                  ),
+                  _Identification(
+                    idNumberController: _idNumberController,
+                    taxNumberController: _taxNumberController,
+                    civilStatusController: _civilStatusController,
+                    readOnly: !state.edit,
+                  ),
+                  _Address(
+                    streetController: _streetController,
+                    zipCodeController: _zipCodeController,
+                    cityController: _cityController,
+                    countyController: _countyController,
+                    readOnly: !state.edit,
+                  ),
+                ],
+              ),
             );
           },
         );

@@ -66,7 +66,10 @@ class FileExplorerTab extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: FileExplorer(controller: _controller),
+            child: FileExplorer(
+              controller: _controller,
+              scrollController: ScrollController(),
+            ),
           ),
         ],
       ),

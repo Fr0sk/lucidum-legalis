@@ -12,6 +12,7 @@ class FileExplorer extends StatelessWidget {
   final Widget? renameIcon;
   final Widget? deleteIcon;
   final Map<String, Widget>? fileIcons;
+  final ScrollController? scrollController;
 
   const FileExplorer({
     Key? key,
@@ -23,6 +24,7 @@ class FileExplorer extends StatelessWidget {
     this.fileIcons,
     this.renameIcon,
     this.deleteIcon,
+    this.scrollController,
   }) : super(key: key);
 
   @override
@@ -40,6 +42,7 @@ class FileExplorer extends StatelessWidget {
           });
 
           return ListView.separated(
+              controller: scrollController,
               itemBuilder: (_, index) {
                 final e = entities[index];
                 void Function() onPressed;

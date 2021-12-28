@@ -67,115 +67,71 @@ class _LawsuiteInformationTab extends StatelessWidget {
               _formController.text = lawsuite.form ?? '';
             }
 
-            return Column(
-              children: [
-                InformationHeader(
-                  nameController: _nameController,
-                  readOnly: !state.edit,
-                  icon: AppIcons.lawsuite,
-                  onEdit: state.toggleEdit,
-                  onSave: _onSave,
-                  onDelete: _onDelete,
-                ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      'Against'.tr(),
-                      style: Theme.of(context).textTheme.headline6,
+            return SingleChildScrollView(
+              controller: ScrollController(),
+              child: Column(
+                children: [
+                  InformationHeader(
+                    nameController: _nameController,
+                    readOnly: !state.edit,
+                    icon: AppIcons.lawsuite,
+                    onEdit: state.toggleEdit,
+                    onSave: _onSave,
+                    onDelete: _onDelete,
+                  ),
+                  TitledCard(
+                    titleText: 'Against'.tr(),
+                    child: Row(
+                      children: [
+                        FlexibleTextField(
+                          controller: _againstController,
+                          readOnly: !state.edit,
+                        ),
+                      ],
                     ),
-                    subtitle: Column(
+                  ),
+                  TitledCard(
+                    titleText: 'Judgement'.tr(),
+                    child: Column(
                       children: [
                         Row(
                           children: [
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                                child: TextField(
-                                  controller: _againstController,
-                                  readOnly: !state.edit,
-                                ),
-                              ),
+                            FlexibleTextField(
+                              controller: _processNumberController,
+                              readOnly: !state.edit,
+                              labelText: 'Process Number'.tr(),
+                            ),
+                            FlexibleTextField(
+                              controller: _districtController,
+                              readOnly: !state.edit,
+                              labelText: 'District'.tr(),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            FlexibleTextField(
+                              controller: _courtController,
+                              readOnly: !state.edit,
+                              labelText: 'Court'.tr(),
+                            ),
+                            FlexibleTextField(
+                              controller: _judgementController,
+                              readOnly: !state.edit,
+                              labelText: 'Judge/Section'.tr(),
+                            ),
+                            FlexibleTextField(
+                              controller: _formController,
+                              readOnly: !state.edit,
+                              labelText: 'Form'.tr(),
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      'Judgment'.tr(),
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Column(
-                      children: [
-                        Row(children: [
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                              child: TextField(
-                                controller: _processNumberController,
-                                readOnly: !state.edit,
-                                decoration: InputDecoration(
-                                    labelText: 'Process Number'.tr()),
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                              child: TextField(
-                                controller: _districtController,
-                                readOnly: !state.edit,
-                                decoration:
-                                    InputDecoration(labelText: 'District'.tr()),
-                              ),
-                            ),
-                          ),
-                        ]),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                                child: TextField(
-                                  controller: _courtController,
-                                  readOnly: !state.edit,
-                                  decoration:
-                                      InputDecoration(labelText: 'Court'.tr()),
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                                child: TextField(
-                                  controller: _judgementController,
-                                  readOnly: !state.edit,
-                                  decoration: InputDecoration(
-                                      labelText: 'Judgement'.tr()),
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                                child: TextField(
-                                  controller: _formController,
-                                  readOnly: !state.edit,
-                                  decoration:
-                                      InputDecoration(labelText: 'Form'.tr()),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         );
