@@ -30,14 +30,14 @@ class Api {
     return id;
   }
 
-  Future<int>? createLawsuite() async {
+  Future<int> createLawsuite() async {
     final id = await _db.lawsuiteDao.insertLawsuite(LawsuitesCompanion.insert(
         name: 'New Lawsuite'.tr(), state: LawsuiteState.open));
     await AppDirectories.getLawsuiteDir(id: id).create(recursive: true);
     return id;
   }
 
-  Future<void> openClient({required int id, editMode = false}) async {
+  Future<void> openClient({required int id, bool editMode = false}) async {
     // Checks if there is a client tab with the same ID opened and
     // retreives it's index
     var idx = tabs.indexWhere((ts) => ts is TabState<Client> && ts.id == id);
@@ -61,7 +61,7 @@ class Api {
     tabHistory.add(tabs[idx]);
   }
 
-  Future<void> openLawsuite({required int id, editMode = false}) async {
+  Future<void> openLawsuite({required int id, bool editMode = false}) async {
     // Checks if there is a Lawsuite tab with the same ID opened and
     // retreives it's index
     var idx = tabs.indexWhere((ts) => ts is TabState<Lawsuite> && ts.id == id);
@@ -92,19 +92,15 @@ class Api {
     }
   }
 
-  Future<bool>? saveClient(Insertable<Client> client) =>
+  Future<bool> saveClient(Insertable<Client> client) =>
       _db.clientDao.updateClient(client);
 
-  Future<bool>? saveLawsuite(Insertable<Lawsuite> lawsuite) {
-    // TODO: implement saveClient
-    throw UnimplementedError();
-  }
+  Future<bool> saveLawsuite(Insertable<Lawsuite> lawsuite) =>
+      _db.lawsuiteDao.updateLawsuite(lawsuite);
 
-  Future<bool>? deleteClient(Client client) async =>
+  Future<bool> deleteClient(Client client) async =>
       (await _db.clientDao.deleteClient(client)) == 1;
 
-  Future<bool>? deleteLawsuite(Lawsuite lawsuite) async {
-    // TODO: implement deleteLawsuite
-    throw UnimplementedError();
-  }
+  Future<bool> deleteLawsuite(Lawsuite lawsuite) async =>
+      (await _db.lawsuiteDao.deleteLawsuite(lawsuite)) == 1;
 }

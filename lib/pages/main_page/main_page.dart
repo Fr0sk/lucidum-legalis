@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
-import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_client.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_client/tab_body_client.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_lawsuite/tab_body_lawsuite.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/tab_panel.dart';
@@ -43,9 +44,7 @@ class MainPage extends StatelessWidget {
     if (state is TabState<Client>) {
       return TabBodyClient(state: state);
     } else if (state is TabState<Lawsuite>) {
-      return Container(
-        color: Colors.blue,
-      );
+      return TabBodyLawsuite(state: state);
     } else {
       return Container();
     }

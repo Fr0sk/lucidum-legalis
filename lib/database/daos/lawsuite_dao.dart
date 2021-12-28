@@ -25,11 +25,11 @@ class LawsuiteDao extends DatabaseAccessor<UserDatabase>
           .getSingle();
 
   // Updates
-  Future<void> updateLawsuite(Lawsuite lawsuite) =>
+  Future<bool> updateLawsuite(Insertable<Lawsuite> lawsuite) =>
       update(lawsuites).replace(lawsuite);
 
   // Deletes
-  Future<void> deleteLawsuite(Lawsuite lawsuite) =>
+  Future<int> deleteLawsuite(Lawsuite lawsuite) =>
       delete(lawsuites).delete(lawsuite);
 
   Future<void> deleteLawsuiteById(int id) =>

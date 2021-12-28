@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
-import 'package:lucidum_legalis/utils/api.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/sidebar/add_menu.dart';
 import 'sidebar_bottom_navigation.dart';
 import 'sidebar_tab.dart';
@@ -16,7 +15,6 @@ class Siderbar extends StatefulWidget {
 enum Tabs { clients, lawsuites }
 
 class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
-  late final Api _api;
   late final UserDatabase _db;
   late final Stream<List<Client>> _clientsStream;
   late final Stream<List<Lawsuite>> _lawsuitesStream;
@@ -28,8 +26,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _api = api;
-    _db = _api.database;
+    _db = api.database;
 
     // Creates the data stream for clients and lawsuites
     _clientsStream = _db.clientDao.watchAllClients();
@@ -49,33 +46,23 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   }
 
   Future<void> _addClient() async {
-    final id = await _api.createClient();
-    /*final result = */ await _api.openClient(id: id);
-    // TODO use result
+    final id = await api.createClient();
+    await api.openClient(id: id, editMode: true);
     _closeAddMenu();
   }
 
-  void _addLawsuite() {
-    _api.createLawsuite();
+  Future<void> _addLawsuite() async {
+    final id = await api.createLawsuite();
+    api.openLawsuite(id: id, editMode: true);
     _closeAddMenu();
   }
 
   void _clientSelected(int id) async {
-    /*var result = */ await _api.openClient(id: id);
-    // TODO use result
-    /*if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
-      // TODO show dialog asking to save changes
-      print('TODO show dialog asking to save changes');
-    }*/
+    await api.openClient(id: id);
   }
 
   void _lawsuiteSelected(int id) async {
-    /*var result = */ await _api.openLawsuite(id: id);
-    // TODO use result
-    /*if (result == OpenTabBodyResult.UNSAVED_CHANGES) {
-      // TODO show dialog asking to save changes
-      print('TODO show dialog asking to save changes');
-    }*/
+    await api.openLawsuite(id: id);
   }
 
   void _closeAddMenu() {
