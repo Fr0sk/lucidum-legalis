@@ -40,6 +40,13 @@ class _LawsuiteInformationTab extends StatelessWidget {
     }
   }
 
+  Future<void> onStateChanged(LawsuiteState newState) async {
+    final lawsuite = tabState.dataNotifier.value;
+    if (lawsuite != null && lawsuite.state != newState) {
+      await api.saveLawsuite(lawsuite.copyWith(state: newState));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = tabState;
@@ -78,14 +85,24 @@ class _LawsuiteInformationTab extends StatelessWidget {
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: _onDelete,
+                    middle: _StateMenu(
+                      state: lawsuite.state,
+                      onChanged: onStateChanged,
+                    ),
                   ),
                   TitledCard(
-                    titleText: 'Against'.tr(),
+                    titleText: 'Identification'.tr(),
                     child: Row(
                       children: [
                         FlexibleTextField(
+                          controller: _codeController,
+                          readOnly: !state.edit,
+                          labelText: 'Code'.tr(),
+                        ),
+                        FlexibleTextField(
                           controller: _againstController,
                           readOnly: !state.edit,
+                          labelText: 'Against'.tr(),
                         ),
                       ],
                     ),

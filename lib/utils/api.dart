@@ -1,27 +1,55 @@
+import 'dart:io';
+
 import 'package:drift/drift.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/list_notifier.dart';
+import 'package:lucidum_legalis/utils/utils.dart';
 
 enum OpenTabBodyResult { success, unsavedChanges }
 
+enum FileSystemOperation { none, copy, move }
+
 class Api {
   final UserDatabase _db;
-  final tabs = ListNotifier<TabState>([]); //ValueNotifier<List<TabState>>([]);
-  final tabHistory =
-      ListNotifier<TabState>([]); //ValueNotifier<List<TabState>>([]);
-
-  //TabState? _openTabState;
+  final tabs = ListNotifier<TabState>([]);
+  final tabHistory = ListNotifier<TabState>([]);
+  final selectedFiles = ListNotifier<FileSystemEntity>([]);
+  var fileOperation = FileSystemOperation.none;
 
   Api() : _db = UserDatabase(databaseDir: AppDirectories.appDocDir);
 
   UserDatabase get database => _db;
   TabState? get openTabState => tabHistory.isEmpty ? null : tabHistory.last;
+
+  Future<void> copyFiles(List<FileSystemEntity> files) async {
+    fileOperation = FileSystemOperation.copy;
+    selectedFiles.replaceAll(files);
+  }
+
+  Future<void> cutFiles(List<FileSystemEntity> files) async {
+    fileOperation = FileSystemOperation.move;
+    selectedFiles.replaceAll(files);
+  }
+
+  Future<void> pasteFiles(Directory newDirectory) async {
+    if (selectedFiles.isEmpty || fileOperation == FileSystemOperation.none) {
+      return;
+    }
+
+    await Copy.list(selectedFiles.map((e) => e.path).toList(), newDirectory);
+    if (fileOperation == FileSystemOperation.move) {
+      for (var e in selectedFiles.value) {
+        await e.delete(recursive: true);
+      }
+      fileOperation = FileSystemOperation.none;
+      selectedFiles.clear();
+    }
+  }
 
   Future<int> createClient() async {
     final id = await (_db.clientDao.insertClient(ClientsCompanion.insert(

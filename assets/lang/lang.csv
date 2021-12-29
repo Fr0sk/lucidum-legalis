@@ -1,52 +1,76 @@
 ﻿" keys",en,pt_PT
-Add Client,Add Client,Adicionar Cliente
-Add Lawsuite,Add Lawsuite,Adicionar Processo
-Address,Address,Morada
-Against,Against,Parte Contrária
-Cancel,Cancel,Cancelar
-City,City,Cidade
-Civil Status,Civil Status,Estado Civil
-County,County,Distrito
-Court,Court,Juizo
-CreateAccount,Create Account,Criar Conta
-Database Locked,Database Locked,Base de Dados Bloqueada
-Delete,Delete,Apagar
-Dismiss,Dismiss,Ignorar
-District,District,Comarca
-Edit,Edit,Editar
-Enter the password to unlock the database:,Enter the password to unlock the database:,Introduza a palavra-passe para desbloquear a base de dados:
-Error creating user,Error creating user,Erro a criar o utilizador
-Error loading user,Error loading user,Erro a carregar o utilizador
-Form,Form,Forma
-ID Number,ID Number,Número de Cartão de Cidadão
-Identification,Identification,Identificação
-Invalid username,Invalid username,Nome de utilizador inválido
-Judge/Section,Judge,Juiz/Secção
-Judgement,Judgement,Juízo
-Leave,Leave,Sair
-Login,Login,Entrar
-LoginAutomatically,Login Automatically,Entrar Automaticamente
-Name,Name,Nome
-New Client,New Client,Novo Cliente
-New Lawsuite,New Lawsuite,Novo Processo
-NewAccount?,New Account?," Nova Conta?"
-Password,Password,Palavra Passe
-PasswordConfirmOptional,Confirm Password (Optional),Confirmar Palavra-passe (Opcional)
-PasswordOptional,Password (Optional),Palavra-passe (Opcional)
-Passwords do not match,Passwords do not match,As palavras-passe não são iguais
-Process Number,Process Number,Número de Processo
-Save,Save,Guardar
-Street,Street,Rua
-Tax Number,Tax Number,Número de Contribuinte
-Unlock,Unlock,Desbloquear
-Username,Username,Nome de Utilizador
-Username already exists,Username already exists,Nome de utilizador já existe
-Username is required,Username is required,Nome de utilizador é obrigatório
-Username not found,Username not found,Nome de utilizador não encontrado
-Welcome {},Welcome {},Olá {}
-Zip Code,Zip Code,Código Postal
-Clients,Clients,Clientes
-Lawsuites,Lawsuites,Processos
-Information,Information,Informação
-Notes,Notes,Notas
-Files,Files,Ficheiros
+"Add Client",Add Client,Adicionar Cliente
+"Add Lawsuite",Add Lawsuite,Adicionar Processo
+"Add new file",Add new file,Criar novo ficheiro
+"Add new folder",Add new folder,Criar nova pasta
+"Address",Address,Morada
+"Against",Against,Parte Contrária
+"Are you sure you want to permanently delete this file?",Are you sure you want to permanently delete this file?,Tem a certeza que pretente apagar permanentemente este ficheiro?
+"Are you sure you want to permanently delete this folder?",Are you sure you want to permanently delete this folder?,Tem a certeza que pretente apagar permanentemente esta pasta?
+"Cancel",Cancel,Cancelar
+"Change Name",Change Name,Alterar Nome
+"City",City,Cidade
+"Civil Status",Civil Status,Estado Civil
+"Closed",Closed,Fechado
+"Code",Code,Código
+"Confirm",Confirm,Confirmar
+"Copy",Copy,Copiar
+"County",County,Distrito
+"Court",Court,Juizo
+"CreateAccount",Create Account,Criar Conta
+"Cut",Cut,Cortar
+"Database Locked",Database Locked,Base de Dados Bloqueada
+"Delete",Delete,Apagar
+"Delete File",Delete File,Apagar Ficheiro
+"Delete Folder",Delete Folder,Delete Pasta
+"Dismiss",Dismiss,Ignorar
+"District",District,Comarca
+"Drop Files Here",Drop Files Here,
+"Edit",Edit,Editar
+"Enter the password to unlock the database:",Enter the password to unlock the database:,Introduza a palavra-passe para desbloquear a base de dados:
+"Error creating user",Error creating user,Erro a criar o utilizador
+"Error loading user",Error loading user,Erro a carregar o utilizador
+"Form",Form,Forma
+"ID Number",ID Number,Número de Cartão de Cidadão
+"Identification",Identification,Identificação
+"Invalid username",Invalid username,Nome de utilizador inválido
+"Judge/Section",Judge,Juiz/Secção
+"Judgement",Judgement,Juízo
+"Leave",Leave,Sair
+"Login",Login,Entrar
+"LoginAutomatically",Login Automatically,Entrar Automaticamente
+"Name",Name,Nome
+"New",New,Novo
+"New Client",New Client,Novo Cliente
+"New Folder",New Folder,Nova Pasta
+"New Lawsuite",New Lawsuite,Novo Processo
+"NewAccount?",New Account?," Nova Conta?"
+"No",No,Não
+"Open folder in explorer",Open folder in explorer,Abrir pasta no explorador
+"Opened",Opened,Aberto
+"Password",Password,Palavra Passe
+"PasswordConfirmOptional",Confirm Password (Optional),Confirmar Palavra-passe (Opcional)
+"PasswordOptional",Password (Optional),Palavra-passe (Opcional)
+"Passwords do not match",Passwords do not match,As palavras-passe não são iguais
+"Paste",Paste,
+"Process Number",Process Number,Número de Processo
+"Requires Attention",Requires Attention,Requer Atenção
+"Save",Save,Guardar
+"State",State,Estado
+"Street",Street,Rua
+"Tax Number",Tax Number,Número de Contribuinte
+"This folder is empty",This folder is empty,Esta pasta está vazia
+"Unlock",Unlock,Desbloquear
+"Username",Username,Nome de Utilizador
+"Username already exists",Username already exists,Nome de utilizador já existe
+"Username is required",Username is required,Nome de utilizador é obrigatório
+"Username not found",Username not found,Nome de utilizador não encontrado
+"Waiting",Waiting,Em Espera
+"Welcome {}",Welcome {},Olá {}
+"Yes",Yes,Sim
+"Zip Code",Zip Code,Código Postal
+"Clients",Clients,Clientes
+"Lawsuites",Lawsuites,Processos
+"Information",Information,Informação
+"Notes",Notes,Notas
+"Files",Files,Ficheiros

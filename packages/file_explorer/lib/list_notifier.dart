@@ -18,17 +18,6 @@ class ListNotifier<T> extends ValueNotifier<List<T>> {
 
   bool contains(T val) => value.contains(val);
 
-  void clear() {
-    value.clear();
-    notifyListeners();
-  }
-
-  void replaceAll(List<T> newList) {
-    value.clear();
-    value.addAll(newList);
-    notifyListeners();
-  }
-
   int indexWhere(bool Function(T) test, [int start = 0]) =>
       value.indexWhere(test, start);
 

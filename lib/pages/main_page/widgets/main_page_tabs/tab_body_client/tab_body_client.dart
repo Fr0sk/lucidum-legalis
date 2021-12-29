@@ -4,7 +4,7 @@ import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/page_header.dart';
-import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/file_explorer_tab.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/file_explorer_tab/file_explorer_tab.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/button_group.dart';
@@ -48,15 +48,12 @@ class TabBodyClient extends TabBodyBase<Client> {
           bodies: [
             _clientInformationTab,
             Container(color: Colors.green),
-            FileExplorerTab(
-              header: PageHeader(
-                icon: AppIcons.client,
-                label: StreamBuilder<Client>(
-                  stream: state.dataStream,
-                  builder: (_, snapshot) => Text(snapshot.data?.name ?? ''),
-                ),
+            ValueListenableBuilder<Client?>(
+              valueListenable: state.dataNotifier,
+              builder: (_, client, __) => FileExplorerTab(
+                basePathMask: client?.name,
+                path: AppDirectories.getClientDir(id: state.id).path,
               ),
-              path: AppDirectories.getClientDir(id: state.id).path,
             ),
           ],
         ),

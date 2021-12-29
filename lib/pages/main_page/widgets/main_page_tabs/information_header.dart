@@ -6,6 +6,8 @@ class InformationHeader extends StatelessWidget {
   final TextEditingController nameController;
   final bool readOnly;
   final Widget icon;
+  final Widget? middle;
+  final Widget? bottom;
   final void Function()? onEdit;
   final void Function()? onSave;
   final void Function()? onDelete;
@@ -15,6 +17,8 @@ class InformationHeader extends StatelessWidget {
     required this.nameController,
     required this.readOnly,
     required this.icon,
+    this.middle,
+    this.bottom,
     this.onEdit,
     this.onSave,
     this.onDelete,
@@ -25,40 +29,51 @@ class InformationHeader extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
+        child: Column(
           children: [
-            icon,
-            SizedBox(
-              width: 200,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                child: TextField(
-                  controller: nameController,
-                  readOnly: readOnly,
-                  decoration: InputDecoration(labelText: 'Name'.tr()),
+            Row(
+              children: [
+                icon,
+                SizedBox(
+                  width: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                    child: TextField(
+                      controller: nameController,
+                      readOnly: readOnly,
+                      decoration: InputDecoration(labelText: 'Name'.tr()),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const Spacer(),
-            readOnly
-                ? Container()
-                : IconButton(
+                if (middle != null)
+                  Expanded(
+                    child: Center(
+                      child: middle!,
+                    ),
+                  )
+                else
+                  const Spacer(),
+                if (!readOnly)
+                  IconButton(
                     onPressed: onSave,
                     icon: AppIcons.save,
                     color: Colors.green,
                   ),
-            readOnly
-                ? Container()
-                : IconButton(
+                if (!readOnly)
+                  IconButton(
                     onPressed: onDelete,
                     icon: AppIcons.delete,
                     color: Colors.red[700],
                   ),
-            IconButton(
-              onPressed: onEdit,
-              icon: AppIcons.edit,
-              color: readOnly ? null : Theme.of(context).colorScheme.secondary,
+                IconButton(
+                  onPressed: onEdit,
+                  icon: AppIcons.edit,
+                  color:
+                      readOnly ? null : Theme.of(context).colorScheme.secondary,
+                ),
+              ],
             ),
+            if (bottom != null) bottom!,
           ],
         ),
       ),

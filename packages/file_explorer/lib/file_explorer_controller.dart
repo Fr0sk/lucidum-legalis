@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:file_explorer/list_notifier.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 
@@ -7,10 +8,11 @@ class FileExplorerController extends ValueNotifier<String> {
   final String startPath;
   final bool onlySubdirectories;
   final bool watch;
+  final selected = ListNotifier<FileSystemEntity>([]);
   final void Function(File f)? fileSelected;
   final void Function(Link e)? linkSelected;
-  final void Function(FileSystemEntity entity)? onRename;
-  final void Function(FileSystemEntity entity)? onDelete;
+  //final void Function(FileSystemEntity entity)? onRename;
+  //final void Function(FileSystemEntity entity)? onDelete;
 
   StreamSubscription? _dirWatchStream;
 
@@ -20,8 +22,8 @@ class FileExplorerController extends ValueNotifier<String> {
     this.watch = false,
     this.fileSelected,
     this.linkSelected,
-    this.onRename,
-    this.onDelete,
+    //this.onRename,
+    //this.onDelete,
   }) : super(Directory(startPath).path) {
     if (watch) {
       _watchDir();

@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-enum LawsuiteState { open, waiting, closed }
+enum LawsuiteState { open, waiting, closed, requiresAttention }
 
 class Lawsuites extends Table {
   IntColumn get id => integer().autoIncrement()();

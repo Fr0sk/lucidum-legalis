@@ -35,6 +35,8 @@ dependencies:
   material_design_icons_flutter: ^5.0.6295  # Material icons for application
   animate_icons: ^2.0.0                     # Animate icons for open/close sidebar menu
   awesome_dialog: ^2.1.1                    # Animated dialogs
+  url_launcher: ^6.0.17                     # Open file in default applications
+  desktop_drop: ^0.3.0                      # Dropping files into the application
   file_explorer:
     path: 'packages/file_explorer'
   window_size:
