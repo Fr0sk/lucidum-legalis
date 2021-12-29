@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/sidebar/add_menu.dart';
@@ -32,16 +33,32 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
     _clientsStream = _db.clientDao.watchAllClients();
     _lawsuitesStream = _db.lawsuiteDao.watchAllLawsuites();
 
+    api.tabHistory.addListener(() {
+      if (api.tabHistory.isEmpty) {
+        return;
+      }
+
+      if (api.tabHistory.last is TabState<Client>) {
+        _showClients();
+      } else if (api.tabHistory.last is TabState<Lawsuite>) {
+        _showLawsuites();
+      }
+    });
+
     super.initState();
   }
 
   void _showClients() {
-    setState(() => _selectedTab = Tabs.clients);
+    if (_selectedTab != Tabs.clients) {
+      setState(() => _selectedTab = Tabs.clients);
+    }
     _closeAddMenu();
   }
 
   void _showLawsuites() {
-    setState(() => _selectedTab = Tabs.lawsuites);
+    if (_selectedTab != Tabs.lawsuites) {
+      setState(() => _selectedTab = Tabs.lawsuites);
+    }
     _closeAddMenu();
   }
 

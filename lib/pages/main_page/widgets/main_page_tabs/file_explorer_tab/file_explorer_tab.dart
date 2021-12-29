@@ -13,6 +13,8 @@ import 'package:lucidum_legalis/widgets/drop_target.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:path/path.dart' as p;
 
+part '_toolbar.part.dart';
+
 class FileExplorerTab extends StatelessWidget {
   final String path;
   final String? basePathMask;
@@ -104,112 +106,13 @@ class FileExplorerTab extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          //if (header != null) header!,
-          Card(
-            child: Row(
-              children: [
-                ValueListenableBuilder(
-                  valueListenable: _controller,
-                  builder: (_, __, ___) => IconButton(
-                    onPressed:
-                        _controller.canGoBack() ? _controller.back : null,
-                    icon: AppIcons.back,
-                  ),
-                ),
-                Tooltip(
-                  message: 'Open folder in explorer'.tr(),
-                  child: IconButton(
-                      onPressed: () => launch(_controller.directory.path),
-                      icon: AppIcons.folderOpenColored),
-                ),
-                Tooltip(
-                  message: 'Add new folder'.tr(),
-                  child: IconButton(
-                      onPressed: () => createFolder(context),
-                      icon: AppIcons.folderAddColored),
-                ),
-                PopupMenuButton(
-                  tooltip: 'Add new file'.tr(),
-                  child: AppIcons.fileAdd,
-                  onSelected: (selected) {
-                    print('Selected');
-                    // TODO handle selected
-                  },
-                  itemBuilder: (_) => <PopupMenuEntry>[
-                    PopupMenuItem(
-                      onTap: () =>
-                          Directory(p.join(_controller.directory.path, 'Teste'))
-                              .create(recursive: true),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.folder),
-                          SizedBox(width: 8),
-                          Text('Add Directory')
-                        ],
-                      ),
-                    ),
-                    const PopupMenuDivider(),
-                    PopupMenuItem(
-                      child: Row(
-                        children: const [
-                          Icon(Icons.folder),
-                          SizedBox(width: 8),
-                          Text('Add Directory')
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20, child: VerticalDivider()),
-                Tooltip(
-                  message: 'Copy'.tr(),
-                  child: ValueListenableBuilder<List<FileSystemEntity>>(
-                    valueListenable: _controller.selected,
-                    builder: (_, selected, __) => IconButton(
-                      color: Theme.of(context).colorScheme.secondary,
-                      onPressed:
-                          selected.isEmpty ? null : () => onCopy(context),
-                      icon: AppIcons.copy,
-                    ),
-                  ),
-                ),
-                Tooltip(
-                  message: 'Cut'.tr(),
-                  child: ValueListenableBuilder<List<FileSystemEntity>>(
-                    valueListenable: _controller.selected,
-                    builder: (_, selected, __) => IconButton(
-                      color: Theme.of(context).colorScheme.secondary,
-                      onPressed: selected.isEmpty ? null : () => onCut(context),
-                      icon: AppIcons.cut,
-                    ),
-                  ),
-                ),
-                Tooltip(
-                  message: 'Paste'.tr(),
-                  child: ValueListenableBuilder<List<FileSystemEntity>>(
-                    valueListenable: api.selectedFiles,
-                    builder: (_, selected, __) => IconButton(
-                      color: Theme.of(context).colorScheme.secondary,
-                      onPressed:
-                          selected.isEmpty ? null : () => onPaste(context),
-                      icon: AppIcons.paste,
-                    ),
-                  ),
-                ),
-                Tooltip(
-                  message: 'Delete'.tr(),
-                  child: ValueListenableBuilder<List<FileSystemEntity>>(
-                    valueListenable: _controller.selected,
-                    builder: (_, selected, __) => IconButton(
-                      color: Theme.of(context).colorScheme.secondary,
-                      onPressed:
-                          selected.isEmpty ? null : () => onDelete(context),
-                      icon: AppIcons.delete,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          _Toolbar(
+            controller: _controller,
+            onCreateFolder: () => createFolder(context),
+            onCopy: () => onCopy(context),
+            onCut: () => onCut(context),
+            onPaste: () => onPaste(context),
+            onDelete: () => onDelete(context),
           ),
           Row(
             children: [

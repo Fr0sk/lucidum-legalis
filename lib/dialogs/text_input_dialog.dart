@@ -1,7 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lucidum_legalis/widgets/password_form_field.dart';
 
 class TextInputDialog {
   static Future<String?> show({

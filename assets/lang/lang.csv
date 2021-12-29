@@ -21,6 +21,7 @@
 "Cut",Cut,Cortar
 "Database Locked",Database Locked,Base de Dados Bloqueada
 "Delete",Delete,Apagar
+"Delete {}",Delete {},Apagar {}
 "Delete File",Delete File,Apagar Ficheiro
 "Delete Folder",Delete Folder,Delete Pasta
 "Dismiss",Dismiss,Ignorar
@@ -52,13 +53,15 @@
 "PasswordConfirmOptional",Confirm Password (Optional),Confirmar Palavra-passe (Opcional)
 "PasswordOptional",Password (Optional),Palavra-passe (Opcional)
 "Passwords do not match",Passwords do not match,As palavras-passe não são iguais
-"Paste",Paste,
+"Paste",Paste,Colar
 "Process Number",Process Number,Número de Processo
 "Requires Attention",Requires Attention,Requer Atenção
 "Save",Save,Guardar
 "State",State,Estado
 "Street",Street,Rua
 "Tax Number",Tax Number,Número de Contribuinte
+"This action will also delete all the files associated with this client.",This action will also delete all the files associated with this client.,Esta ação também irá apagar todos os ficheiros associados a este cliente.
+"This action will also delete all the files associated with this lawsuite.",This action will also delete all the files associated with this lawsuite.,Esta ação também irá apagar todos os ficheiros associados a este processo.
 "This folder is empty",This folder is empty,Esta pasta está vazia
 "Unlock",Unlock,Desbloquear
 "Username",Username,Nome de Utilizador

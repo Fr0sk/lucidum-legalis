@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/dialogs/yes_no_dialog.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart';

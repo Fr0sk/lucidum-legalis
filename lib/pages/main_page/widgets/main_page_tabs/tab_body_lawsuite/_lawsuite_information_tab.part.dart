@@ -32,11 +32,19 @@ class _LawsuiteInformationTab extends StatelessWidget {
     }
   }
 
-  void _onDelete() {
+  Future<void> _onDelete(BuildContext context) async {
     final lawsuite = tabState.dataNotifier.value;
     if (lawsuite != null) {
-      api.closeTab(tabState: tabState);
-      api.deleteLawsuite(lawsuite);
+      final result = await YesNoDialog.show(
+          context: context,
+          title: 'Delete {}?'.tr(args: [lawsuite.name]),
+          description:
+              'This action will also delete all the files associated with this lawsuite.'
+                  .tr());
+      if (result) {
+        api.closeTab(tabState: tabState);
+        api.deleteLawsuite(lawsuite);
+      }
     }
   }
 
@@ -84,7 +92,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
                     icon: AppIcons.lawsuite,
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
-                    onDelete: _onDelete,
+                    onDelete: () => _onDelete(context),
                     middle: _StateMenu(
                       state: lawsuite.state,
                       onChanged: onStateChanged,

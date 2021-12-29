@@ -36,12 +36,20 @@ class _ClientInformationTab extends StatelessWidget {
     }
   }
 
-  void _onDelete() {
-    // Todo Fix _onDelete
+  Future<void> _onDelete(BuildContext context) async {
     final client = tabState.dataNotifier.value;
+
     if (client != null) {
-      api.closeTab(tabState: tabState);
-      api.deleteClient(client);
+      final result = await YesNoDialog.show(
+          context: context,
+          title: 'Delete {}?'.tr(args: [client.name]),
+          description:
+              'This action will also delete all the files associated with this client.'
+                  .tr());
+      if (result) {
+        api.closeTab(tabState: tabState);
+        api.deleteClient(client);
+      }
     }
   }
 
@@ -82,7 +90,7 @@ class _ClientInformationTab extends StatelessWidget {
                     icon: AppIcons.client,
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
-                    onDelete: _onDelete,
+                    onDelete: () => _onDelete(context),
                   ),
                   _Identification(
                     idNumberController: _idNumberController,

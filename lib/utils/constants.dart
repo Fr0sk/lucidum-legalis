@@ -8,7 +8,7 @@ class Fonts {
 
 class App {
   static const title = 'Lucidum Legalis';
-  static const windowMinSize = Size(600, 400);
+  static const windowMinSize = Size(900, 600);
 }
 
 class Widgets {
