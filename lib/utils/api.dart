@@ -52,15 +52,25 @@ class Api {
   }
 
   Future<int> createClient() async {
-    final id = await (_db.clientDao.insertClient(ClientsCompanion.insert(
-        name: 'New Client'.tr(), type: const Value(ClientType.person))));
+    final id = await _db.clientDao.insertClient(
+      ClientsCompanion.insert(
+        name: 'New Client'.tr(),
+        type: ClientType.person,
+        createdAt: DateTime.now(),
+      ),
+    );
     await AppDirectories.getClientDir(id: id).create(recursive: true);
     return id;
   }
 
   Future<int> createLawsuite() async {
-    final id = await _db.lawsuiteDao.insertLawsuite(LawsuitesCompanion.insert(
-        name: 'New Lawsuite'.tr(), state: LawsuiteState.open));
+    final id = await _db.lawsuiteDao.insertLawsuite(
+      LawsuitesCompanion.insert(
+        name: 'New Lawsuite'.tr(),
+        state: LawsuiteState.open,
+        createdAt: DateTime.now(),
+      ),
+    );
     await AppDirectories.getLawsuiteDir(id: id).create(recursive: true);
     return id;
   }

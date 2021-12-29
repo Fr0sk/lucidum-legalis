@@ -70,9 +70,9 @@ class _LawsuiteInformationTab extends StatelessWidget {
         return ValueListenableBuilder(
           valueListenable: state.editNotifier,
           builder: (_, editMode, __) {
+            _nameController.text = lawsuite.name;
             if (!state.edit) {
               // If loading data
-              _nameController.text = lawsuite.name;
               _againstController.text = lawsuite.against ?? '';
               _codeController.text = lawsuite.code ?? '';
               _processNumberController.text = lawsuite.processNumber ?? '';
@@ -96,6 +96,25 @@ class _LawsuiteInformationTab extends StatelessWidget {
                     middle: _StateMenu(
                       state: lawsuite.state,
                       onChanged: onStateChanged,
+                    ),
+                    bottom: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
+                          child: Text(
+                            'Created at {}'.tr(
+                              args: [
+                                DateFormat('dd-MM-yyyy')
+                                    .format(lawsuite.createdAt),
+                              ],
+                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption
+                                ?.copyWith(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   TitledCard(

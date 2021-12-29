@@ -68,9 +68,9 @@ class _ClientInformationTab extends StatelessWidget {
         return ValueListenableBuilder(
           valueListenable: state.editNotifier,
           builder: (_, editMode, __) {
+            _nameController.text = client.name;
             if (!state.edit) {
               // If loading data
-              _nameController.text = client.name;
               _idNumberController.text = client.idNumber ?? '';
               _taxNumberController.text = client.taxNumber?.toString() ?? '';
               _civilStatusController.text = client.civilStatus ?? '';
@@ -91,6 +91,25 @@ class _ClientInformationTab extends StatelessWidget {
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),
+                    bottom: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
+                          child: Text(
+                            'Created at {}'.tr(
+                              args: [
+                                DateFormat('dd-MM-yyyy')
+                                    .format(client.createdAt),
+                              ],
+                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption
+                                ?.copyWith(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   _Identification(
                     idNumberController: _idNumberController,
