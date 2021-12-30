@@ -11,6 +11,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
   final _courtController = TextEditingController();
   final _judgementController = TextEditingController();
   final _formController = TextEditingController();
+  final _legalSupportController = TextEditingController();
 
   _LawsuiteInformationTab({Key? key, required this.tabState}) : super(key: key);
 
@@ -19,14 +20,16 @@ class _LawsuiteInformationTab extends StatelessWidget {
 
     if (lawsuite != null) {
       api.saveLawsuite(lawsuite.copyWith(
-          name: _nameController.text,
-          against: _againstController.text,
-          code: _codeController.text,
-          processNumber: _processNumberController.text,
-          district: _districtController.text,
-          court: _courtController.text,
-          judgement: _judgementController.text,
-          form: _formController.text));
+        name: _nameController.text,
+        against: _againstController.text,
+        code: _codeController.text,
+        processNumber: _processNumberController.text,
+        district: _districtController.text,
+        court: _courtController.text,
+        judgement: _judgementController.text,
+        form: _formController.text,
+        legalSupportNumber: _legalSupportController.text,
+      ));
 
       tabState.edit = false;
     }
@@ -80,6 +83,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
               _courtController.text = lawsuite.court ?? '';
               _judgementController.text = lawsuite.judgement ?? '';
               _formController.text = lawsuite.form ?? '';
+              _legalSupportController.text = lawsuite.legalSupportNumber ?? '';
             }
 
             return SingleChildScrollView(
@@ -96,25 +100,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
                     middle: _StateMenu(
                       state: lawsuite.state,
                       onChanged: onStateChanged,
-                    ),
-                    bottom: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
-                          child: Text(
-                            'Created at {}'.tr(
-                              args: [
-                                DateFormat('dd-MM-yyyy')
-                                    .format(lawsuite.createdAt),
-                              ],
-                            ),
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption
-                                ?.copyWith(fontStyle: FontStyle.italic),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                   TitledCard(
@@ -146,19 +131,28 @@ class _LawsuiteInformationTab extends StatelessWidget {
                               labelText: 'Process Number'.tr(),
                             ),
                             FlexibleTextField(
-                              controller: _districtController,
+                              controller: _legalSupportController,
                               readOnly: !state.edit,
-                              labelText: 'District'.tr(),
+                              labelText: 'Legal Support Number'.tr(),
                             ),
                           ],
                         ),
                         Row(
                           children: [
                             FlexibleTextField(
+                              controller: _districtController,
+                              readOnly: !state.edit,
+                              labelText: 'District'.tr(),
+                            ),
+                            FlexibleTextField(
                               controller: _courtController,
                               readOnly: !state.edit,
                               labelText: 'Court'.tr(),
                             ),
+                          ],
+                        ),
+                        Row(
+                          children: [
                             FlexibleTextField(
                               controller: _judgementController,
                               readOnly: !state.edit,
@@ -173,6 +167,26 @@ class _LawsuiteInformationTab extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Created at {}'.tr(
+                            args: [
+                              DateFormat('dd-MM-yyyy')
+                                  .format(lawsuite.createdAt),
+                            ],
+                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              ?.copyWith(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

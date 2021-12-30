@@ -2,23 +2,19 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/pages/main_page/main_page.dart';
+import 'package:lucidum_legalis/services/alert_system.dart.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
+import 'package:lucidum_legalis/services/notification_system.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
-import 'package:sqlite3/open.dart';
 import 'package:window_size/window_size.dart';
 
-void setupSqlitePlatformOverrides() {
-  //final script = File(Platform.script.toFilePath());
-  open.overrideFor(
-      OperatingSystem.linux, () => DynamicLibrary.open('libsqlite.so'));
-  open.overrideFor(
-      OperatingSystem.windows, () => DynamicLibrary.open('sqlite3.dll'));
-}
-
 late final Api api;
+late final AppNotifications appNotifications;
+late final AppAlerts appAlerts;
 
 Future<void> main() async {
   // Shows splash screen while app is loading
@@ -28,8 +24,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await AppDirectories.ensureInitialized();
-  setupSqlitePlatformOverrides();
+  UserDatabase.setupSqlitePlatformOverrides();
+
   api = Api();
+  appNotifications = AppNotifications();
+  appAlerts = AppAlerts();
 
   // Sets window settings
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {

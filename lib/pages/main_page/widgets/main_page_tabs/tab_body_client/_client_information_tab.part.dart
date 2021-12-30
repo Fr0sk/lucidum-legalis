@@ -91,25 +91,6 @@ class _ClientInformationTab extends StatelessWidget {
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),
-                    bottom: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
-                          child: Text(
-                            'Created at {}'.tr(
-                              args: [
-                                DateFormat('dd-MM-yyyy')
-                                    .format(client.createdAt),
-                              ],
-                            ),
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption
-                                ?.copyWith(fontStyle: FontStyle.italic),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                   _Identification(
                     idNumberController: _idNumberController,
@@ -123,6 +104,25 @@ class _ClientInformationTab extends StatelessWidget {
                     cityController: _cityController,
                     countyController: _countyController,
                     readOnly: !state.edit,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Created at {}'.tr(
+                            args: [
+                              DateFormat('dd-MM-yyyy').format(client.createdAt),
+                            ],
+                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              ?.copyWith(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

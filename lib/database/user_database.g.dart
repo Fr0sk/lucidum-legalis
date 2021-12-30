@@ -1495,6 +1495,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
   final String? court;
   final String? judgement;
   final String? form;
+  final String? legalSupportNumber;
   final DateTime createdAt;
   Lawsuite(
       {required this.id,
@@ -1507,6 +1508,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       this.court,
       this.judgement,
       this.form,
+      this.legalSupportNumber,
       required this.createdAt});
   factory Lawsuite.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -1531,6 +1533,8 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           .mapFromDatabaseResponse(data['${effectivePrefix}judgement']),
       form: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}form']),
+      legalSupportNumber: const StringType().mapFromDatabaseResponse(
+          data['${effectivePrefix}legal_support_number']),
       createdAt: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
     );
@@ -1565,6 +1569,9 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
     if (!nullToAbsent || form != null) {
       map['form'] = Variable<String?>(form);
     }
+    if (!nullToAbsent || legalSupportNumber != null) {
+      map['legal_support_number'] = Variable<String?>(legalSupportNumber);
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
@@ -1590,6 +1597,9 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           ? const Value.absent()
           : Value(judgement),
       form: form == null && nullToAbsent ? const Value.absent() : Value(form),
+      legalSupportNumber: legalSupportNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(legalSupportNumber),
       createdAt: Value(createdAt),
     );
   }
@@ -1608,6 +1618,8 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       court: serializer.fromJson<String?>(json['court']),
       judgement: serializer.fromJson<String?>(json['judgement']),
       form: serializer.fromJson<String?>(json['form']),
+      legalSupportNumber:
+          serializer.fromJson<String?>(json['legalSupportNumber']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
@@ -1625,6 +1637,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       'court': serializer.toJson<String?>(court),
       'judgement': serializer.toJson<String?>(judgement),
       'form': serializer.toJson<String?>(form),
+      'legalSupportNumber': serializer.toJson<String?>(legalSupportNumber),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
@@ -1640,6 +1653,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           String? court,
           String? judgement,
           String? form,
+          String? legalSupportNumber,
           DateTime? createdAt}) =>
       Lawsuite(
         id: id ?? this.id,
@@ -1652,6 +1666,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
         court: court ?? this.court,
         judgement: judgement ?? this.judgement,
         form: form ?? this.form,
+        legalSupportNumber: legalSupportNumber ?? this.legalSupportNumber,
         createdAt: createdAt ?? this.createdAt,
       );
   @override
@@ -1667,6 +1682,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           ..write('court: $court, ')
           ..write('judgement: $judgement, ')
           ..write('form: $form, ')
+          ..write('legalSupportNumber: $legalSupportNumber, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -1674,7 +1690,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
 
   @override
   int get hashCode => Object.hash(id, name, state, against, code, processNumber,
-      district, court, judgement, form, createdAt);
+      district, court, judgement, form, legalSupportNumber, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1689,6 +1705,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           other.court == this.court &&
           other.judgement == this.judgement &&
           other.form == this.form &&
+          other.legalSupportNumber == this.legalSupportNumber &&
           other.createdAt == this.createdAt);
 }
 
@@ -1703,6 +1720,7 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
   final Value<String?> court;
   final Value<String?> judgement;
   final Value<String?> form;
+  final Value<String?> legalSupportNumber;
   final Value<DateTime> createdAt;
   const LawsuitesCompanion({
     this.id = const Value.absent(),
@@ -1715,6 +1733,7 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     this.court = const Value.absent(),
     this.judgement = const Value.absent(),
     this.form = const Value.absent(),
+    this.legalSupportNumber = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
   LawsuitesCompanion.insert({
@@ -1728,6 +1747,7 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     this.court = const Value.absent(),
     this.judgement = const Value.absent(),
     this.form = const Value.absent(),
+    this.legalSupportNumber = const Value.absent(),
     required DateTime createdAt,
   })  : name = Value(name),
         state = Value(state),
@@ -1743,6 +1763,7 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     Expression<String?>? court,
     Expression<String?>? judgement,
     Expression<String?>? form,
+    Expression<String?>? legalSupportNumber,
     Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
@@ -1756,6 +1777,8 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
       if (court != null) 'court': court,
       if (judgement != null) 'judgement': judgement,
       if (form != null) 'form': form,
+      if (legalSupportNumber != null)
+        'legal_support_number': legalSupportNumber,
       if (createdAt != null) 'created_at': createdAt,
     });
   }
@@ -1771,6 +1794,7 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
       Value<String?>? court,
       Value<String?>? judgement,
       Value<String?>? form,
+      Value<String?>? legalSupportNumber,
       Value<DateTime>? createdAt}) {
     return LawsuitesCompanion(
       id: id ?? this.id,
@@ -1783,6 +1807,7 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
       court: court ?? this.court,
       judgement: judgement ?? this.judgement,
       form: form ?? this.form,
+      legalSupportNumber: legalSupportNumber ?? this.legalSupportNumber,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -1821,6 +1846,9 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     if (form.present) {
       map['form'] = Variable<String?>(form.value);
     }
+    if (legalSupportNumber.present) {
+      map['legal_support_number'] = Variable<String?>(legalSupportNumber.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -1840,6 +1868,7 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
           ..write('court: $court, ')
           ..write('judgement: $judgement, ')
           ..write('form: $form, ')
+          ..write('legalSupportNumber: $legalSupportNumber, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -1905,6 +1934,12 @@ class $LawsuitesTable extends Lawsuites
   late final GeneratedColumn<String?> form = GeneratedColumn<String?>(
       'form', aliasedName, true,
       type: const StringType(), requiredDuringInsert: false);
+  final VerificationMeta _legalSupportNumberMeta =
+      const VerificationMeta('legalSupportNumber');
+  @override
+  late final GeneratedColumn<String?> legalSupportNumber =
+      GeneratedColumn<String?>('legal_support_number', aliasedName, true,
+          type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime?> createdAt = GeneratedColumn<DateTime?>(
@@ -1922,6 +1957,7 @@ class $LawsuitesTable extends Lawsuites
         court,
         judgement,
         form,
+        legalSupportNumber,
         createdAt
       ];
   @override
@@ -1972,6 +2008,12 @@ class $LawsuitesTable extends Lawsuites
     if (data.containsKey('form')) {
       context.handle(
           _formMeta, form.isAcceptableOrUnknown(data['form']!, _formMeta));
+    }
+    if (data.containsKey('legal_support_number')) {
+      context.handle(
+          _legalSupportNumberMeta,
+          legalSupportNumber.isAcceptableOrUnknown(
+              data['legal_support_number']!, _legalSupportNumberMeta));
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -2203,6 +2245,687 @@ class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
   }
 }
 
+class AppNotification extends DataClass implements Insertable<AppNotification> {
+  final int id;
+  final String? title;
+  final String? content;
+  final NotificationType? type;
+  final bool emitted;
+  final DateTime createdAt;
+  AppNotification(
+      {required this.id,
+      this.title,
+      this.content,
+      this.type,
+      required this.emitted,
+      required this.createdAt});
+  factory AppNotification.fromData(Map<String, dynamic> data,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return AppNotification(
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title']),
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}content']),
+      type: $AppNotificationsTable.$converter0.mapToDart(const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}type'])),
+      emitted: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}emitted'])!,
+      createdAt: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String?>(title);
+    }
+    if (!nullToAbsent || content != null) {
+      map['content'] = Variable<String?>(content);
+    }
+    if (!nullToAbsent || type != null) {
+      final converter = $AppNotificationsTable.$converter0;
+      map['type'] = Variable<int?>(converter.mapToSql(type));
+    }
+    map['emitted'] = Variable<bool>(emitted);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  AppNotificationsCompanion toCompanion(bool nullToAbsent) {
+    return AppNotificationsCompanion(
+      id: Value(id),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      content: content == null && nullToAbsent
+          ? const Value.absent()
+          : Value(content),
+      type: type == null && nullToAbsent ? const Value.absent() : Value(type),
+      emitted: Value(emitted),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory AppNotification.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AppNotification(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String?>(json['title']),
+      content: serializer.fromJson<String?>(json['content']),
+      type: serializer.fromJson<NotificationType?>(json['type']),
+      emitted: serializer.fromJson<bool>(json['emitted']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String?>(title),
+      'content': serializer.toJson<String?>(content),
+      'type': serializer.toJson<NotificationType?>(type),
+      'emitted': serializer.toJson<bool>(emitted),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  AppNotification copyWith(
+          {int? id,
+          String? title,
+          String? content,
+          NotificationType? type,
+          bool? emitted,
+          DateTime? createdAt}) =>
+      AppNotification(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        content: content ?? this.content,
+        type: type ?? this.type,
+        emitted: emitted ?? this.emitted,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('AppNotification(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('type: $type, ')
+          ..write('emitted: $emitted, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, title, content, type, emitted, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AppNotification &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.content == this.content &&
+          other.type == this.type &&
+          other.emitted == this.emitted &&
+          other.createdAt == this.createdAt);
+}
+
+class AppNotificationsCompanion extends UpdateCompanion<AppNotification> {
+  final Value<int> id;
+  final Value<String?> title;
+  final Value<String?> content;
+  final Value<NotificationType?> type;
+  final Value<bool> emitted;
+  final Value<DateTime> createdAt;
+  const AppNotificationsCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.content = const Value.absent(),
+    this.type = const Value.absent(),
+    this.emitted = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  AppNotificationsCompanion.insert({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.content = const Value.absent(),
+    this.type = const Value.absent(),
+    this.emitted = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  static Insertable<AppNotification> custom({
+    Expression<int>? id,
+    Expression<String?>? title,
+    Expression<String?>? content,
+    Expression<NotificationType?>? type,
+    Expression<bool>? emitted,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (content != null) 'content': content,
+      if (type != null) 'type': type,
+      if (emitted != null) 'emitted': emitted,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  AppNotificationsCompanion copyWith(
+      {Value<int>? id,
+      Value<String?>? title,
+      Value<String?>? content,
+      Value<NotificationType?>? type,
+      Value<bool>? emitted,
+      Value<DateTime>? createdAt}) {
+    return AppNotificationsCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      type: type ?? this.type,
+      emitted: emitted ?? this.emitted,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String?>(title.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String?>(content.value);
+    }
+    if (type.present) {
+      final converter = $AppNotificationsTable.$converter0;
+      map['type'] = Variable<int?>(converter.mapToSql(type.value));
+    }
+    if (emitted.present) {
+      map['emitted'] = Variable<bool>(emitted.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AppNotificationsCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('type: $type, ')
+          ..write('emitted: $emitted, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AppNotificationsTable extends AppNotifications
+    with TableInfo<$AppNotificationsTable, AppNotification> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $AppNotificationsTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      type: const IntType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+  final VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
+  final VerificationMeta _contentMeta = const VerificationMeta('content');
+  @override
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
+  final VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumnWithTypeConverter<NotificationType?, int?> type =
+      GeneratedColumn<int?>('type', aliasedName, true,
+              type: const IntType(), requiredDuringInsert: false)
+          .withConverter<NotificationType?>($AppNotificationsTable.$converter0);
+  final VerificationMeta _emittedMeta = const VerificationMeta('emitted');
+  @override
+  late final GeneratedColumn<bool?> emitted = GeneratedColumn<bool?>(
+      'emitted', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (emitted IN (0, 1))',
+      defaultValue: const Constant(false));
+  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime?> createdAt = GeneratedColumn<DateTime?>(
+      'created_at', aliasedName, false,
+      type: const IntType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant(DateTime.now()));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, title, content, type, emitted, createdAt];
+  @override
+  String get aliasedName => _alias ?? 'app_notifications';
+  @override
+  String get actualTableName => 'app_notifications';
+  @override
+  VerificationContext validateIntegrity(Insertable<AppNotification> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    }
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    }
+    context.handle(_typeMeta, const VerificationResult.success());
+    if (data.containsKey('emitted')) {
+      context.handle(_emittedMeta,
+          emitted.isAcceptableOrUnknown(data['emitted']!, _emittedMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AppNotification map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return AppNotification.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  }
+
+  @override
+  $AppNotificationsTable createAlias(String alias) {
+    return $AppNotificationsTable(_db, alias);
+  }
+
+  static TypeConverter<NotificationType?, int> $converter0 =
+      const EnumIndexConverter<NotificationType>(NotificationType.values);
+}
+
+class Alert extends DataClass implements Insertable<Alert> {
+  final int id;
+  final String? title;
+  final String? content;
+  final NotificationType? type;
+  final bool emitted;
+  final DateTime emitAt;
+  final DateTime createdAt;
+  Alert(
+      {required this.id,
+      this.title,
+      this.content,
+      this.type,
+      required this.emitted,
+      required this.emitAt,
+      required this.createdAt});
+  factory Alert.fromData(Map<String, dynamic> data, {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return Alert(
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title']),
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}content']),
+      type: $AlertsTable.$converter0.mapToDart(const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}type'])),
+      emitted: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}emitted'])!,
+      emitAt: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}emit_at'])!,
+      createdAt: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String?>(title);
+    }
+    if (!nullToAbsent || content != null) {
+      map['content'] = Variable<String?>(content);
+    }
+    if (!nullToAbsent || type != null) {
+      final converter = $AlertsTable.$converter0;
+      map['type'] = Variable<int?>(converter.mapToSql(type));
+    }
+    map['emitted'] = Variable<bool>(emitted);
+    map['emit_at'] = Variable<DateTime>(emitAt);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  AlertsCompanion toCompanion(bool nullToAbsent) {
+    return AlertsCompanion(
+      id: Value(id),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      content: content == null && nullToAbsent
+          ? const Value.absent()
+          : Value(content),
+      type: type == null && nullToAbsent ? const Value.absent() : Value(type),
+      emitted: Value(emitted),
+      emitAt: Value(emitAt),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory Alert.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Alert(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String?>(json['title']),
+      content: serializer.fromJson<String?>(json['content']),
+      type: serializer.fromJson<NotificationType?>(json['type']),
+      emitted: serializer.fromJson<bool>(json['emitted']),
+      emitAt: serializer.fromJson<DateTime>(json['emitAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String?>(title),
+      'content': serializer.toJson<String?>(content),
+      'type': serializer.toJson<NotificationType?>(type),
+      'emitted': serializer.toJson<bool>(emitted),
+      'emitAt': serializer.toJson<DateTime>(emitAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  Alert copyWith(
+          {int? id,
+          String? title,
+          String? content,
+          NotificationType? type,
+          bool? emitted,
+          DateTime? emitAt,
+          DateTime? createdAt}) =>
+      Alert(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        content: content ?? this.content,
+        type: type ?? this.type,
+        emitted: emitted ?? this.emitted,
+        emitAt: emitAt ?? this.emitAt,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Alert(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('type: $type, ')
+          ..write('emitted: $emitted, ')
+          ..write('emitAt: $emitAt, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, title, content, type, emitted, emitAt, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Alert &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.content == this.content &&
+          other.type == this.type &&
+          other.emitted == this.emitted &&
+          other.emitAt == this.emitAt &&
+          other.createdAt == this.createdAt);
+}
+
+class AlertsCompanion extends UpdateCompanion<Alert> {
+  final Value<int> id;
+  final Value<String?> title;
+  final Value<String?> content;
+  final Value<NotificationType?> type;
+  final Value<bool> emitted;
+  final Value<DateTime> emitAt;
+  final Value<DateTime> createdAt;
+  const AlertsCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.content = const Value.absent(),
+    this.type = const Value.absent(),
+    this.emitted = const Value.absent(),
+    this.emitAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  AlertsCompanion.insert({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.content = const Value.absent(),
+    this.type = const Value.absent(),
+    this.emitted = const Value.absent(),
+    required DateTime emitAt,
+    this.createdAt = const Value.absent(),
+  }) : emitAt = Value(emitAt);
+  static Insertable<Alert> custom({
+    Expression<int>? id,
+    Expression<String?>? title,
+    Expression<String?>? content,
+    Expression<NotificationType?>? type,
+    Expression<bool>? emitted,
+    Expression<DateTime>? emitAt,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (content != null) 'content': content,
+      if (type != null) 'type': type,
+      if (emitted != null) 'emitted': emitted,
+      if (emitAt != null) 'emit_at': emitAt,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  AlertsCompanion copyWith(
+      {Value<int>? id,
+      Value<String?>? title,
+      Value<String?>? content,
+      Value<NotificationType?>? type,
+      Value<bool>? emitted,
+      Value<DateTime>? emitAt,
+      Value<DateTime>? createdAt}) {
+    return AlertsCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      type: type ?? this.type,
+      emitted: emitted ?? this.emitted,
+      emitAt: emitAt ?? this.emitAt,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String?>(title.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String?>(content.value);
+    }
+    if (type.present) {
+      final converter = $AlertsTable.$converter0;
+      map['type'] = Variable<int?>(converter.mapToSql(type.value));
+    }
+    if (emitted.present) {
+      map['emitted'] = Variable<bool>(emitted.value);
+    }
+    if (emitAt.present) {
+      map['emit_at'] = Variable<DateTime>(emitAt.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AlertsCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('type: $type, ')
+          ..write('emitted: $emitted, ')
+          ..write('emitAt: $emitAt, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AlertsTable extends Alerts with TableInfo<$AlertsTable, Alert> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $AlertsTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      type: const IntType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+  final VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
+  final VerificationMeta _contentMeta = const VerificationMeta('content');
+  @override
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
+  final VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumnWithTypeConverter<NotificationType?, int?> type =
+      GeneratedColumn<int?>('type', aliasedName, true,
+              type: const IntType(), requiredDuringInsert: false)
+          .withConverter<NotificationType?>($AlertsTable.$converter0);
+  final VerificationMeta _emittedMeta = const VerificationMeta('emitted');
+  @override
+  late final GeneratedColumn<bool?> emitted = GeneratedColumn<bool?>(
+      'emitted', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (emitted IN (0, 1))',
+      defaultValue: const Constant(false));
+  final VerificationMeta _emitAtMeta = const VerificationMeta('emitAt');
+  @override
+  late final GeneratedColumn<DateTime?> emitAt = GeneratedColumn<DateTime?>(
+      'emit_at', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime?> createdAt = GeneratedColumn<DateTime?>(
+      'created_at', aliasedName, false,
+      type: const IntType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant(DateTime.now()));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, title, content, type, emitted, emitAt, createdAt];
+  @override
+  String get aliasedName => _alias ?? 'alerts';
+  @override
+  String get actualTableName => 'alerts';
+  @override
+  VerificationContext validateIntegrity(Insertable<Alert> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    }
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    }
+    context.handle(_typeMeta, const VerificationResult.success());
+    if (data.containsKey('emitted')) {
+      context.handle(_emittedMeta,
+          emitted.isAcceptableOrUnknown(data['emitted']!, _emittedMeta));
+    }
+    if (data.containsKey('emit_at')) {
+      context.handle(_emitAtMeta,
+          emitAt.isAcceptableOrUnknown(data['emit_at']!, _emitAtMeta));
+    } else if (isInserting) {
+      context.missing(_emitAtMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Alert map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return Alert.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  }
+
+  @override
+  $AlertsTable createAlias(String alias) {
+    return $AlertsTable(_db, alias);
+  }
+
+  static TypeConverter<NotificationType?, int> $converter0 =
+      const EnumIndexConverter<NotificationType>(NotificationType.values);
+}
+
 abstract class _$UserDatabase extends GeneratedDatabase {
   _$UserDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $ClientNotesTable clientNotes = $ClientNotesTable(this);
@@ -2213,8 +2936,14 @@ abstract class _$UserDatabase extends GeneratedDatabase {
   late final $LawsuiteNotesTable lawsuiteNotes = $LawsuiteNotesTable(this);
   late final $LawsuitesTable lawsuites = $LawsuitesTable(this);
   late final $SettingsTable settings = $SettingsTable(this);
+  late final $AppNotificationsTable appNotifications =
+      $AppNotificationsTable(this);
+  late final $AlertsTable alerts = $AlertsTable(this);
   late final ClientDao clientDao = ClientDao(this as UserDatabase);
   late final LawsuiteDao lawsuiteDao = LawsuiteDao(this as UserDatabase);
+  late final AlertDao alertDao = AlertDao(this as UserDatabase);
+  late final NotificationDao notificationDao =
+      NotificationDao(this as UserDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -2225,6 +2954,8 @@ abstract class _$UserDatabase extends GeneratedDatabase {
         contacts,
         lawsuiteNotes,
         lawsuites,
-        settings
+        settings,
+        appNotifications,
+        alerts
       ];
 }

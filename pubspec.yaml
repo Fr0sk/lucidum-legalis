@@ -37,6 +37,8 @@ dependencies:
   awesome_dialog: ^2.1.1                    # Animated dialogs
   url_launcher: ^6.0.17                     # Open file in default applications
   desktop_drop: ^0.3.0                      # Dropping files into the application
+  badges: ^2.0.2                            # Display notification and settings icons with badge
+  desktoasts: ^0.0.2                        # Notifications for Windows desktop
   file_explorer:
     path: 'packages/file_explorer'
   window_size:

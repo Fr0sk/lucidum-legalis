@@ -8,6 +8,8 @@ class Fonts {
 
 class App {
   static const title = 'Lucidum Legalis';
+  static const companyName = 'Fr0sk Labs';
+
   static const windowMinSize = Size(900, 600);
 }
 
@@ -43,6 +45,7 @@ class AppIcons {
   static const copy = Icon(MdiIcons.contentCopy);
   static const cut = Icon(MdiIcons.contentCut);
   static const paste = Icon(MdiIcons.contentPaste);
+  static const notification = Icon(MdiIcons.bell);
 
   static const fileWordColored = Icon(
     MdiIcons.fileWord,

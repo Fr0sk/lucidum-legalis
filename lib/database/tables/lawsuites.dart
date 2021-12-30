@@ -13,5 +13,6 @@ class Lawsuites extends Table {
   TextColumn get court => text().nullable()();
   TextColumn get judgement => text().nullable()();
   TextColumn get form => text().nullable()();
+  TextColumn get legalSupportNumber => text().nullable()();
   DateTimeColumn get createdAt => dateTime()();
 }

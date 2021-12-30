@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
@@ -7,7 +8,9 @@ import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_lawsuite/tab_body_lawsuite.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:lucidum_legalis/widgets/notification_badge.dart';
 import 'package:lucidum_legalis/widgets/tab_panel.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'widgets/sidebar/sidebar.dart';
 
 class MainPage extends StatelessWidget {
@@ -67,10 +70,54 @@ class MainPage extends StatelessWidget {
           ],
         ),
         actions: [
-          // Settings button
           IconButton(
-            onPressed: () {}, //TODO: Implement Settings'
-            icon: AppIcons.settings,
+              onPressed: () async {
+                await appAlerts.createAlert(
+                    title: 'Alert 1',
+                    content: 'This is alert 1',
+                    emitAt: DateTime.now().add(const Duration(seconds: 10)));
+                await appAlerts.createAlert(
+                    title: 'Alert 2',
+                    content: 'This is alert 2',
+                    emitAt: DateTime.now().add(const Duration(seconds: 5)));
+                await appAlerts.createAlert(
+                    title: 'Alert 3',
+                    content: 'This is alert 3',
+                    emitAt: DateTime.now().add(const Duration(seconds: 15)));
+              },
+              icon: const Icon(MdiIcons.plus)),
+          IconButton(
+              onPressed: () async {
+                final notifs = await api.database.notificationDao.getAll();
+                for (var n in notifs) {
+                  if (!n.emitted) {
+                    appNotifications.markAsRead(n);
+                  }
+                }
+              },
+              icon: const Icon(MdiIcons.minus)),
+          // Notifications Button
+          StreamBuilder<List<AppNotification>>(
+            stream: api.database.notificationDao.watchNotEmitted(),
+            builder: (_, snapshot) => IconButton(
+              onPressed: () {},
+              icon: NotificationBadge(
+                icon: AppIcons.notification,
+                count: snapshot.data?.length,
+              ),
+            ),
+          ),
+
+          IconButton(
+            onPressed: () {}, //TODO: Implement Settings
+            icon: Badge(
+              showBadge: true,
+              child: AppIcons.settings,
+            ),
+          ),
+          // Space at the end
+          const SizedBox(
+            width: 10,
           )
         ],
       ),
