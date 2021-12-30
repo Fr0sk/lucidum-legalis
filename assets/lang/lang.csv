@@ -7,17 +7,20 @@
 "Against",Against,Parte Contrária
 "Are you sure you want to permanently delete this file?",Are you sure you want to permanently delete this file?,Tem a certeza que pretente apagar permanentemente este ficheiro?
 "Are you sure you want to permanently delete this folder?",Are you sure you want to permanently delete this folder?,Tem a certeza que pretente apagar permanentemente esta pasta?
+"Back",Back,Voltar
 "Cancel",Cancel,Cancelar
 "Change Name",Change Name,Alterar Nome
 "City",City,Cidade
 "Civil Status",Civil Status,Estado Civil
 "Closed",Closed,Fechado
 "Code",Code,Código
+"Company",Company,Empresa
 "Confirm",Confirm,Confirmar
 "Copy",Copy,Copiar
 "County",County,Distrito
 "Court",Court,Juizo
 "CreateAccount",Create Account,Criar Conta
+"Created at {}",Created at {},Criado em {}
 "Cut",Cut,Cortar
 "Database Locked",Database Locked,Base de Dados Bloqueada
 "Delete",Delete,Apagar
@@ -38,6 +41,7 @@
 "Judge/Section",Judge,Juiz/Secção
 "Judgement",Judgement,Juízo
 "Leave",Leave,Sair
+"Legal Support Number",Legal Support Number,Processo de Apoio Judiciário nº 
 "Login",Login,Entrar
 "LoginAutomatically",Login Automatically,Entrar Automaticamente
 "Name",Name,Nome
@@ -54,6 +58,7 @@
 "PasswordOptional",Password (Optional),Palavra-passe (Opcional)
 "Passwords do not match",Passwords do not match,As palavras-passe não são iguais
 "Paste",Paste,Colar
+"Person",Person,Pessoa
 "Process Number",Process Number,Número de Processo
 "Requires Attention",Requires Attention,Requer Atenção
 "Save",Save,Guardar
@@ -64,6 +69,7 @@
 "This action will also delete all the files associated with this lawsuite.",This action will also delete all the files associated with this lawsuite.,Esta ação também irá apagar todos os ficheiros associados a este processo.
 "This folder is empty",This folder is empty,Esta pasta está vazia
 "Unlock",Unlock,Desbloquear
+"Upload files",Upload files,Carregar ficheiros
 "Username",Username,Nome de Utilizador
 "Username already exists",Username already exists,Nome de utilizador já existe
 "Username is required",Username is required,Nome de utilizador é obrigatório

@@ -53,6 +53,7 @@ class AppIcons {
   static const folder = Icon(MdiIcons.folder);
   static const fileUnkown = Icon(MdiIcons.fileQuestion);
   static const fileAdd = Icon(MdiIcons.filePlus);
+  static const fileUpload = Icon(MdiIcons.fileUpload);
   static const copy = Icon(MdiIcons.contentCopy);
   static const cut = Icon(MdiIcons.contentCut);
   static const paste = Icon(MdiIcons.contentPaste);

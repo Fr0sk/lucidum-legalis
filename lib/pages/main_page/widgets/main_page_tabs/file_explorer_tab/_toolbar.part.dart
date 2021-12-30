@@ -2,6 +2,7 @@ part of 'file_explorer_tab.dart';
 
 class _Toolbar extends StatelessWidget {
   final FileExplorerController controller;
+  final void Function()? onFileUpload;
   final void Function()? onCreateFolder;
   final void Function()? onCopy;
   final void Function()? onCut;
@@ -16,6 +17,7 @@ class _Toolbar extends StatelessWidget {
     this.onCut,
     this.onPaste,
     this.onDelete,
+    this.onFileUpload,
   }) : super(key: key);
 
   @override
@@ -25,11 +27,15 @@ class _Toolbar extends StatelessWidget {
         children: [
           ValueListenableBuilder(
             valueListenable: controller,
-            builder: (_, __, ___) => IconButton(
-              onPressed: controller.canGoBack() ? controller.back : null,
-              icon: AppIcons.back,
+            builder: (_, __, ___) => Tooltip(
+              message: 'Back'.tr(),
+              child: IconButton(
+                onPressed: controller.canGoBack() ? controller.back : null,
+                icon: AppIcons.back,
+              ),
             ),
           ),
+          const SizedBox(height: 20, child: VerticalDivider()), // Separator
           Tooltip(
             message: 'Open folder in explorer'.tr(),
             child: IconButton(
@@ -40,6 +46,11 @@ class _Toolbar extends StatelessWidget {
             message: 'Add new folder'.tr(),
             child: IconButton(
                 onPressed: onCreateFolder, icon: AppIcons.folderAddColored),
+          ),
+          Tooltip(
+            message: 'Upload files'.tr(),
+            child:
+                IconButton(onPressed: onFileUpload, icon: AppIcons.fileUpload),
           ),
           PopupMenuButton(
             tooltip: 'Add new file'.tr(),
@@ -72,7 +83,7 @@ class _Toolbar extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20, child: VerticalDivider()),
+          const SizedBox(height: 20, child: VerticalDivider()), // Separator
           Tooltip(
             message: 'Copy'.tr(),
             child: ValueListenableBuilder<List<FileSystemEntity>>(

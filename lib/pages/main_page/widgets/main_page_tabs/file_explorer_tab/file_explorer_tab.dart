@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_explorer/file_explorer.dart';
 import 'package:file_explorer/file_explorer_controller.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/dialogs/text_input_dialog.dart';
 import 'package:lucidum_legalis/dialogs/yes_no_dialog.dart';
@@ -100,6 +101,23 @@ class FileExplorerTab extends StatelessWidget {
     }
   }
 
+  Future<void> onFileUpload(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    if (result != null) {
+      final paths = <String>[];
+
+      for (var path in result.paths) {
+        if (path != null) {
+          paths.add(path);
+        }
+      }
+
+      if (paths.isNotEmpty) {
+        Copy.list(paths, _controller.directory);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -113,6 +131,7 @@ class FileExplorerTab extends StatelessWidget {
             onCut: () => onCut(context),
             onPaste: () => onPaste(context),
             onDelete: () => onDelete(context),
+            onFileUpload: () => onFileUpload(context),
           ),
           Row(
             children: [
