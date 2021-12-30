@@ -17,11 +17,8 @@ class _TypeMenu extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: type == ClientType.person
-              ? AppIcons.clientSettings
-              : AppIcons.clientCompanySettings,
-        ),
+            padding: const EdgeInsets.all(8.0),
+            child: IconUtils.clientSettingsIcon(type)),
         Stack(
           alignment: AlignmentDirectional.centerStart,
           //crossAxisAlignment: CrossAxisAlignment.start,

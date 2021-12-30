@@ -94,9 +94,7 @@ class _ClientInformationTab extends StatelessWidget {
                   InformationHeader(
                     nameController: _nameController,
                     readOnly: !state.edit,
-                    icon: client.type == ClientType.person
-                        ? AppIcons.client
-                        : AppIcons.clientCompany,
+                    icon: IconUtils.clientIcon(client.type),
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),

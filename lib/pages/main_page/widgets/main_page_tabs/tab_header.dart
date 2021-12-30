@@ -5,6 +5,7 @@ import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:lucidum_legalis/utils/utils.dart';
 
 class TabHeader extends StatelessWidget {
   final TabState<dynamic> tabState;
@@ -25,9 +26,7 @@ class TabHeader extends StatelessWidget {
               valueListenable: tabState.editNotifier,
               builder: (_, editMode, __) => _TabHeaderButton(
                 text: client.name,
-                icon: client.type == ClientType.person
-                    ? AppIcons.client
-                    : AppIcons.clientCompany,
+                icon: IconUtils.clientIcon(client.type),
                 isActive: tabState == api.tabHistory.last,
                 editMode: editMode,
                 onPressed: () => api.openClient(id: client.id),
@@ -41,7 +40,7 @@ class TabHeader extends StatelessWidget {
               valueListenable: tabState.editNotifier,
               builder: (_, editMode, __) => _TabHeaderButton(
                 text: lawsuite.name,
-                icon: AppIcons.lawsuite,
+                icon: IconUtils.lawsuiteIcon(lawsuite.state),
                 isActive: tabState == api.tabHistory.last,
                 editMode: editMode,
                 onPressed: () => api.openLawsuite(id: lawsuite.id),

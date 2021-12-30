@@ -1,4 +1,8 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:lucidum_legalis/database/tables/clients.dart';
+import 'package:lucidum_legalis/database/tables/lawsuites.dart';
+import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:path/path.dart' as p;
 
 class Copy {
@@ -29,6 +33,39 @@ class Copy {
         await newDirectory.create();
         await Copy.directory(Directory(path), newDirectory);
       }
+    }
+  }
+}
+
+class IconUtils {
+  static Widget clientIcon(ClientType type) {
+    switch (type) {
+      case ClientType.person:
+        return AppIcons.client;
+      case ClientType.company:
+        return AppIcons.clientCompany;
+    }
+  }
+
+  static Widget clientSettingsIcon(ClientType type) {
+    switch (type) {
+      case ClientType.person:
+        return AppIcons.clientSettings;
+      case ClientType.company:
+        return AppIcons.clientCompanySettings;
+    }
+  }
+
+  static Widget lawsuiteIcon(LawsuiteState state) {
+    switch (state) {
+      case LawsuiteState.open:
+        return AppIcons.lawsuiteOpened;
+      case LawsuiteState.closed:
+        return AppIcons.lawsuiteClosed;
+      case LawsuiteState.waiting:
+        return AppIcons.lawsuiteWaiting;
+      case LawsuiteState.requiresAttention:
+        return AppIcons.lawsuiteAttention;
     }
   }
 }

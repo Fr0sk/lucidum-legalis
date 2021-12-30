@@ -24,16 +24,24 @@ class Locales {
 
 class AppIcons {
   static const add = Icon(MdiIcons.plusCircle);
+  static const edit = Icon(MdiIcons.pencil);
+  static const save = Icon(MdiIcons.contentSave);
+  static const delete = Icon(MdiIcons.trashCan);
+
   static const client = Icon(MdiIcons.account);
   static const clientCompany = Icon(MdiIcons.officeBuilding);
   static const clientSettings = Icon(MdiIcons.accountCog);
   static const clientCompanySettings = Icon(MdiIcons.officeBuildingCog);
   static const addClient = Icon(MdiIcons.accountPlus);
-  static const lawsuite = Icon(MdiIcons.fileDocument);
+
+  static const lawsuite = Icon(MdiIcons.fileDocumentOutline);
+  static const lawsuiteOpened = Icon(MdiIcons.fileDocumentOutline);
+  static const lawsuiteWaiting = Icon(MdiIcons.fileClockOutline);
+  static const lawsuiteClosed = Icon(MdiIcons.fileCertificateOutline);
+  static const lawsuiteAttention = Icon(MdiIcons.fileAlertOutline);
   static const addLawsuite = Icon(MdiIcons.filePlus);
-  static const edit = Icon(MdiIcons.pencil);
-  static const save = Icon(MdiIcons.contentSave);
-  static const delete = Icon(MdiIcons.trashCan);
+  static const lawsuiteSettings = Icon(MdiIcons.fileCog);
+
   static const information = Icon(MdiIcons.information);
   static const files = Icon(MdiIcons.folder);
   static const notes = Icon(MdiIcons.noteMultiple);

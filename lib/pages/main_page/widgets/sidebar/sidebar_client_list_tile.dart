@@ -4,6 +4,7 @@ import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:lucidum_legalis/utils/utils.dart';
 
 class SidebarClientListTile extends StatelessWidget {
   final Client client;
@@ -26,9 +27,7 @@ class SidebarClientListTile extends StatelessWidget {
         return ListTile(
           title: Text(client.name),
           onTap: onTap,
-          leading: client.type == ClientType.person
-              ? AppIcons.client
-              : AppIcons.clientCompany,
+          leading: IconUtils.clientIcon(client.type),
           selected: selected,
           selectedTileColor: selected
               ? Theme.of(context).colorScheme.secondary.withAlpha(40)

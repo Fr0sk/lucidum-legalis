@@ -18,7 +18,7 @@ class _StateMenu extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child: Icon(MdiIcons.book),
+          child: AppIcons.lawsuiteSettings,
         ),
         Stack(
           alignment: AlignmentDirectional.centerStart,

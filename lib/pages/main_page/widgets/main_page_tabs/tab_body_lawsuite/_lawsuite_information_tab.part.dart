@@ -93,7 +93,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
                   InformationHeader(
                     nameController: _nameController,
                     readOnly: !state.edit,
-                    icon: AppIcons.lawsuite,
+                    icon: IconUtils.lawsuiteIcon(lawsuite.state),
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),
