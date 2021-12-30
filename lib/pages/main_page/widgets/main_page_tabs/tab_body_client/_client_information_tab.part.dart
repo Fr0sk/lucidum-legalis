@@ -53,6 +53,13 @@ class _ClientInformationTab extends StatelessWidget {
     }
   }
 
+  Future<void> onTypeChanged(ClientType newType) async {
+    final client = tabState.dataNotifier.value;
+    if (client != null && client.type != newType) {
+      await api.saveClient(client.copyWith(type: newType));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = tabState;
@@ -87,10 +94,16 @@ class _ClientInformationTab extends StatelessWidget {
                   InformationHeader(
                     nameController: _nameController,
                     readOnly: !state.edit,
-                    icon: AppIcons.client,
+                    icon: client.type == ClientType.person
+                        ? AppIcons.client
+                        : AppIcons.clientCompany,
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),
+                    middle: _TypeMenu(
+                      type: client.type,
+                      onChanged: onTypeChanged,
+                    ),
                   ),
                   _Identification(
                     idNumberController: _idNumberController,

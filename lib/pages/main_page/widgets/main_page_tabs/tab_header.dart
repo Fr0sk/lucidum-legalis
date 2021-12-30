@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
@@ -24,7 +25,9 @@ class TabHeader extends StatelessWidget {
               valueListenable: tabState.editNotifier,
               builder: (_, editMode, __) => _TabHeaderButton(
                 text: client.name,
-                icon: AppIcons.client,
+                icon: client.type == ClientType.person
+                    ? AppIcons.client
+                    : AppIcons.clientCompany,
                 isActive: tabState == api.tabHistory.last,
                 editMode: editMode,
                 onPressed: () => api.openClient(id: client.id),

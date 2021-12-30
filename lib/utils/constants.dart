@@ -25,6 +25,9 @@ class Locales {
 class AppIcons {
   static const add = Icon(MdiIcons.plusCircle);
   static const client = Icon(MdiIcons.account);
+  static const clientCompany = Icon(MdiIcons.officeBuilding);
+  static const clientSettings = Icon(MdiIcons.accountCog);
+  static const clientCompanySettings = Icon(MdiIcons.officeBuildingCog);
   static const addClient = Icon(MdiIcons.accountPlus);
   static const lawsuite = Icon(MdiIcons.fileDocument);
   static const addLawsuite = Icon(MdiIcons.filePlus);
