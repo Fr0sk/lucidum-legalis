@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:lucidum_legalis/widgets/button_group.dart';
 
 class CustomTabs extends StatefulWidget {
   final List<Widget> bodies;
@@ -35,18 +33,27 @@ class _CustomTabsState extends State<CustomTabs> {
   Widget build(BuildContext context) {
     assert(widget.bodies.length == widget.headers.length);
 
+    final headers = <Widget>[];
+    for (int i = 0; i < widget.headers.length; i++) {
+      headers.add(
+        Expanded(
+          child: TextButton(
+              onPressed: () => setState(() => _selectedIndex = i),
+              style: TextButton.styleFrom(
+                  primary: _selectedIndex == i
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).hintColor),
+              child: widget.headers[i]),
+        ),
+      );
+    }
+
     return Expanded(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          ButtonGroup(
-            radioMode: true,
-            height: widget.headerHeight,
-            initialSelected: widget.startIndex ?? 0,
-            onPressed: (index, _) => setState(() => _selectedIndex = index),
-            children: widget.headers,
-          ),
-          Expanded(child: widget.bodies[_selectedIndex])
+          Expanded(child: widget.bodies[_selectedIndex]),
+          Material(elevation: 20, child: Row(children: headers)),
         ],
       ),
     );

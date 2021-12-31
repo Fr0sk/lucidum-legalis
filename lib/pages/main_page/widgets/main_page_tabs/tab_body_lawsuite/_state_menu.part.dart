@@ -15,10 +15,11 @@ class _StateMenu extends StatelessWidget {
     final focusNode = FocusNode();
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: AppIcons.lawsuiteSettings,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconUtils.lawsuiteIcon(state),
         ),
         Stack(
           alignment: AlignmentDirectional.centerStart,

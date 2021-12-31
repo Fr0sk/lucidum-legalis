@@ -253,16 +253,15 @@ class $ClientNotesTable extends ClientNotes
   }
 }
 
-class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
+class ClientLawsuite extends DataClass implements Insertable<ClientLawsuite> {
   final int id;
   final int clientId;
   final int lawsuiteId;
-  ClientsLawsuite(
+  ClientLawsuite(
       {required this.id, required this.clientId, required this.lawsuiteId});
-  factory ClientsLawsuite.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
+  factory ClientLawsuite.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return ClientsLawsuite(
+    return ClientLawsuite(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       clientId: const IntType()
@@ -288,10 +287,10 @@ class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
     );
   }
 
-  factory ClientsLawsuite.fromJson(Map<String, dynamic> json,
+  factory ClientLawsuite.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return ClientsLawsuite(
+    return ClientLawsuite(
       id: serializer.fromJson<int>(json['id']),
       clientId: serializer.fromJson<int>(json['clientId']),
       lawsuiteId: serializer.fromJson<int>(json['lawsuiteId']),
@@ -307,15 +306,15 @@ class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
     };
   }
 
-  ClientsLawsuite copyWith({int? id, int? clientId, int? lawsuiteId}) =>
-      ClientsLawsuite(
+  ClientLawsuite copyWith({int? id, int? clientId, int? lawsuiteId}) =>
+      ClientLawsuite(
         id: id ?? this.id,
         clientId: clientId ?? this.clientId,
         lawsuiteId: lawsuiteId ?? this.lawsuiteId,
       );
   @override
   String toString() {
-    return (StringBuffer('ClientsLawsuite(')
+    return (StringBuffer('ClientLawsuite(')
           ..write('id: $id, ')
           ..write('clientId: $clientId, ')
           ..write('lawsuiteId: $lawsuiteId')
@@ -328,13 +327,13 @@ class ClientsLawsuite extends DataClass implements Insertable<ClientsLawsuite> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is ClientsLawsuite &&
+      (other is ClientLawsuite &&
           other.id == this.id &&
           other.clientId == this.clientId &&
           other.lawsuiteId == this.lawsuiteId);
 }
 
-class ClientsLawsuitesCompanion extends UpdateCompanion<ClientsLawsuite> {
+class ClientsLawsuitesCompanion extends UpdateCompanion<ClientLawsuite> {
   final Value<int> id;
   final Value<int> clientId;
   final Value<int> lawsuiteId;
@@ -349,7 +348,7 @@ class ClientsLawsuitesCompanion extends UpdateCompanion<ClientsLawsuite> {
     required int lawsuiteId,
   })  : clientId = Value(clientId),
         lawsuiteId = Value(lawsuiteId);
-  static Insertable<ClientsLawsuite> custom({
+  static Insertable<ClientLawsuite> custom({
     Expression<int>? id,
     Expression<int>? clientId,
     Expression<int>? lawsuiteId,
@@ -397,7 +396,7 @@ class ClientsLawsuitesCompanion extends UpdateCompanion<ClientsLawsuite> {
 }
 
 class $ClientsLawsuitesTable extends ClientsLawsuites
-    with TableInfo<$ClientsLawsuitesTable, ClientsLawsuite> {
+    with TableInfo<$ClientsLawsuitesTable, ClientLawsuite> {
   final GeneratedDatabase _db;
   final String? _alias;
   $ClientsLawsuitesTable(this._db, [this._alias]);
@@ -429,7 +428,7 @@ class $ClientsLawsuitesTable extends ClientsLawsuites
   @override
   String get actualTableName => 'clients_lawsuites';
   @override
-  VerificationContext validateIntegrity(Insertable<ClientsLawsuite> instance,
+  VerificationContext validateIntegrity(Insertable<ClientLawsuite> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -456,8 +455,8 @@ class $ClientsLawsuitesTable extends ClientsLawsuites
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  ClientsLawsuite map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return ClientsLawsuite.fromData(data,
+  ClientLawsuite map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return ClientLawsuite.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
@@ -2398,8 +2397,8 @@ class AppNotificationsCompanion extends UpdateCompanion<AppNotification> {
     this.content = const Value.absent(),
     this.type = const Value.absent(),
     this.emitted = const Value.absent(),
-    this.createdAt = const Value.absent(),
-  });
+    required DateTime createdAt,
+  }) : createdAt = Value(createdAt);
   static Insertable<AppNotification> custom({
     Expression<int>? id,
     Expression<String?>? title,
@@ -2514,9 +2513,7 @@ class $AppNotificationsTable extends AppNotifications
   @override
   late final GeneratedColumn<DateTime?> createdAt = GeneratedColumn<DateTime?>(
       'created_at', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: Constant(DateTime.now()));
+      type: const IntType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, title, content, type, emitted, createdAt];
@@ -2548,6 +2545,8 @@ class $AppNotificationsTable extends AppNotifications
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
     }
     return context;
   }
@@ -2737,8 +2736,9 @@ class AlertsCompanion extends UpdateCompanion<Alert> {
     this.type = const Value.absent(),
     this.emitted = const Value.absent(),
     required DateTime emitAt,
-    this.createdAt = const Value.absent(),
-  }) : emitAt = Value(emitAt);
+    required DateTime createdAt,
+  })  : emitAt = Value(emitAt),
+        createdAt = Value(createdAt);
   static Insertable<Alert> custom({
     Expression<int>? id,
     Expression<String?>? title,
@@ -2865,9 +2865,7 @@ class $AlertsTable extends Alerts with TableInfo<$AlertsTable, Alert> {
   @override
   late final GeneratedColumn<DateTime?> createdAt = GeneratedColumn<DateTime?>(
       'created_at', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: Constant(DateTime.now()));
+      type: const IntType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, title, content, type, emitted, emitAt, createdAt];
@@ -2905,6 +2903,8 @@ class $AlertsTable extends Alerts with TableInfo<$AlertsTable, Alert> {
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
     }
     return context;
   }
@@ -2944,6 +2944,8 @@ abstract class _$UserDatabase extends GeneratedDatabase {
   late final AlertDao alertDao = AlertDao(this as UserDatabase);
   late final NotificationDao notificationDao =
       NotificationDao(this as UserDatabase);
+  late final ClientLawsuiteDao clientLawsuiteDao =
+      ClientLawsuiteDao(this as UserDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

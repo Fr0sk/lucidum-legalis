@@ -38,10 +38,10 @@ class AppAlerts {
       required String content,
       required DateTime emitAt}) async {
     await api.database.alertDao.insertAlert(AlertsCompanion.insert(
-      title: Value(title),
-      content: Value(content),
-      emitAt: emitAt,
-    ));
+        title: Value(title),
+        content: Value(content),
+        emitAt: emitAt,
+        createdAt: DateTime.now()));
     await _startTimer();
   }
 

@@ -51,14 +51,14 @@ class FileExplorerTab extends StatelessWidget {
     if (await File(entity.path).exists()) {
       confirm = await YesNoDialog.show(
         context: context,
-        title: 'Delete ${p.basename(entity.path)}?'.tr(),
+        title: 'Delete {}?'.tr(args: [p.basename(entity.path)]),
         description:
             'Are you sure you want to permanently delete this file?'.tr(),
       );
     } else if (await Directory(entity.path).exists()) {
       confirm = await YesNoDialog.show(
         context: context,
-        title: 'Delete ${p.basename(entity.path)}?'.tr(),
+        title: 'Delete {}?'.tr(args: [p.basename(entity.path)]),
         description:
             'Are you sure you want to permanently delete this folder?'.tr(),
       );

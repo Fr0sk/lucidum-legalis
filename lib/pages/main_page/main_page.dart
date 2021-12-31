@@ -72,28 +72,18 @@ class MainPage extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () async {
-                await appAlerts.createAlert(
-                    title: 'Alert 1',
-                    content: 'This is alert 1',
-                    emitAt: DateTime.now().add(const Duration(seconds: 10)));
-                await appAlerts.createAlert(
-                    title: 'Alert 2',
-                    content: 'This is alert 2',
-                    emitAt: DateTime.now().add(const Duration(seconds: 5)));
-                await appAlerts.createAlert(
-                    title: 'Alert 3',
-                    content: 'This is alert 3',
-                    emitAt: DateTime.now().add(const Duration(seconds: 15)));
+                api.database.clientLawsuiteDao
+                    .watchLawsuitesByClientId(1)
+                    .listen((event) {
+                  for (var lawsuite in event) {
+                    print(lawsuite.toString());
+                  }
+                });
               },
               icon: const Icon(MdiIcons.plus)),
           IconButton(
               onPressed: () async {
-                final notifs = await api.database.notificationDao.getAll();
-                for (var n in notifs) {
-                  if (!n.emitted) {
-                    appNotifications.markAsRead(n);
-                  }
-                }
+                await api.associateClientLawsuiteByIds(1, 1);
               },
               icon: const Icon(MdiIcons.minus)),
           // Notifications Button
@@ -121,50 +111,66 @@ class MainPage extends StatelessWidget {
           )
         ],
       ),
-      body: Row(
+      body: Stack(
+        alignment: AlignmentDirectional.centerStart,
         children: [
-          // Sidebar
-          const SizedBox(
-            width: 250,
-            child: Material(
-              elevation: 5,
-              child: Siderbar(),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Tab Headers
-                SizedBox(
-                  height: 40,
-                  child: ValueListenableBuilder<List<TabState>>(
-                    valueListenable: api.tabHistory,
-                    builder: (context, tabHistory, _) => TabPanel(
-                      scrollbarKey: _tabHeaderKey,
-                      tabs:
-                          api.tabs.map((t) => TabHeader(tabState: t)).toList(),
-                      selected: tabHistory.isEmpty
-                          ? -1
-                          : api.tabs.indexOf(tabHistory.last),
+          Row(
+            children: [
+              // Sidebar
+              const SizedBox(width: App.sidebarWidth),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Tab Headers
+                    SizedBox(
+                      height: 40,
+                      child: Stack(
+                        children: [
+                          SizedBox.expand(
+                            child: Material(
+                              elevation: 2,
+                              child: Container(),
+                            ),
+                          ),
+                          ValueListenableBuilder<List<TabState>>(
+                            valueListenable: api.tabHistory,
+                            builder: (context, tabHistory, _) => TabPanel(
+                              scrollbarKey: _tabHeaderKey,
+                              tabs: api.tabs
+                                  .map((t) => TabHeader(tabState: t))
+                                  .toList(),
+                              selected: tabHistory.isEmpty
+                                  ? -1
+                                  : api.tabs.indexOf(tabHistory.last),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
+                    // Tab Body
+                    Expanded(
+                      child: ValueListenableBuilder<List<TabState>>(
+                        valueListenable: api.tabHistory,
+                        builder: (_, history, __) {
+                          if (history.isEmpty) {
+                            return Container();
+                          }
 
-                // Tab Body
-                Expanded(
-                  child: ValueListenableBuilder<List<TabState>>(
-                    valueListenable: api.tabHistory,
-                    builder: (_, history, __) {
-                      if (history.isEmpty) {
-                        return Container();
-                      }
-
-                      return _tabBodies[history.last] ?? Container();
-                    },
-                  ),
+                          return _tabBodies[history.last] ?? Container();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: App.sidebarWidth,
+            child: Material(
+              elevation: 10,
+              child: Siderbar(),
             ),
           ),
         ],

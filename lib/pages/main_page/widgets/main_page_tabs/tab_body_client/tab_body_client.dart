@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
+import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/dialogs/yes_no_dialog.dart';
 import 'package:lucidum_legalis/main.dart';
@@ -13,7 +14,6 @@ import 'package:lucidum_legalis/widgets/button_group.dart';
 import 'package:lucidum_legalis/widgets/custom_tabs.dart';
 import 'package:lucidum_legalis/widgets/flexible_text_field.dart';
 import 'package:lucidum_legalis/widgets/titled_card.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../information_header.dart';
 import '../tab_body_base.dart';
@@ -22,6 +22,9 @@ part '_client_information_tab.part.dart';
 part '_type_menu.part.dart';
 part '_identification.part.dart';
 part '_address.part.dart';
+part '_lawsuites_tab.part.dart';
+part '_lawsuite_row.part.dart';
+part '_lawsuites_tab_header.dart';
 
 class TabBodyClient extends TabBodyBase<Client> {
   final _ClientInformationTab _clientInformationTab;
@@ -51,7 +54,14 @@ class TabBodyClient extends TabBodyBase<Client> {
           ],
           bodies: [
             _clientInformationTab,
-            Container(color: Colors.green),
+            StreamBuilder<List<Lawsuite>>(
+              stream: api.database.clientLawsuiteDao
+                  .watchLawsuitesByClientId(state.id),
+              builder: (_, snapshot) => _LawsuitesTab(
+                clientId: state.id,
+                lawsuites: snapshot.data ?? [],
+              ),
+            ),
             ValueListenableBuilder<Client?>(
               valueListenable: state.dataNotifier,
               builder: (_, client, __) => FileExplorerTab(

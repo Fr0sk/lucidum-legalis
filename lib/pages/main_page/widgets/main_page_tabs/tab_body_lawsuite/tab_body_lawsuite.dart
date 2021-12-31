@@ -12,7 +12,6 @@ import 'package:lucidum_legalis/widgets/button_group.dart';
 import 'package:lucidum_legalis/widgets/custom_tabs.dart';
 import 'package:lucidum_legalis/widgets/flexible_text_field.dart';
 import 'package:lucidum_legalis/widgets/titled_card.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../file_explorer_tab/file_explorer_tab.dart';
 import '../information_header.dart';
 import '../tab_body_base.dart';

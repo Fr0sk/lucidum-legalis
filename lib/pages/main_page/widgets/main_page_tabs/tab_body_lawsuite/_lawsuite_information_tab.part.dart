@@ -91,15 +91,24 @@ class _LawsuiteInformationTab extends StatelessWidget {
               child: Column(
                 children: [
                   InformationHeader(
-                    nameController: _nameController,
-                    readOnly: !state.edit,
+                    title: 'Lawsuite: {}'.tr(args: ['${lawsuite.id}']),
+                    editMode: state.edit,
                     icon: IconUtils.lawsuiteIcon(lawsuite.state),
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),
-                    middle: _StateMenu(
-                      state: lawsuite.state,
-                      onChanged: onStateChanged,
+                    child: Row(
+                      children: [
+                        FlexibleTextField(
+                          controller: _nameController,
+                          readOnly: !state.edit,
+                          decoration: InputDecoration(labelText: 'Name'.tr()),
+                        ),
+                        _StateMenu(
+                          state: lawsuite.state,
+                          onChanged: onStateChanged,
+                        ),
+                      ],
                     ),
                   ),
                   TitledCard(

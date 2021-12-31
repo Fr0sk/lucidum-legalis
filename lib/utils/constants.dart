@@ -11,6 +11,9 @@ class App {
   static const companyName = 'Fr0sk Labs';
 
   static const windowMinSize = Size(900, 600);
+  static const sidebarWidth = 250.0;
+
+  static const tooltipWait = Duration(milliseconds: 800);
 }
 
 class Widgets {
@@ -41,6 +44,8 @@ class AppIcons {
   static const lawsuiteAttention = Icon(MdiIcons.fileAlertOutline);
   static const addLawsuite = Icon(MdiIcons.filePlus);
   static const lawsuiteSettings = Icon(MdiIcons.fileCog);
+  static const lawsuiteSearch = Icon(MdiIcons.fileSearch);
+  static const lawsuiteRemoveAssociation = Icon(MdiIcons.fileRemoveOutline);
 
   static const information = Icon(MdiIcons.information);
   static const files = Icon(MdiIcons.folder);

@@ -37,10 +37,10 @@ class AppNotifications {
         .insertNotification(AppNotificationsCompanion.insert(
       title: Value(title),
       content: Value(content),
+      createdAt: DateTime.now(),
     ));
 
     if (Platform.isWindows) {
-      print(title + " - " + content);
       service.show(Toast(
         type: ToastType.text02,
         title: title,

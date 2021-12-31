@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';

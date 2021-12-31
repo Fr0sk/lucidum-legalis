@@ -92,15 +92,24 @@ class _ClientInformationTab extends StatelessWidget {
               child: Column(
                 children: [
                   InformationHeader(
-                    nameController: _nameController,
-                    readOnly: !state.edit,
+                    title: 'Client'.tr(),
+                    editMode: state.edit,
                     icon: IconUtils.clientIcon(client.type),
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),
-                    middle: _TypeMenu(
-                      type: client.type,
-                      onChanged: onTypeChanged,
+                    child: Row(
+                      children: [
+                        FlexibleTextField(
+                          controller: _nameController,
+                          readOnly: !state.edit,
+                          decoration: InputDecoration(labelText: 'Name'.tr()),
+                        ),
+                        _TypeMenu(
+                          type: client.type,
+                          onChanged: onTypeChanged,
+                        )
+                      ],
                     ),
                   ),
                   _Identification(

@@ -101,7 +101,7 @@ class _Toolbar extends StatelessWidget {
               valueListenable: controller.selected,
               builder: (_, selected, __) => IconButton(
                 color: Theme.of(context).colorScheme.secondary,
-                onPressed: selected.isEmpty ? null : () => onCut,
+                onPressed: selected.isEmpty ? null : onCut,
                 icon: AppIcons.cut,
               ),
             ),
@@ -112,7 +112,7 @@ class _Toolbar extends StatelessWidget {
               valueListenable: api.selectedFiles,
               builder: (_, selected, __) => IconButton(
                 color: Theme.of(context).colorScheme.secondary,
-                onPressed: selected.isEmpty ? null : () => onPaste,
+                onPressed: selected.isEmpty ? null : onPaste,
                 icon: AppIcons.paste,
               ),
             ),
@@ -123,7 +123,7 @@ class _Toolbar extends StatelessWidget {
               valueListenable: controller.selected,
               builder: (_, selected, __) => IconButton(
                 color: Theme.of(context).colorScheme.secondary,
-                onPressed: selected.isEmpty ? null : () => onDelete,
+                onPressed: selected.isEmpty ? null : onDelete,
                 icon: AppIcons.delete,
               ),
             ),

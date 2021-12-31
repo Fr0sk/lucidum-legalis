@@ -5,6 +5,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:lucidum_legalis/database/daos/alert_dao.dart';
 import 'package:lucidum_legalis/database/daos/client_dao.dart';
+import 'package:lucidum_legalis/database/daos/client_lawsuite_dao.dart';
 import 'package:lucidum_legalis/database/daos/lawsuite_dao.dart';
 import 'package:lucidum_legalis/database/daos/notification_dao.dart';
 import 'package:lucidum_legalis/database/tables/client_notes.dart';
@@ -35,7 +36,8 @@ part 'user_database.g.dart';
   ClientDao,
   LawsuiteDao,
   AlertDao,
-  NotificationDao
+  NotificationDao,
+  ClientLawsuiteDao,
 ])
 class UserDatabase extends _$UserDatabase {
   static void setupSqlitePlatformOverrides() {

@@ -141,4 +141,23 @@ class Api {
 
   Future<bool> deleteLawsuite(Lawsuite lawsuite) async =>
       (await _db.lawsuiteDao.deleteLawsuite(lawsuite)) == 1;
+
+  Future<bool> associateClientLawsuiteByIds(
+          int clientId, int lawsuiteId) async =>
+      (await _db.clientLawsuiteDao.insertAssociation(ClientsLawsuitesCompanion(
+          clientId: Value(clientId), lawsuiteId: Value(lawsuiteId)))) ==
+      1;
+
+  Future<bool> associateClientLawsuite(Client client, Lawsuite lawsuite) =>
+      associateClientLawsuiteByIds(client.id, lawsuite.id);
+
+  Future<bool> deleteClientLawsuiteAssociationByIds(
+          int clientId, int lawsuiteId) async =>
+      (await _db.clientLawsuiteDao
+          .deleteAssociationByIds(clientId, lawsuiteId)) ==
+      1;
+
+  Future<bool> deleteClientLawsuiteAssociation(
+          Client client, Lawsuite lawsuite) =>
+      deleteClientLawsuiteAssociationByIds(client.id, lawsuite.id);
 }
