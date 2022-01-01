@@ -57,7 +57,11 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final omnibox = Omnibox(controller: api.omniboxController);
+    final omnibox = Omnibox(
+      controller: api.omniboxController,
+      width: 600,
+      height: 500,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -197,20 +201,6 @@ class MainPage extends StatelessWidget {
           ),
           // Omnibox
           omnibox,
-          /*Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 400,
-                  height: 300,
-                  child: Container(
-                    color: Colors.green,
-                  ),
-                ),
-              ],
-            ),
-          ),*/
         ],
       ),
     );

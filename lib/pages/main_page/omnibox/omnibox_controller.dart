@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_explorer/list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
@@ -84,7 +85,8 @@ class OmniboxController {
             .where((c) =>
                 searchFilter.value.isEmpty ||
                 ListUtils.findMatches(
-                        c.name.toLowerCase().split(' '), searchFilterList) >
+                        ':${"Client".tr()} ${c.name}'.toLowerCase().split(' '),
+                        searchFilterList) >
                     searchFilterList.length)
             .map(
               (c) => OmniboxListTileClient(
@@ -101,7 +103,7 @@ class OmniboxController {
             .where((l) =>
                 searchFilter.value.isEmpty ||
                 ListUtils.findMatches(
-                        '${l.name} ${l.id} ${l.processNumber ?? ""}'
+                        ':${"Lawsuite".tr()} ${l.name} ${l.id} ${l.processNumber ?? ""}'
                             .toLowerCase()
                             .split(' '),
                         searchFilterList) >=

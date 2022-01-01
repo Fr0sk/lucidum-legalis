@@ -9,11 +9,15 @@ part 'omnibox_chip.part.dart';
 
 class Omnibox extends StatelessWidget {
   final OmniboxController controller;
+  final double width;
+  final double height;
   final _focusNode = FocusNode();
 
   Omnibox({
     Key? key,
     required this.controller,
+    required this.width,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -28,78 +32,114 @@ class Omnibox extends StatelessWidget {
         }
         return SizedBox.expand(
           child: Container(
-            color: const Color.fromARGB(100, 0, 0, 0),
-            child: Column(
+            color: AppColors.backdropColor,
+            child: Row(
               children: [
-                SizedBox(
-                  width: 600,
-                  height: 500,
-                  child: Card(
-                    elevation: 8,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          /*child: RawKeyboardListener(
-                        focusNode: FocusNode(),
-                        onKey: (e) {
-                          // DONT FORGET TO ESC -> Close Omnibox too
-                          if (e.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
-                            selected.value = selected.value + 1;
-                          }
-                        },*/
-                          child: ValueListenableBuilder<String>(
-                            valueListenable: controller.hintText,
-                            builder: (_, hint, __) => TextField(
-                              decoration: InputDecoration(
-                                hintText: hint,
+                // Left Dismiss Area
+                Expanded(
+                  child: InkWell(
+                    hoverColor: const Color.fromARGB(0, 0, 0, 0),
+                    onTap: controller.hide,
+                  ),
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: width,
+                      height: height,
+                      child: Card(
+                        elevation: 8,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              /*child: RawKeyboardListener(
+                            focusNode: FocusNode(),
+                            onKey: (e) {
+                              // DONT FORGET TO ESC -> Close Omnibox too
+                              if (e.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
+                                selected.value = selected.value + 1;
+                              }
+                            },*/
+                              child: ValueListenableBuilder<String>(
+                                valueListenable: controller.hintText,
+                                builder: (_, hint, __) => TextField(
+                                  decoration: InputDecoration(
+                                    hintText: hint,
+                                  ),
+                                  focusNode: _focusNode..requestFocus(),
+                                  onChanged: (filter) =>
+                                      controller.searchFilter.value = filter,
+                                ),
                               ),
-                              focusNode: _focusNode..requestFocus(),
-                              onChanged: (filter) =>
-                                  controller.searchFilter.value = filter,
+                              //),
                             ),
-                          ),
-                          //),
-                        ),
-                        Flexible(
-                          child: ValueListenableBuilder<List<Widget>>(
-                            valueListenable: controller.searchResults,
-                            builder: (_, widgets, __) => ListView.builder(
-                              controller: ScrollController(),
-                              itemCount: widgets.length,
-                              itemBuilder: (_, idx) => widgets[idx],
+                            Flexible(
+                              child: ValueListenableBuilder<List<Widget>>(
+                                valueListenable: controller.searchResults,
+                                builder: (_, widgets, __) => ListView.builder(
+                                  controller: ScrollController(),
+                                  itemCount: widgets.length,
+                                  itemBuilder: (_, idx) => widgets[idx],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        const Divider(
-                          indent: 0,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Spacer(),
-                              _OmniboxChip(
-                                valueListenable: controller.searchClients,
-                                canToggleListenable: controller.allowClients,
-                                avatar: AppIcons.client,
-                                label: Text('Clients'.tr()),
-                                onPressed: controller.toggleSearchClients,
+                            const Divider(
+                              indent: 0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Spacer(),
+                                  _OmniboxChip(
+                                    valueListenable: controller.searchClients,
+                                    canToggleListenable:
+                                        controller.allowClients,
+                                    avatar: AppIcons.client,
+                                    label: Text('Clients'.tr()),
+                                    onPressed: () {
+                                      controller.toggleSearchClients();
+                                      _focusNode.requestFocus();
+                                    },
+                                  ),
+                                  const Spacer(),
+                                  _OmniboxChip(
+                                    valueListenable: controller.searchLawsuites,
+                                    canToggleListenable:
+                                        controller.allowLawsuites,
+                                    avatar: AppIcons.lawsuite,
+                                    label: Text('Lawsuites'.tr()),
+                                    onPressed: () {
+                                      controller.toggleSearchLawsuites();
+                                      _focusNode.requestFocus();
+                                    },
+                                  ),
+                                  const Spacer(),
+                                ],
                               ),
-                              const Spacer(),
-                              _OmniboxChip(
-                                valueListenable: controller.searchLawsuites,
-                                canToggleListenable: controller.allowLawsuites,
-                                avatar: AppIcons.lawsuite,
-                                label: Text('Lawsuites'.tr()),
-                                onPressed: controller.toggleSearchLawsuites,
-                              ),
-                              const Spacer(),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
+                    // Bottom dismiss area
+                    Flexible(
+                      child: SizedBox(
+                        width: width,
+                        child: InkWell(
+                          hoverColor: const Color.fromARGB(0, 0, 0, 0),
+                          onTap: controller.hide,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                // Right dismiss area
+                Expanded(
+                  child: InkWell(
+                    hoverColor: const Color.fromARGB(0, 0, 0, 0),
+                    onTap: controller.hide,
                   ),
                 ),
               ],

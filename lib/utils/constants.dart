@@ -25,6 +25,10 @@ class Locales {
   static const pt = Locale('pt', 'PT');
 }
 
+class AppColors {
+  static const backdropColor = Color.fromARGB(100, 0, 0, 0);
+}
+
 class AppIcons {
   static const add = Icon(MdiIcons.plusCircle);
   static const edit = Icon(MdiIcons.pencil);
