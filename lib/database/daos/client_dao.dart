@@ -13,6 +13,7 @@ class ClientDao extends DatabaseAccessor<UserDatabase> with _$ClientDaoMixin {
       into(clients).insert(client);
 
   // Reads
+  Future<List<Client>> getAll() => select(clients).get();
   Stream<List<Client>> watchAllClients() => select(clients).watch();
 
   Stream<Client> watchClientById(int id) =>

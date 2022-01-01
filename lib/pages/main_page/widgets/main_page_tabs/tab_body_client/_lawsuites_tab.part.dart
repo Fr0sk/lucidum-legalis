@@ -14,6 +14,18 @@ class _LawsuitesTab extends StatelessWidget {
     api.openLawsuite(id: lawsuiteId, editMode: true);
   }
 
+  void onAssociateLawsuite() {
+    api.omniboxController.show(
+        hint: 'Choose Lawsuite to Associate'.tr(),
+        allowClients: false,
+        allowLawsuites: false,
+        searchClients: false,
+        onLawsuiteSelected: (lawsuite) {
+          api.closeOmnibox();
+          api.associateClientLawsuiteByIds(clientId, lawsuite.id);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,9 +48,7 @@ class _LawsuitesTab extends StatelessWidget {
               .toList()
               .length,
           onAddNewLawsuite: onAddNewLawsuite,
-          onAssociateLawsuite: () {
-            print('Associate lawsuite');
-          },
+          onAssociateLawsuite: onAssociateLawsuite,
         ),
         _LawsuitesRow(
           id: 'No.',

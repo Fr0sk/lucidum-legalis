@@ -14,6 +14,8 @@ class LawsuiteDao extends DatabaseAccessor<UserDatabase>
       into(lawsuites).insert(lawsuite);
 
   // Reads
+  Future<List<Lawsuite>> getAll() => select(lawsuites).get();
+
   Stream<List<Lawsuite>> watchAllLawsuites() => select(lawsuites).watch();
 
   Stream<Lawsuite> watchLawsuiteById(int id) =>

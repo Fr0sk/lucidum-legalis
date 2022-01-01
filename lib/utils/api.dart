@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/main.dart';
+import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_controller.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/list_notifier.dart';
 import 'package:lucidum_legalis/utils/utils.dart';
@@ -16,28 +17,43 @@ enum OpenTabBodyResult { success, unsavedChanges }
 enum FileSystemOperation { none, copy, move }
 
 class Api {
-  final UserDatabase _db;
+  final OmniboxController omniboxController;
   final tabs = ListNotifier<TabState>([]);
   final tabHistory = ListNotifier<TabState>([]);
   final selectedFiles = ListNotifier<FileSystemEntity>([]);
-  final omniboxDisplay = ValueNotifier<bool>(false);
   var fileOperation = FileSystemOperation.none;
 
-  Api() : _db = UserDatabase(databaseDir: AppDirectories.appDocDir);
+  Api()
+      : omniboxController = OmniboxController(
+            userDatabase.clientDao.watchAllClients(),
+            userDatabase.lawsuiteDao.watchAllLawsuites());
 
-  UserDatabase get database => _db;
+  UserDatabase get database => userDatabase;
   TabState? get openTabState => tabHistory.isEmpty ? null : tabHistory.last;
 
   void showOmnibox() {
-    if (!omniboxDisplay.value) omniboxDisplay.value = true;
+    omniboxController.show(
+        hint: 'Search Anything'.tr(),
+        onClientSelected: (client) {
+          closeOmnibox();
+          openClient(id: client.id);
+        },
+        onLawsuiteSelected: (lawsuite) {
+          closeOmnibox();
+          openLawsuite(id: lawsuite.id);
+        });
   }
 
-  void hideOmnibox() {
-    if (omniboxDisplay.value) omniboxDisplay.value = false;
+  void closeOmnibox() {
+    omniboxController.hide();
   }
 
   void toggleOmnibox() {
-    omniboxDisplay.value = !omniboxDisplay.value;
+    if (omniboxController.visibility.value) {
+      closeOmnibox();
+    } else {
+      showOmnibox();
+    }
   }
 
   Future<void> copyFiles(List<FileSystemEntity> files) async {
@@ -66,7 +82,7 @@ class Api {
   }
 
   Future<int> createClient() async {
-    final id = await _db.clientDao.insertClient(
+    final id = await userDatabase.clientDao.insertClient(
       ClientsCompanion.insert(
         name: 'New Client'.tr(),
         type: ClientType.person,
@@ -78,7 +94,7 @@ class Api {
   }
 
   Future<int> createLawsuite() async {
-    final id = await _db.lawsuiteDao.insertLawsuite(
+    final id = await userDatabase.lawsuiteDao.insertLawsuite(
       LawsuitesCompanion.insert(
         name: 'New Lawsuite'.tr(),
         state: LawsuiteState.open,
@@ -100,7 +116,7 @@ class Api {
       idx = tabs.length;
       tabs.add(TabState<Client>(
         id: id,
-        dataStream: _db.clientDao.watchClientById(id),
+        dataStream: userDatabase.clientDao.watchClientById(id),
         edit: editMode,
       ));
     } else {
@@ -124,7 +140,7 @@ class Api {
       idx = tabs.length;
       tabs.add(TabState<Lawsuite>(
         id: id,
-        dataStream: _db.lawsuiteDao.watchLawsuiteById(id),
+        dataStream: userDatabase.lawsuiteDao.watchLawsuiteById(id),
         edit: editMode,
       ));
     } else {
@@ -145,21 +161,22 @@ class Api {
   }
 
   Future<bool> saveClient(Insertable<Client> client) =>
-      _db.clientDao.updateClient(client);
+      userDatabase.clientDao.updateClient(client);
 
   Future<bool> saveLawsuite(Insertable<Lawsuite> lawsuite) =>
-      _db.lawsuiteDao.updateLawsuite(lawsuite);
+      userDatabase.lawsuiteDao.updateLawsuite(lawsuite);
 
   Future<bool> deleteClient(Client client) async =>
-      (await _db.clientDao.deleteClient(client)) == 1;
+      (await userDatabase.clientDao.deleteClient(client)) == 1;
 
   Future<bool> deleteLawsuite(Lawsuite lawsuite) async =>
-      (await _db.lawsuiteDao.deleteLawsuite(lawsuite)) == 1;
+      (await userDatabase.lawsuiteDao.deleteLawsuite(lawsuite)) == 1;
 
   Future<bool> associateClientLawsuiteByIds(
           int clientId, int lawsuiteId) async =>
-      (await _db.clientLawsuiteDao.insertAssociation(ClientsLawsuitesCompanion(
-          clientId: Value(clientId), lawsuiteId: Value(lawsuiteId)))) ==
+      (await userDatabase.clientLawsuiteDao.insertAssociation(
+          ClientsLawsuitesCompanion(
+              clientId: Value(clientId), lawsuiteId: Value(lawsuiteId)))) ==
       1;
 
   Future<bool> associateClientLawsuite(Client client, Lawsuite lawsuite) =>
@@ -167,7 +184,7 @@ class Api {
 
   Future<bool> deleteClientLawsuiteAssociationByIds(
           int clientId, int lawsuiteId) async =>
-      (await _db.clientLawsuiteDao
+      (await userDatabase.clientLawsuiteDao
           .deleteAssociationByIds(clientId, lawsuiteId)) ==
       1;
 

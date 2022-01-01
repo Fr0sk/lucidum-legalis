@@ -41,4 +41,10 @@ class ListNotifier<T> extends ValueNotifier<List<T>> {
     notifyListeners();
     return removed;
   }
+
+  void replace(Iterable<T> newList) {
+    value.clear();
+    value.addAll(newList);
+    notifyListeners();
+  }
 }

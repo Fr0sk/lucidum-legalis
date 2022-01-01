@@ -57,173 +57,161 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      autofocus: true,
-      focusNode: FocusNode(),
-      onKey: (e) {
-        if (e.isKeyPressed(LogicalKeyboardKey.keyF) && e.isControlPressed) {
-          api.showOmnibox();
-        } else if (e.isKeyPressed(LogicalKeyboardKey.escape)) {
-          api.hideOmnibox();
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Text('Welcome {}'.tr(args: ['Hehehe'])),
-              const Spacer(),
-              ActionChip(
-                  backgroundColor: Theme.of(context).backgroundColor,
-                  elevation: 2,
-                  label: Row(
-                    children: const [
-                      AppIcons.search,
-                      Card(
-                        child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                          child: Text('Ctrl'),
-                        ),
+    final omnibox = Omnibox(controller: api.omniboxController);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Text('Welcome {}'.tr(args: ['Hehehe'])),
+            const Spacer(),
+            ActionChip(
+                backgroundColor: Theme.of(context).backgroundColor,
+                elevation: 2,
+                label: Row(
+                  children: const [
+                    AppIcons.search,
+                    Card(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                        child: Text('Ctrl'),
                       ),
-                      Card(
-                        child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                          child: Text('F'),
-                        ),
+                    ),
+                    Card(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                        child: Text('F'),
                       ),
-                    ],
-                  ),
-                  onPressed: api.toggleOmnibox),
-              const Spacer(),
-            ],
-          ),
-          actions: [
-            IconButton(
-                onPressed: () async {
-                  api.database.clientLawsuiteDao
-                      .watchLawsuitesByClientId(1)
-                      .listen((event) {
-                    for (var lawsuite in event) {
-                      print(lawsuite.toString());
-                    }
-                  });
-                },
-                icon: const Icon(MdiIcons.plus)),
-            IconButton(
-                onPressed: () async {
-                  await api.associateClientLawsuiteByIds(1, 1);
-                },
-                icon: const Icon(MdiIcons.minus)),
-            // Notifications Button
-            StreamBuilder<List<AppNotification>>(
-              stream: api.database.notificationDao.watchNotEmitted(),
-              builder: (_, snapshot) => IconButton(
-                onPressed: () {},
-                icon: NotificationBadge(
-                  icon: AppIcons.notification,
-                  count: snapshot.data?.length,
+                    ),
+                  ],
                 ),
-              ),
-            ),
-            IconButton(
-              onPressed: () {}, //TODO: Implement Settings
-              icon: Badge(
-                showBadge: true,
-                child: AppIcons.settings,
-              ),
-            ),
-            // Space at the end
-            const SizedBox(
-              width: 10,
-            )
+                onPressed: api.toggleOmnibox),
+            const Spacer(),
           ],
         ),
-        body: Stack(
-          alignment: AlignmentDirectional.centerStart,
-          children: [
-            Row(
-              children: [
-                // Sidebar Spacer
-                const SizedBox(width: App.sidebarWidth),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Tab Headers
-                      SizedBox(
-                        height: 40,
-                        child: Stack(
-                          children: [
-                            SizedBox.expand(
-                              child: Material(
-                                elevation: 2,
-                                child: Container(),
-                              ),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                api.database.clientLawsuiteDao
+                    .watchLawsuitesByClientId(1)
+                    .listen((event) {
+                  for (var lawsuite in event) {
+                    print(lawsuite.toString());
+                  }
+                });
+              },
+              icon: const Icon(MdiIcons.plus)),
+          IconButton(
+              onPressed: () async {
+                await api.associateClientLawsuiteByIds(1, 1);
+              },
+              icon: const Icon(MdiIcons.minus)),
+          // Notifications Button
+          StreamBuilder<List<AppNotification>>(
+            stream: api.database.notificationDao.watchNotEmitted(),
+            builder: (_, snapshot) => IconButton(
+              onPressed: () {},
+              icon: NotificationBadge(
+                icon: AppIcons.notification,
+                count: snapshot.data?.length,
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {}, //TODO: Implement Settings
+            icon: Badge(
+              showBadge: true,
+              child: AppIcons.settings,
+            ),
+          ),
+          // Space at the end
+          const SizedBox(
+            width: 10,
+          )
+        ],
+      ),
+      body: Stack(
+        alignment: AlignmentDirectional.centerStart,
+        children: [
+          Row(
+            children: [
+              // Sidebar Spacer
+              const SizedBox(width: App.sidebarWidth),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Tab Headers
+                    SizedBox(
+                      height: 40,
+                      child: Stack(
+                        children: [
+                          SizedBox.expand(
+                            child: Material(
+                              elevation: 2,
+                              child: Container(),
                             ),
-                            ValueListenableBuilder<List<TabState>>(
-                              valueListenable: api.tabHistory,
-                              builder: (context, tabHistory, _) => TabPanel(
-                                scrollbarKey: _tabHeaderKey,
-                                tabs: api.tabs
-                                    .map((t) => TabHeader(tabState: t))
-                                    .toList(),
-                                selected: tabHistory.isEmpty
-                                    ? -1
-                                    : api.tabs.indexOf(tabHistory.last),
-                              ),
+                          ),
+                          ValueListenableBuilder<List<TabState>>(
+                            valueListenable: api.tabHistory,
+                            builder: (context, tabHistory, _) => TabPanel(
+                              scrollbarKey: _tabHeaderKey,
+                              tabs: api.tabs
+                                  .map((t) => TabHeader(tabState: t))
+                                  .toList(),
+                              selected: tabHistory.isEmpty
+                                  ? -1
+                                  : api.tabs.indexOf(tabHistory.last),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      // Tab Body
-                      Expanded(
-                        child: ValueListenableBuilder<List<TabState>>(
-                          valueListenable: api.tabHistory,
-                          builder: (_, history, __) {
-                            if (history.isEmpty) {
-                              return Container();
-                            }
+                    ),
+                    // Tab Body
+                    Expanded(
+                      child: ValueListenableBuilder<List<TabState>>(
+                        valueListenable: api.tabHistory,
+                        builder: (_, history, __) {
+                          if (history.isEmpty) {
+                            return Container();
+                          }
 
-                            return _tabBodies[history.last] ?? Container();
-                          },
-                        ),
+                          return _tabBodies[history.last] ?? Container();
+                        },
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          // Sidebar
+          const SizedBox(
+            width: App.sidebarWidth,
+            child: Material(
+              elevation: 10,
+              child: Siderbar(),
+            ),
+          ),
+          // Omnibox
+          omnibox,
+          /*Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 400,
+                  height: 300,
+                  child: Container(
+                    color: Colors.green,
                   ),
                 ),
               ],
             ),
-            // Sidebar
-            const SizedBox(
-              width: App.sidebarWidth,
-              child: Material(
-                elevation: 10,
-                child: Siderbar(),
-              ),
-            ),
-            // Omnibox
-            ValueListenableBuilder<bool>(
-              valueListenable: api.omniboxDisplay,
-              builder: (_, display, __) => display ? Omnibox() : Container(),
-            ),
-            /*Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 400,
-                    height: 300,
-                    child: Container(
-                      color: Colors.green,
-                    ),
-                  ),
-                ],
-              ),
-            ),*/
-          ],
-        ),
+          ),*/
+        ],
       ),
     );
   }

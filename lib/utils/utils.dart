@@ -69,3 +69,18 @@ class IconUtils {
     }
   }
 }
+
+class ListUtils {
+  static int findMatches(List<String> l1, List<String> l2) {
+    var matches = 0;
+    for (var e1 in l1) {
+      for (var e2 in l2) {
+        if (e1.contains(e2) || e1 == e2) {
+          matches++;
+        }
+      }
+    }
+
+    return matches;
+  }
+}

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:flutter/services.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/pages/main_page/main_page.dart';
 import 'package:lucidum_legalis/services/alert_system.dart.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:window_size/window_size.dart';
 
+late final UserDatabase userDatabase;
 late final Api api;
 late final AppNotifications appNotifications;
 late final AppAlerts appAlerts;
@@ -25,6 +27,7 @@ Future<void> main() async {
   await AppDirectories.ensureInitialized();
   UserDatabase.setupSqlitePlatformOverrides();
 
+  userDatabase = UserDatabase(databaseDir: AppDirectories.appDocDir);
   api = Api();
   appNotifications = AppNotifications();
   appAlerts = AppAlerts();
@@ -38,7 +41,7 @@ Future<void> main() async {
   // Run the application
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('pt', 'PT')],
+      supportedLocales: const [Locales.en, Locales.pt],
       fallbackLocale: const Locale('en'),
       path: 'assets/lang/lang.csv',
       assetLoader: CsvAssetLoader(),
@@ -63,17 +66,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: App.title,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        shadowColor: Colors.grey,
-        selectedRowColor: Colors.blue[100],
+    return RawKeyboardListener(
+      autofocus: true,
+      focusNode: FocusNode(),
+      onKey: (e) {
+        if (e.isKeyPressed(LogicalKeyboardKey.keyF) && e.isControlPressed) {
+          api.showOmnibox();
+        } else if (e.isKeyPressed(LogicalKeyboardKey.escape)) {
+          api.closeOmnibox();
+        }
+      },
+      child: MaterialApp(
+        title: App.title,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          shadowColor: Colors.grey,
+          selectedRowColor: Colors.blue[100],
+        ),
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        home: MainPage(),
       ),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home: MainPage(),
     );
   }
 }

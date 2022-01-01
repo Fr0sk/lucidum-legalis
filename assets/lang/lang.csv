@@ -9,9 +9,11 @@ Are you sure you want to permanently delete this file?,Are you sure you want to 
 Are you sure you want to permanently delete this folder?,Are you sure you want to permanently delete this folder?,Tem a certeza que pretente apagar permanentemente esta pasta?
 Associate Existing Lawsuite,Associate Existing Lawsuite,Associar Processo Existente
 Associate Lawsuite,Associate Lawsuite,Associar Processo
+Associate New Lawsuite,Associate New Lawsuite,Associar Novo Processo
 Back,Back,Voltar
 Cancel,Cancel,Cancelar
 Change Name,Change Name,Alterar Nome
+Choose Lawsuite to Associate,Choose Lawsuite to Associate,Escolher Processo para Associar
 City,City,Cidade
 Civil Status,Civil Status,Estado Civil
 Client,Client,Cliente
@@ -73,6 +75,7 @@ Person,Person,Pessoa
 Process Number,Process Number,Número de Processo
 Requires Attention,Requires Attention,Requer Atenção
 Save,Save,Guardar
+Search Anything,Search Anything,Procurar Tudo
 State,State,Estado
 Street,Street,Rua
 Tax Number,Tax Number,Número de Contribuinte
