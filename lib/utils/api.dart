@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
@@ -19,12 +20,25 @@ class Api {
   final tabs = ListNotifier<TabState>([]);
   final tabHistory = ListNotifier<TabState>([]);
   final selectedFiles = ListNotifier<FileSystemEntity>([]);
+  final omniboxDisplay = ValueNotifier<bool>(false);
   var fileOperation = FileSystemOperation.none;
 
   Api() : _db = UserDatabase(databaseDir: AppDirectories.appDocDir);
 
   UserDatabase get database => _db;
   TabState? get openTabState => tabHistory.isEmpty ? null : tabHistory.last;
+
+  void showOmnibox() {
+    if (!omniboxDisplay.value) omniboxDisplay.value = true;
+  }
+
+  void hideOmnibox() {
+    if (omniboxDisplay.value) omniboxDisplay.value = false;
+  }
+
+  void toggleOmnibox() {
+    omniboxDisplay.value = !omniboxDisplay.value;
+  }
 
   Future<void> copyFiles(List<FileSystemEntity> files) async {
     fileOperation = FileSystemOperation.copy;

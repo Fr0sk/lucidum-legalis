@@ -30,6 +30,7 @@ class AppIcons {
   static const edit = Icon(MdiIcons.pencil);
   static const save = Icon(MdiIcons.contentSave);
   static const delete = Icon(MdiIcons.trashCan);
+  static const search = Icon(MdiIcons.magnify);
 
   static const client = Icon(MdiIcons.account);
   static const clientCompany = Icon(MdiIcons.officeBuilding);
