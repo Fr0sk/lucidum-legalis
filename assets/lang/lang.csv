@@ -5,6 +5,7 @@ Add new file,Add new file,Criar novo ficheiro
 Add new folder,Add new folder,Criar nova pasta
 Address,Address,Morada
 Against,Against,Parte Contrária
+Application,Application,Aplicação
 Are you sure you want to permanently delete this file?,Are you sure you want to permanently delete this file?,Tem a certeza que pretente apagar permanentemente este ficheiro?
 Are you sure you want to permanently delete this folder?,Are you sure you want to permanently delete this folder?,Tem a certeza que pretente apagar permanentemente esta pasta?
 Associate Existing Lawsuite,Associate Existing Lawsuite,Associar Processo Existente
@@ -42,6 +43,7 @@ Edit,Edit,Editar
 Enter the password to unlock the database:,Enter the password to unlock the database:,Introduza a palavra-passe para desbloquear a base de dados:
 Error creating user,Error creating user,Erro a criar o utilizador
 Error loading user,Error loading user,Erro a carregar o utilizador
+Exit,Exit,Sair
 Files,Files,Ficheiros
 Form,Form,Forma
 ID Number,ID Number,Número de Cartão de Cidadão
@@ -50,6 +52,7 @@ Information,Information,Informação
 Invalid username,Invalid username,Nome de utilizador inválido
 Judge/Section,Judge,Juiz/Secção
 Judgement,Judgement,Juízo
+Language,Language,Idioma
 Lawsuite,Lawsuite,Processo
 Lawsuite: {},Lawsuite: {},Processo: {}
 Lawsuites,Lawsuites,Processos
@@ -75,8 +78,11 @@ Paste,Paste,Colar
 Person,Person,Pessoa
 Process Number,Process Number,Número de Processo
 Requires Attention,Requires Attention,Requer Atenção
+Restart,Restart,Reiniciar
+Restart to install the latest update,Restart to install the latest update,Reinicia para instalar a última atualização
 Save,Save,Guardar
 Search Anything,Search Anything,Procurar Tudo
+Settings,Settings,Definições
 State,State,Estado
 Street,Street,Rua
 Tax Number,Tax Number,Número de Contribuinte
@@ -93,3 +99,4 @@ Waiting,Waiting,Em Espera
 Welcome {},Welcome {},Olá {}
 Yes,Yes,Sim
 Zip Code,Zip Code,Código Postal
+Updated. Last check: {},Updated. Last check: {},Atualizado. Ultima verificação: {}

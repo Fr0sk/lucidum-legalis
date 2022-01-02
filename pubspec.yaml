@@ -40,6 +40,7 @@ dependencies:
   badges: ^2.0.2                            # Display notification and settings icons with badge
   desktoasts: ^0.0.2                        # Notifications for Windows desktop
   file_picker: ^4.3.0                       # File picker
+  http: ^0.13.4                             # HTTP Requests
   file_explorer:
     path: 'packages/file_explorer'
   window_size:

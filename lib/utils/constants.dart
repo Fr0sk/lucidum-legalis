@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lucidum_legalis/data/version.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Fonts {
@@ -9,6 +10,7 @@ class Fonts {
 class App {
   static const title = 'Lucidum Legalis';
   static const companyName = 'Fr0sk Labs';
+  static const version = Version(1, 0, 0);
 
   static const windowMinSize = Size(900, 600);
   static const sidebarWidth = 250.0;

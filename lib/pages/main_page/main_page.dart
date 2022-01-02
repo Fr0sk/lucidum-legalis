@@ -1,23 +1,23 @@
 import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
+import 'package:lucidum_legalis/pages/main_page/settings_container/settings_container.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_client/tab_body_client.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_lawsuite/tab_body_lawsuite.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/notification_badge.dart';
 import 'package:lucidum_legalis/widgets/tab_panel.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'omnibox/omnibox.dart';
 import 'widgets/sidebar/sidebar.dart';
 
 class MainPage extends StatelessWidget {
   final _tabHeaderKey = GlobalKey();
   final _tabBodies = <TabState, Widget>{};
+  final _showSettings = ValueNotifier<bool>(false);
 
   MainPage({Key? key}) : super(key: key) {
     api.tabs.addListener(() {
@@ -96,22 +96,6 @@ class MainPage extends StatelessWidget {
           ],
         ),
         actions: [
-          IconButton(
-              onPressed: () async {
-                api.database.clientLawsuiteDao
-                    .watchLawsuitesByClientId(1)
-                    .listen((event) {
-                  for (var lawsuite in event) {
-                    print(lawsuite.toString());
-                  }
-                });
-              },
-              icon: const Icon(MdiIcons.plus)),
-          IconButton(
-              onPressed: () async {
-                await api.associateClientLawsuiteByIds(1, 1);
-              },
-              icon: const Icon(MdiIcons.minus)),
           // Notifications Button
           StreamBuilder<List<AppNotification>>(
             stream: api.database.notificationDao.watchNotEmitted(),
@@ -124,9 +108,13 @@ class MainPage extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {}, //TODO: Implement Settings
-            icon: Badge(
-              showBadge: true,
+            onPressed: () => _showSettings.value = !_showSettings.value,
+            icon: ValueListenableBuilder<bool>(
+              valueListenable: updater.hasUpdates,
+              builder: (_, hasUpdates, child) => Badge(
+                showBadge: hasUpdates,
+                child: child,
+              ),
               child: AppIcons.settings,
             ),
           ),
@@ -199,8 +187,20 @@ class MainPage extends StatelessWidget {
               child: Siderbar(),
             ),
           ),
+          // Settings Panel
+
           // Omnibox
           omnibox,
+
+          // Settings Panel
+          ValueListenableBuilder<bool>(
+              valueListenable: _showSettings,
+              builder: (_, showSettings, __) => showSettings
+                  ? SettingsContainer(
+                      width: 600,
+                      onDismiss: () => _showSettings.value = false,
+                    )
+                  : Container()),
         ],
       ),
     );

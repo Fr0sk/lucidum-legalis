@@ -7,17 +7,20 @@ import 'package:lucidum_legalis/pages/main_page/main_page.dart';
 import 'package:lucidum_legalis/services/alert_system.dart.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/services/notification_system.dart';
+import 'package:lucidum_legalis/services/updater.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:window_size/window_size.dart';
 
 late final UserDatabase userDatabase;
 late final Api api;
 late final AppNotifications appNotifications;
 late final AppAlerts appAlerts;
+late final Updater updater;
 
-Future<void> main() async {
+Future<void> main(List<String> args) async {
   // Shows splash screen while app is loading
   //runApp(SplashScreen());
 
@@ -31,6 +34,7 @@ Future<void> main() async {
   api = Api();
   appNotifications = AppNotifications();
   appAlerts = AppAlerts();
+  updater = Updater();
 
   // Sets window settings
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
@@ -50,13 +54,20 @@ Future<void> main() async {
   );
 }
 
+Future<void> restart() async {
+  final launched = await launch(Platform.resolvedExecutable);
+  if (launched) {
+    exit(0);
+  }
+}
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Text('AHAHAHAHAH'),
+      home: Text(''),
     );
   }
 }
