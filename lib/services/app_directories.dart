@@ -31,4 +31,13 @@ class AppDirectories {
     id = id ?? lawsuite?.id;
     return Directory('${lawsuitesDir.path}/$id');
   }
+
+  static Directory getRuntimeDir() =>
+      Directory(p.dirname(Platform.resolvedExecutable));
+
+  static Directory getUpdateDir() =>
+      Directory(p.join(p.dirname(Platform.resolvedExecutable), 'Update'));
+
+  static File getUploadFile() =>
+      File(p.join(p.dirname(Platform.resolvedExecutable), 'update.zip'));
 }

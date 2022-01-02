@@ -1,15 +1,24 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:archive/archive_io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:lucidum_legalis/data/version.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:lucidum_legalis/utils/utils.dart';
+import 'package:path/path.dart' as p;
+import 'package:url_launcher/url_launcher.dart';
+
+import 'app_directories.dart';
 
 class Updater {
   final _checkDuration = const Duration(seconds: 20);
   final hasUpdates = ValueNotifier<bool>(false);
   final lastCheck = ValueNotifier<DateTime?>(null);
   final autoUpdater = ValueNotifier<bool>(false);
+  final downloadProgress = ValueNotifier<double?>(null);
+
   Timer? _timer;
 
   Updater() {
@@ -28,6 +37,7 @@ class Updater {
     }
   }
 
+  // Checks if there is a new version available
   Future<bool> checkForUpdates() async {
     if (hasUpdates.value) {
       _timer?.cancel();
@@ -55,5 +65,61 @@ class Updater {
     }
 
     return hasUpdates.value;
+  }
+
+  // Downloads update and decompresses it into the Update folder
+  Future<void> downloadUpdate() async {
+    const url =
+        'https://github.com/Fr0sk/sample/releases/latest/download/lucidum_legalis_win64.zip';
+    int total = 0;
+    int received = 0;
+
+    final bytes = <int>[];
+
+    final response =
+        await http.Client().send(http.Request('GET', Uri.parse(url)));
+    total = response.contentLength ?? 0;
+
+    response.stream.listen((value) {
+      bytes.addAll(value);
+      received += value.length;
+      downloadProgress.value = received / total;
+    }).onDone(() async {
+      downloadProgress.value = -1;
+
+      //print('Create file at ' + AppDirectories.getUploadFile().path);
+      //await AppDirectories.getUploadFile().writeAsBytes(bytes);
+      final archive = ZipDecoder().decodeBytes(bytes);
+      for (final file in archive) {
+        final filename = file.name;
+
+        if (file.isFile) {
+          final data = file.content as List<int>;
+          final out = File(AppDirectories.getUpdateDir().path + '/' + filename);
+          await out.create(recursive: true);
+          await out.writeAsBytes(data);
+        } else {
+          await Directory(AppDirectories.getUpdateDir().path + '/' + filename)
+              .create(recursive: true);
+        }
+      }
+      downloadProgress.value = null;
+    });
+  }
+
+  // Replaces the application files with the ones inside Update folder
+  Future<void> doUpdate() async {
+    final updateFolder = Directory(p.dirname(Platform.resolvedExecutable));
+    final programFolder = updateFolder.parent;
+    await Copy.directory(updateFolder, programFolder);
+
+    final appName = p.basename(Platform.resolvedExecutable);
+    await launch(p.join(programFolder.path, appName));
+    exit(0);
+  }
+
+  // Deletes the update folder
+  Future<void> cleanupUpdate() async {
+    await AppDirectories.getUpdateDir().delete(recursive: true);
   }
 }

@@ -8,6 +8,8 @@ import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/titled_card.dart';
 
 part 'updater_label.part.dart';
+part 'list_tile_application.part.dart';
+part 'list_tile_language.part.dart';
 
 class SettingsContainer extends StatelessWidget {
   final double width;
@@ -33,6 +35,7 @@ class SettingsContainer extends StatelessWidget {
               ),
             ),
 
+            // Settings panel
             SizedBox(
               width: width,
               child: TitledCard(
@@ -44,78 +47,14 @@ class SettingsContainer extends StatelessWidget {
                     child: Column(
                       children: [
                         const Divider(),
-                        ListTile(
-                          title: Text('Language'.tr()),
-                          subtitle: DropdownButton<Locale>(
-                            value: context.locale,
-                            items: const [
-                              DropdownMenuItem(
-                                child: Text('English'),
-                                value: Locales.en,
-                              ),
-                              DropdownMenuItem(
-                                child: Text('Português'),
-                                value: Locales.pt,
-                              ),
-                            ],
-                            onChanged: (newLocale) {
-                              if (newLocale != null) {
-                                context.setLocale(newLocale);
-                              }
-                            },
-                          ),
-                        ),
+                        const _ListTileLanguage(),
                         const Divider(),
-                        ListTile(
-                          title: Text('Application'.tr()),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ValueListenableBuilder<bool>(
-                                      valueListenable: updater.hasUpdates,
-                                      builder: (_, hasUpdates, child) => Badge(
-                                        position: const BadgePosition(
-                                            top: -5, end: 0),
-                                        child: child,
-                                        showBadge: hasUpdates,
-                                      ),
-                                      child: SizedBox(
-                                        width: 225,
-                                        child: OutlinedButton(
-                                          child: Text('Restart'.tr()),
-                                          onPressed: () {
-                                            restart();
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                      width: 225,
-                                      child: OutlinedButton(
-                                        child: Text('Exit'.tr()),
-                                        onPressed: () => exit(0),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const _UpdaterLabel(),
-                            ],
-                          ),
-                        ),
+                        const _ListTileApplication(),
                         const Divider(),
                         ElevatedButton(
                             onPressed: () async {
-                              await updater.checkForUpdates();
+                              updater.doUpdate();
+                              //updater.downloadUpdate();
                             },
                             child: const Text('Test'))
                       ],

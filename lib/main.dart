@@ -36,6 +36,12 @@ Future<void> main(List<String> args) async {
   appAlerts = AppAlerts();
   updater = Updater();
 
+  if (args.contains('update')) {
+    await updater.doUpdate();
+  } else if (args.contains('updated')) {
+    await updater.cleanupUpdate();
+  }
+
   // Sets window settings
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle(App.title);

@@ -41,6 +41,7 @@ dependencies:
   desktoasts: ^0.0.2                        # Notifications for Windows desktop
   file_picker: ^4.3.0                       # File picker
   http: ^0.13.4                             # HTTP Requests
+  archive: ^3.1.8                           # Extract update.zip 
   file_explorer:
     path: 'packages/file_explorer'
   window_size:
