@@ -7,7 +7,7 @@ import 'package:lucidum_legalis/pages/main_page/main_page.dart';
 import 'package:lucidum_legalis/services/alert_system.dart.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/services/notification_system.dart';
-import 'package:lucidum_legalis/services/updater.dart';
+import 'package:lucidum_legalis/services/updater_service.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
@@ -18,7 +18,7 @@ late final UserDatabase userDatabase;
 late final Api api;
 late final AppNotifications appNotifications;
 late final AppAlerts appAlerts;
-late final Updater updater;
+late final UpdaterService updaterService;
 
 Future<void> main(List<String> args) async {
   // Shows splash screen while app is loading
@@ -34,13 +34,7 @@ Future<void> main(List<String> args) async {
   api = Api();
   appNotifications = AppNotifications();
   appAlerts = AppAlerts();
-  updater = Updater();
-
-  if (args.contains('update')) {
-    await updater.doUpdate();
-  } else if (args.contains('updated')) {
-    await updater.cleanupUpdate();
-  }
+  updaterService = UpdaterService();
 
   // Sets window settings
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
@@ -61,9 +55,13 @@ Future<void> main(List<String> args) async {
 }
 
 Future<void> restart() async {
-  final launched = await launch(Platform.resolvedExecutable);
-  if (launched) {
-    exit(0);
+  if (updaterService.hasUpdates.value) {
+    await updaterService.doUpdate();
+  } else {
+    final launched = await launch(Platform.resolvedExecutable);
+    if (launched) {
+      exit(0);
+    }
   }
 }
 

@@ -32,12 +32,11 @@ class AppDirectories {
     return Directory('${lawsuitesDir.path}/$id');
   }
 
-  static Directory getRuntimeDir() =>
+  static Directory get runtimeDir =>
       Directory(p.dirname(Platform.resolvedExecutable));
 
-  static Directory getUpdateDir() =>
-      Directory(p.join(p.dirname(Platform.resolvedExecutable), 'Update'));
+  static File get updatePakage => File(p.join(runtimeDir.path, 'update.pkg'));
 
-  static File getUploadFile() =>
-      File(p.join(p.dirname(Platform.resolvedExecutable), 'update.zip'));
+  static File get updater => File(
+      p.join(runtimeDir.path, Platform.isWindows ? 'updater.exe' : 'updater'));
 }

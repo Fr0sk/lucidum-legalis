@@ -110,7 +110,7 @@ class MainPage extends StatelessWidget {
           IconButton(
             onPressed: () => _showSettings.value = !_showSettings.value,
             icon: ValueListenableBuilder<bool>(
-              valueListenable: updater.hasUpdates,
+              valueListenable: updaterService.hasUpdates,
               builder: (_, hasUpdates, child) => Badge(
                 showBadge: hasUpdates,
                 child: child,

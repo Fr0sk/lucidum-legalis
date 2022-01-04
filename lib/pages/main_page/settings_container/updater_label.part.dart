@@ -6,9 +6,9 @@ class _UpdaterLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: updater.hasUpdates,
+      valueListenable: updaterService.hasUpdates,
       builder: (_, hasUpdates, __) => ValueListenableBuilder<DateTime?>(
-        valueListenable: updater.lastCheck,
+        valueListenable: updaterService.lastCheck,
         builder: (_, dateChecked, __) {
           var text = '';
           if (hasUpdates) {

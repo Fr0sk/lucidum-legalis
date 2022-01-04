@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:archive/archive_io.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:archive/archive.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lucidum_legalis/data/version.dart';
+import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
-import 'package:lucidum_legalis/utils/utils.dart';
 import 'package:path/path.dart' as p;
-import 'package:url_launcher/url_launcher.dart';
 
-import 'app_directories.dart';
-
-class Updater {
+class UpdaterService {
+  /// Creates the updater service for the corresponding platform
   final _checkDuration = const Duration(seconds: 20);
   final hasUpdates = ValueNotifier<bool>(false);
   final lastCheck = ValueNotifier<DateTime?>(null);
@@ -21,7 +19,7 @@ class Updater {
 
   Timer? _timer;
 
-  Updater() {
+  UpdaterService() {
     autoUpdater.addListener(checkForTimer);
     checkForTimer();
   }
@@ -37,8 +35,10 @@ class Updater {
     }
   }
 
-  // Checks if there is a new version available
+  /// Checks if there is a new version available
   Future<bool> checkForUpdates() async {
+    downloadProgress.value = -1;
+
     if (hasUpdates.value) {
       _timer?.cancel();
       return true;
@@ -49,8 +49,8 @@ class Updater {
 
     final response = await http.get(url);
 
-    lastCheck.value = DateTime.now();
     if (response.statusCode != 200) {
+      downloadProgress.value = null;
       return false;
     }
 
@@ -58,22 +58,28 @@ class Updater {
     var versionString = body.substring(body.indexOf(pattern) + pattern.length);
     versionString = versionString.substring(0, versionString.indexOf('"'));
     final onlineVersion = Version.parse(versionString);
+
     if (onlineVersion > App.version) {
+      await downloadUpdate();
       hasUpdates.value = true;
     } else {
       hasUpdates.value = false;
     }
 
+    lastCheck.value = DateTime.now();
+    downloadProgress.value = null;
     return hasUpdates.value;
   }
 
-  // Downloads update and decompresses it into the Update folder
+  /// Downloads update and decompresses it into the Update folder
   Future<void> downloadUpdate() async {
-    const url =
-        'https://github.com/Fr0sk/sample/releases/latest/download/lucidum_legalis_win64.zip';
+    final url = Platform.isWindows
+        ? 'https://github.com/Fr0sk/sample/releases/latest/download/lucidum_legalis_win64.zip'
+        : throw 'Platform not supported';
+
     int total = 0;
     int received = 0;
-
+    final completer = Completer();
     final bytes = <int>[];
 
     final response =
@@ -87,39 +93,41 @@ class Updater {
     }).onDone(() async {
       downloadProgress.value = -1;
 
-      //print('Create file at ' + AppDirectories.getUploadFile().path);
-      //await AppDirectories.getUploadFile().writeAsBytes(bytes);
+      await AppDirectories.updatePakage.writeAsBytes(bytes);
+
+      // Checks if there is an updater program in the package,
+      // and if it extract it
       final archive = ZipDecoder().decodeBytes(bytes);
       for (final file in archive) {
-        final filename = file.name;
-
-        if (file.isFile) {
-          final data = file.content as List<int>;
-          final out = File(AppDirectories.getUpdateDir().path + '/' + filename);
+        if (file.isFile &&
+            file.name == p.basename(AppDirectories.updater.path)) {
+          final out = File(file.name);
           await out.create(recursive: true);
-          await out.writeAsBytes(data);
-        } else {
-          await Directory(AppDirectories.getUpdateDir().path + '/' + filename)
-              .create(recursive: true);
+          await out.writeAsBytes(file.content);
+          break;
         }
       }
+
       downloadProgress.value = null;
+      completer.complete();
     });
+
+    await completer.future;
   }
 
-  // Replaces the application files with the ones inside Update folder
+  /// Replaces the application files with the ones inside Update folder
   Future<void> doUpdate() async {
-    final updateFolder = Directory(p.dirname(Platform.resolvedExecutable));
-    final programFolder = updateFolder.parent;
-    await Copy.directory(updateFolder, programFolder);
-
-    final appName = p.basename(Platform.resolvedExecutable);
-    await launch(p.join(programFolder.path, appName));
-    exit(0);
+    if (await AppDirectories.updater.exists()) {
+      await Process.start(AppDirectories.updater.path, [],
+          mode: ProcessStartMode.detached, runInShell: true);
+      exit(0);
+    }
   }
 
-  // Deletes the update folder
-  Future<void> cleanupUpdate() async {
-    await AppDirectories.getUpdateDir().delete(recursive: true);
-  }
+  /// Deletes the update package if it exists
+  /*Future<void> cleanupUpdate() async {
+    if (await AppDirectories.updatePakage.exists()) {
+      await AppDirectories.updatePakage.delete();
+    }
+  }*/
 }

@@ -53,8 +53,7 @@ class SettingsContainer extends StatelessWidget {
                         const Divider(),
                         ElevatedButton(
                             onPressed: () async {
-                              updater.doUpdate();
-                              //updater.downloadUpdate();
+                              updaterService.doUpdate();
                             },
                             child: const Text('Test'))
                       ],

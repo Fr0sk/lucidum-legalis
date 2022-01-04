@@ -16,7 +16,7 @@ class _ListTileApplication extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: ValueListenableBuilder<bool>(
-                  valueListenable: updater.autoUpdater,
+                  valueListenable: updaterService.autoUpdater,
                   builder: (_, autoUpdaterEnabled, child) => SizedBox(
                     width: 225,
                     child: CheckboxListTile(
@@ -24,8 +24,8 @@ class _ListTileApplication extends StatelessWidget {
                             Text('Automatic check and download updates'.tr()),
                         //controlAffinity: ListTileControlAffinity.leading,
                         value: autoUpdaterEnabled,
-                        onChanged: (enabled) =>
-                            updater.autoUpdater.value = enabled ?? false),
+                        onChanged: (enabled) => updaterService
+                            .autoUpdater.value = enabled ?? false),
                   ),
                 ),
               ),
@@ -35,8 +35,8 @@ class _ListTileApplication extends StatelessWidget {
                   width: 225,
                   child: OutlinedButton(
                     child: Text('Check for updates'.tr()),
-                    onPressed: () {
-                      restart();
+                    onPressed: () async {
+                      await updaterService.checkForUpdates();
                     },
                   ),
                 ),
@@ -49,7 +49,7 @@ class _ListTileApplication extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ValueListenableBuilder<bool>(
-                  valueListenable: updater.hasUpdates,
+                  valueListenable: updaterService.hasUpdates,
                   builder: (_, hasUpdates, child) => Badge(
                     position: const BadgePosition(top: -5, end: 0),
                     child: child,
@@ -80,7 +80,7 @@ class _ListTileApplication extends StatelessWidget {
           ),
           const _UpdaterLabel(),
           ValueListenableBuilder<double?>(
-            valueListenable: updater.downloadProgress,
+            valueListenable: updaterService.downloadProgress,
             builder: (_, progress, __) => progress == null
                 ? Container()
                 : LinearProgressIndicator(
