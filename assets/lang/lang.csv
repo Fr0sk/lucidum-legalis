@@ -70,7 +70,9 @@ New Folder,New Folder,Nova Pasta
 New Lawsuite,New Lawsuite,Novo Processo
 NewAccount?,New Account?,Nova Conta?
 No,No,Não
+No new notifications,No new notifications,Sem notificações novas
 Notes,Notes,Notas
+Notifications,Notifications,Notificações
 Open folder in explorer,Open folder in explorer,Abrir pasta no explorador
 Opened,Opened,Aberto
 Password,Password,Palavra Passe
@@ -79,6 +81,7 @@ PasswordOptional,Password (Optional),Palavra-passe (Opcional)
 Passwords do not match,Passwords do not match,As palavras-passe não são iguais
 Paste,Paste,Colar
 Process Number,Process Number,Número de Processo
+Remove Association,Remove Association,Remover Associação
 Remove this field,Remove this field,Remover este campo
 Requires Attention,Requires Attention,Requer Atenção
 Restart,Restart,Reiniciar
