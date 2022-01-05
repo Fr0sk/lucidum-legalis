@@ -117,6 +117,7 @@ class _ClientInformationTab extends StatelessWidget {
                     taxNumberController: _taxNumberController,
                     civilStatusController: _civilStatusController,
                     readOnly: !state.edit,
+                    type: client.type,
                   ),
                   _Address(
                     streetController: _streetController,

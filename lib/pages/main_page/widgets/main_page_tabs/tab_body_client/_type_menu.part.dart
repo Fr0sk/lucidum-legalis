@@ -25,8 +25,8 @@ class _TypeMenu extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-              child: Text('State'.tr(),
-                  style: Theme.of(context).textTheme.caption),
+              child:
+                  Text('Type'.tr(), style: Theme.of(context).textTheme.caption),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -42,14 +42,20 @@ class _TypeMenu extends StatelessWidget {
                 items: [
                   DropdownMenuItem(
                     value: ClientType.person,
-                    child: Text(
-                      'Person'.tr(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: Text(
+                        'Singular'.tr(),
+                      ),
                     ),
                   ),
                   DropdownMenuItem(
                     value: ClientType.company,
-                    child: Text(
-                      'Company'.tr(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: Text(
+                        'Colective'.tr(),
+                      ),
                     ),
                   ),
                 ],

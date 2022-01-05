@@ -4,7 +4,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
   final TabState<Lawsuite> tabState;
 
   final _nameController = TextEditingController();
-  final _againstController = TextEditingController();
   final _codeController = TextEditingController();
   final _processNumberController = TextEditingController();
   final _districtController = TextEditingController();
@@ -12,6 +11,8 @@ class _LawsuiteInformationTab extends StatelessWidget {
   final _judgementController = TextEditingController();
   final _formController = TextEditingController();
   final _legalSupportController = TextEditingController();
+
+  final _againstControllers = <_AgainstTextController>[];
 
   _LawsuiteInformationTab({Key? key, required this.tabState}) : super(key: key);
 
@@ -21,7 +22,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
     if (lawsuite != null) {
       api.saveLawsuite(lawsuite.copyWith(
         name: _nameController.text,
-        against: _againstController.text,
         code: _codeController.text,
         processNumber: _processNumberController.text,
         district: _districtController.text,
@@ -30,6 +30,14 @@ class _LawsuiteInformationTab extends StatelessWidget {
         form: _formController.text,
         legalSupportNumber: _legalSupportController.text,
       ));
+
+      for (var controller in _againstControllers) {
+        userDatabase.lawsuiteDao.updateAgainst(LawsuiteAgainstsCompanion(
+          id: drift.Value(controller.id),
+          against: drift.Value(controller.text),
+          lawsuiteId: drift.Value(lawsuite.id),
+        ));
+      }
 
       tabState.edit = false;
     }
@@ -76,7 +84,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
             _nameController.text = lawsuite.name;
             if (!state.edit) {
               // If loading data
-              _againstController.text = lawsuite.against ?? '';
               _codeController.text = lawsuite.code ?? '';
               _processNumberController.text = lawsuite.processNumber ?? '';
               _districtController.text = lawsuite.district ?? '';
@@ -84,6 +91,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
               _judgementController.text = lawsuite.judgement ?? '';
               _formController.text = lawsuite.form ?? '';
               _legalSupportController.text = lawsuite.legalSupportNumber ?? '';
+              _againstControllers.clear();
             }
 
             return SingleChildScrollView(
@@ -111,22 +119,11 @@ class _LawsuiteInformationTab extends StatelessWidget {
                       ],
                     ),
                   ),
-                  TitledCard(
-                    titleText: 'Identification'.tr(),
-                    child: Row(
-                      children: [
-                        FlexibleTextField(
-                          controller: _codeController,
-                          readOnly: !state.edit,
-                          labelText: 'Code'.tr(),
-                        ),
-                        FlexibleTextField(
-                          controller: _againstController,
-                          readOnly: !state.edit,
-                          labelText: 'Against'.tr(),
-                        ),
-                      ],
-                    ),
+                  _IdentificationCard(
+                    lawsuiteId: lawsuite.id,
+                    codeController: _codeController,
+                    againstControllers: _againstControllers,
+                    editMode: state.edit,
                   ),
                   TitledCard(
                     titleText: 'Judgement'.tr(),

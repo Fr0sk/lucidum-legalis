@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
@@ -9,6 +10,7 @@ import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/utils/utils.dart';
 import 'package:lucidum_legalis/widgets/button_group.dart';
+import 'package:lucidum_legalis/widgets/custom_grid.dart';
 import 'package:lucidum_legalis/widgets/custom_tabs.dart';
 import 'package:lucidum_legalis/widgets/flexible_text_field.dart';
 import 'package:lucidum_legalis/widgets/titled_card.dart';
@@ -18,6 +20,9 @@ import '../tab_body_base.dart';
 
 part '_lawsuite_information_tab.part.dart';
 part '_state_menu.part.dart';
+part '_against_text_field.part.dart';
+part '_against_text_controller.part.dart';
+part '_identification_card.part.dart';
 
 class TabBodyLawsuite extends TabBodyBase<Lawsuite> {
   final _LawsuiteInformationTab _lawsuiteInformationTab;

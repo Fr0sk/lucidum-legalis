@@ -8,4 +8,6 @@ part of 'lawsuite_dao.dart';
 
 mixin _$LawsuiteDaoMixin on DatabaseAccessor<UserDatabase> {
   $LawsuitesTable get lawsuites => attachedDatabase.lawsuites;
+  $LawsuiteAgainstsTable get lawsuiteAgainsts =>
+      attachedDatabase.lawsuiteAgainsts;
 }

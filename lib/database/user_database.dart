@@ -12,6 +12,7 @@ import 'package:lucidum_legalis/database/tables/client_notes.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/clients_lawsuites.dart';
 import 'package:lucidum_legalis/database/tables/contacts.dart';
+import 'package:lucidum_legalis/database/tables/lawsuite_againsts.dart';
 import 'package:lucidum_legalis/database/tables/lawsuite_notes.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/tables/app_notifications.dart';
@@ -31,7 +32,8 @@ part 'user_database.g.dart';
   Lawsuites,
   Settings,
   AppNotifications,
-  Alerts
+  Alerts,
+  LawsuiteAgainsts
 ], daos: [
   ClientDao,
   LawsuiteDao,

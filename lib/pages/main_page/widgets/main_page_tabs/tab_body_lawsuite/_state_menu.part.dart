@@ -44,26 +44,38 @@ class _StateMenu extends StatelessWidget {
                 items: [
                   DropdownMenuItem(
                     value: LawsuiteState.open,
-                    child: Text(
-                      'Opened'.tr(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: Text(
+                        'Opened'.tr(),
+                      ),
                     ),
                   ),
                   DropdownMenuItem(
                     value: LawsuiteState.closed,
-                    child: Text(
-                      'Closed'.tr(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: Text(
+                        'Closed'.tr(),
+                      ),
                     ),
                   ),
                   DropdownMenuItem(
                     value: LawsuiteState.waiting,
-                    child: Text(
-                      'Waiting'.tr(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: Text(
+                        'Waiting'.tr(),
+                      ),
                     ),
                   ),
                   DropdownMenuItem(
                     value: LawsuiteState.requiresAttention,
-                    child: Text(
-                      'Requires Attention'.tr(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: Text(
+                        'Requires Attention'.tr(),
+                      ),
                     ),
                   ),
                 ],
