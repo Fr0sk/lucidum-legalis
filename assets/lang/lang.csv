@@ -26,7 +26,7 @@ Company,Company,Empresa
 Confirm,Confirm,Confirmar
 Copy,Copy,Copiar
 County,County,Distrito
-Court,Court,Juizo
+Court,Court,Juízo
 CreateAccount,Create Account,Criar Conta
 Created At,Created At,Criado Em
 Created at {},Created at {},Criado em {}
@@ -38,7 +38,7 @@ Delete File,Delete File,Apagar Ficheiro
 Delete Folder,Delete Folder,Delete Pasta
 Dismiss,Dismiss,Ignorar
 District,District,Comarca
-Drop Files Here,Drop Files Here,
+Drop Files Here,Drop Files Here,Largar Ficheiros Aqui
 Edit,Edit,Editar
 Enter the password to unlock the database:,Enter the password to unlock the database:,Introduza a palavra-passe para desbloquear a base de dados:
 Error creating user,Error creating user,Erro a criar o utilizador
@@ -65,7 +65,7 @@ New,New,Novo
 New Client,New Client,Novo Cliente
 New Folder,New Folder,Nova Pasta
 New Lawsuite,New Lawsuite,Novo Processo
-NewAccount?,New Account?, Nova Conta?
+NewAccount?,New Account?,Nova Conta?
 No,No,Não
 Notes,Notes,Notas
 Open folder in explorer,Open folder in explorer,Abrir pasta no explorador
@@ -100,3 +100,6 @@ Welcome {},Welcome {},Olá {}
 Yes,Yes,Sim
 Zip Code,Zip Code,Código Postal
 Updated. Last check: {},Updated. Last check: {},Atualizado. Ultima verificação: {}
+Check for updates,Check for updates,Procurar por atualizações
+Automatic check and download updates,Automatic check and download updates,Procurar por atualizações automaticamente
+Remove this field,Remove this field,Remover este campo

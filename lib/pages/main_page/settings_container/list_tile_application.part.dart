@@ -18,7 +18,7 @@ class _ListTileApplication extends StatelessWidget {
                 child: ValueListenableBuilder<bool>(
                   valueListenable: updaterService.autoUpdater,
                   builder: (_, autoUpdaterEnabled, child) => SizedBox(
-                    width: 225,
+                    width: 400,
                     child: CheckboxListTile(
                         title:
                             Text('Automatic check and download updates'.tr()),
@@ -29,23 +29,20 @@ class _ListTileApplication extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 225,
-                  child: OutlinedButton(
-                    child: Text('Check for updates'.tr()),
-                    onPressed: () async {
-                      await updaterService.checkForUpdates();
-                    },
-                  ),
-                ),
-              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: OutlinedButton(
+                  child: Text('Check for updates'.tr()),
+                  onPressed: () async {
+                    await updaterService.checkForUpdates();
+                  },
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ValueListenableBuilder<bool>(
@@ -56,7 +53,7 @@ class _ListTileApplication extends StatelessWidget {
                     showBadge: hasUpdates,
                   ),
                   child: SizedBox(
-                    width: 225,
+                    width: 125,
                     child: OutlinedButton(
                       child: Text('Restart'.tr()),
                       onPressed: () {
@@ -69,7 +66,7 @@ class _ListTileApplication extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  width: 225,
+                  width: 125,
                   child: OutlinedButton(
                     child: Text('Exit'.tr()),
                     onPressed: () => exit(0),
