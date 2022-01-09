@@ -1,6 +1,7 @@
  keys,en,pt_PT
 Add against field,Add against field,Adicionar campo de parte contrária
 Add Client,Add Client,Adicionar Cliente
+Add contact,Add contact,Adicionar contacto
 Add Lawsuite,Add Lawsuite,Adicionar Processo
 Add new file,Add new file,Criar novo ficheiro
 Add new folder,Add new folder,Criar nova pasta
@@ -27,6 +28,7 @@ Closed,Closed,Fechado
 Code,Code,Código
 Colective,Colective,Coletivo
 Confirm,Confirm,Confirmar
+Contacts,Contacts,Contactos
 Copy,Copy,Copiar
 County,County,Distrito
 Court,Court,Juízo
@@ -43,6 +45,7 @@ Dismiss,Dismiss,Ignorar
 District,District,Comarca
 Drop Files Here,Drop Files Here,Largar Ficheiros Aqui
 Edit,Edit,Editar
+Email,Email,Email
 Enter the password to unlock the database:,Enter the password to unlock the database:,Introduza a palavra-passe para desbloquear a base de dados:
 Error creating user,Error creating user,Erro a criar o utilizador
 Error loading user,Error loading user,Erro a carregar o utilizador
@@ -63,6 +66,7 @@ Leave,Leave,Sair
 Legal Support Number,Legal Support Number,Processo de Apoio Judiciário nº 
 Login,Login,Entrar
 LoginAutomatically,Login Automatically,Entrar Automaticamente
+Mobile,Mobile,Telemóvel
 Name,Name,Nome
 New,New,Novo
 New Client,New Client,Novo Cliente
@@ -80,6 +84,7 @@ PasswordConfirmOptional,Confirm Password (Optional),Confirmar Palavra-passe (Opc
 PasswordOptional,Password (Optional),Palavra-passe (Opcional)
 Passwords do not match,Passwords do not match,As palavras-passe não são iguais
 Paste,Paste,Colar
+Phone,Phone,Telefone
 Process Number,Process Number,Número de Processo
 Remove Association,Remove Association,Remover Associação
 Remove this field,Remove this field,Remover este campo

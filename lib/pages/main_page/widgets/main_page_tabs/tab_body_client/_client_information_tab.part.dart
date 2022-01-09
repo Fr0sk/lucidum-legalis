@@ -11,14 +11,15 @@ class _ClientInformationTab extends StatelessWidget {
   final _zipCodeController = TextEditingController();
   final _cityController = TextEditingController();
   final _countyController = TextEditingController();
+  final _contactsControllers = <DynamicTextFieldController<ContactType>>[];
 
   _ClientInformationTab({Key? key, required this.tabState}) : super(key: key);
 
-  void _onSave() {
+  Future<void> _onSave() async {
     final client = tabState.dataNotifier.value;
 
     if (client != null) {
-      api.saveClient(
+      await api.saveClient(
         client.copyWith(
           name: _nameController.text,
           idNumber: _idNumberController.text,
@@ -32,6 +33,17 @@ class _ClientInformationTab extends StatelessWidget {
           county: _countyController.text,
         ),
       );
+
+      for (var controller in _contactsControllers) {
+        await userDatabase.clientDao.updateContact(
+          ContactsCompanion(
+              id: drift.Value(controller.id),
+              contact: drift.Value(controller.text),
+              contactType: drift.Value(controller.custom!),
+              clientId: drift.Value(client.id)),
+        );
+      }
+
       tabState.edit = false;
     }
   }
@@ -72,7 +84,7 @@ class _ClientInformationTab extends StatelessWidget {
           return Container();
         }
 
-        return ValueListenableBuilder(
+        return ValueListenableBuilder<bool>(
           valueListenable: state.editNotifier,
           builder: (_, editMode, __) {
             _nameController.text = client.name;
@@ -119,13 +131,17 @@ class _ClientInformationTab extends StatelessWidget {
                     readOnly: !state.edit,
                     type: client.type,
                   ),
-                  _Address(
+                  _AddressCard(
                     streetController: _streetController,
                     zipCodeController: _zipCodeController,
                     cityController: _cityController,
                     countyController: _countyController,
                     readOnly: !state.edit,
                   ),
+                  _ContactsCard(
+                      clientId: state.id,
+                      editMode: editMode,
+                      contactsControllers: _contactsControllers),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

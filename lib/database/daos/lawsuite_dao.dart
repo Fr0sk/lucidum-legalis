@@ -48,11 +48,20 @@ class LawsuiteDao extends DatabaseAccessor<UserDatabase>
       update(lawsuiteAgainsts).replace(against);
 
   // Deletes
-  Future<int> deleteLawsuite(Lawsuite lawsuite) =>
-      delete(lawsuites).delete(lawsuite);
+  Future<int> deleteLawsuite(Lawsuite lawsuite) {
+    delete(lawsuiteAgainsts)
+      ..where((tbl) => tbl.lawsuiteId.equals(lawsuite.id))
+      ..go();
+    return delete(lawsuites).delete(lawsuite);
+  }
 
-  Future<void> deleteLawsuiteById(int id) =>
-      (delete(lawsuites)..where((lawsuite) => lawsuite.id.equals(id))).go();
+  Future<void> deleteLawsuiteById(int id) {
+    delete(lawsuiteAgainsts)
+      ..where((tbl) => tbl.lawsuiteId.equals(id))
+      ..go();
+    return (delete(lawsuites)..where((lawsuite) => lawsuite.id.equals(id)))
+        .go();
+  }
 
   Future<void> deleteAgainstById(int id) =>
       (delete(lawsuiteAgainsts)..where((against) => against.id.equals(id)))

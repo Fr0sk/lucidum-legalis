@@ -1,13 +1,15 @@
-part of 'tab_body_lawsuite.dart';
+import 'package:flutter/material.dart';
+import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:lucidum_legalis/widgets/flexible_text_field.dart';
 
-class _AgainstTextField extends StatelessWidget {
+class DynamicTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String label;
   final bool readOnly;
   final String? deleteTooltip;
   final void Function()? onDelete;
 
-  const _AgainstTextField({
+  const DynamicTextField({
     Key? key,
     this.onDelete,
     this.controller,

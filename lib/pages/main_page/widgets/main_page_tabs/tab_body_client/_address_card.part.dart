@@ -1,13 +1,13 @@
 part of 'tab_body_client.dart';
 
-class _Address extends StatelessWidget {
+class _AddressCard extends StatelessWidget {
   final TextEditingController streetController;
   final TextEditingController zipCodeController;
   final TextEditingController cityController;
   final TextEditingController countyController;
   final bool readOnly;
 
-  const _Address(
+  const _AddressCard(
       {Key? key,
       required this.streetController,
       required this.zipCodeController,

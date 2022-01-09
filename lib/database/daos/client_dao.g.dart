@@ -8,4 +8,5 @@ part of 'client_dao.dart';
 
 mixin _$ClientDaoMixin on DatabaseAccessor<UserDatabase> {
   $ClientsTable get clients => attachedDatabase.clients;
+  $ContactsTable get contacts => attachedDatabase.contacts;
 }

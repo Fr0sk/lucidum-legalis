@@ -4,7 +4,7 @@ class _IdentificationCard extends StatelessWidget {
   final int lawsuiteId;
   final TextEditingController codeController;
   final bool editMode;
-  final List<_AgainstTextController> againstControllers;
+  final List<DynamicTextFieldController> againstControllers;
 
   const _IdentificationCard({
     Key? key,
@@ -38,8 +38,19 @@ class _IdentificationCard extends StatelessWidget {
       child: StreamBuilder<List<LawsuiteAgainst>>(
           stream: userDatabase.lawsuiteDao.watchAllAgainst(lawsuiteId),
           builder: (_, snapshot) {
-            againstControllers.clear();
+            // Populate controllers list
+            for (var against in snapshot.data ?? <LawsuiteAgainst>[]) {
+              if (against.lawsuiteId != lawsuiteId) {
+                continue;
+              }
+              if (againstControllers.indexWhere((c) => c.id == against.id) ==
+                  -1) {
+                againstControllers.add(DynamicTextFieldController(
+                    id: against.id, text: against.against));
+              }
+            }
 
+            // Create children
             final children = <Widget>[
               FlexibleTextField(
                 controller: codeController,
@@ -48,27 +59,20 @@ class _IdentificationCard extends StatelessWidget {
               ),
             ];
 
-            for (var against in snapshot.data ?? <LawsuiteAgainst>[]) {
-              if (againstControllers.indexWhere((c) => c.id == against.id) ==
-                  -1) {
-                againstControllers.add(_AgainstTextController(
-                    id: against.id, text: against.against));
-              }
-            }
-
             for (var controller in againstControllers) {
               children.add(
-                _AgainstTextField(
-                    controller: controller,
-                    readOnly: !editMode,
-                    label: 'Against'.tr(),
-                    deleteTooltip: 'Remove this field'.tr(),
-                    onDelete: () async {
-                      await userDatabase.lawsuiteDao
-                          .deleteAgainstById(controller.id);
-                      againstControllers
-                          .removeWhere((c) => c.id == controller.id);
-                    }),
+                DynamicTextField(
+                  controller: controller,
+                  readOnly: !editMode,
+                  label: 'Against'.tr(),
+                  deleteTooltip: 'Remove this field'.tr(),
+                  onDelete: () async {
+                    await userDatabase.lawsuiteDao
+                        .deleteAgainstById(controller.id);
+                    againstControllers
+                        .removeWhere((c) => c.id == controller.id);
+                  },
+                ),
               );
             }
 

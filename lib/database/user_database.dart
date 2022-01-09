@@ -59,12 +59,20 @@ class UserDatabase extends _$UserDatabase {
       : super(_openConnection(userFolder: databaseDir.path));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 1; // Database version
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-      beforeOpen: (details) async {
-        await customStatement('PRAGMA foreing_keys = ON');
-      },
-      onUpgrade: (migrator, from, to) async {});
+        beforeOpen: (details) async {
+          await customStatement('PRAGMA foreing_keys = ON');
+        },
+        onCreate: (migrator) {
+          return migrator.createAll();
+        },
+        onUpgrade: (migrator, from, to) async {
+          if (from == 1) {
+            //migrator.createTable(table)
+          }
+        },
+      );
 }

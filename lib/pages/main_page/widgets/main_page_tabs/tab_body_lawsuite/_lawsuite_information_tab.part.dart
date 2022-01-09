@@ -11,16 +11,15 @@ class _LawsuiteInformationTab extends StatelessWidget {
   final _judgementController = TextEditingController();
   final _formController = TextEditingController();
   final _legalSupportController = TextEditingController();
-
-  final _againstControllers = <_AgainstTextController>[];
+  final _againstControllers = <DynamicTextFieldController>[];
 
   _LawsuiteInformationTab({Key? key, required this.tabState}) : super(key: key);
 
-  void _onSave() {
+  Future<void> _onSave() async {
     final lawsuite = tabState.dataNotifier.value;
 
     if (lawsuite != null) {
-      api.saveLawsuite(lawsuite.copyWith(
+      await api.saveLawsuite(lawsuite.copyWith(
         name: _nameController.text,
         code: _codeController.text,
         processNumber: _processNumberController.text,
@@ -32,11 +31,13 @@ class _LawsuiteInformationTab extends StatelessWidget {
       ));
 
       for (var controller in _againstControllers) {
-        userDatabase.lawsuiteDao.updateAgainst(LawsuiteAgainstsCompanion(
-          id: drift.Value(controller.id),
-          against: drift.Value(controller.text),
-          lawsuiteId: drift.Value(lawsuite.id),
-        ));
+        await userDatabase.lawsuiteDao.updateAgainst(
+          LawsuiteAgainstsCompanion(
+            id: drift.Value(controller.id),
+            against: drift.Value(controller.text),
+            lawsuiteId: drift.Value(lawsuite.id),
+          ),
+        );
       }
 
       tabState.edit = false;

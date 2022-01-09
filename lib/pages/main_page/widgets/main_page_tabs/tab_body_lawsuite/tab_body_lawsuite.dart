@@ -6,6 +6,8 @@ import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/dialogs/yes_no_dialog.dart';
 import 'package:lucidum_legalis/main.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/dynamic_text_field.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/dynamic_text_field_controller.part.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/utils/utils.dart';
@@ -20,8 +22,6 @@ import '../tab_body_base.dart';
 
 part '_lawsuite_information_tab.part.dart';
 part '_state_menu.part.dart';
-part '_against_text_field.part.dart';
-part '_against_text_controller.part.dart';
 part '_identification_card.part.dart';
 part '_client_tab.part.dart';
 part '_client_row.part.dart';
