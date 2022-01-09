@@ -22,21 +22,24 @@ class _IdentificationCard extends StatelessWidget {
           Text('Identification'.tr(),
               style: Theme.of(context).textTheme.headline6),
           const Spacer(),
-          TextButton(
-            onPressed: () {
-              userDatabase.lawsuiteDao.insertAgainst(
-                LawsuiteAgainstsCompanion.insert(
-                  lawsuiteId: lawsuiteId,
-                ),
-              );
-            },
-            child: Text('Add against field'.tr()),
-          ),
+          if (editMode)
+            TextButton(
+              onPressed: () {
+                userDatabase.lawsuiteDao.insertAgainst(
+                  LawsuiteAgainstsCompanion.insert(
+                    lawsuiteId: lawsuiteId,
+                  ),
+                );
+              },
+              child: Text('Add against field'.tr()),
+            ),
         ],
       ),
       child: StreamBuilder<List<LawsuiteAgainst>>(
-          stream: userDatabase.lawsuiteDao.watchAllAgainst,
+          stream: userDatabase.lawsuiteDao.watchAllAgainst(lawsuiteId),
           builder: (_, snapshot) {
+            againstControllers.clear();
+
             final children = <Widget>[
               FlexibleTextField(
                 controller: codeController,

@@ -30,11 +30,15 @@ class LawsuiteDao extends DatabaseAccessor<UserDatabase>
       (select(lawsuites)..where((lawsuite) => lawsuite.id.equals(id)))
           .getSingle();
 
-  Future<List<LawsuiteAgainst>> get allAgainst =>
-      select(lawsuiteAgainsts).get();
+  Future<List<LawsuiteAgainst>> getAllAgainst(int lawsuiteId) =>
+      (select(lawsuiteAgainsts)
+            ..where((tbl) => tbl.lawsuiteId.equals(lawsuiteId)))
+          .get();
 
-  Stream<List<LawsuiteAgainst>> get watchAllAgainst =>
-      select(lawsuiteAgainsts).watch();
+  Stream<List<LawsuiteAgainst>> watchAllAgainst(int lawsuiteId) =>
+      (select(lawsuiteAgainsts)
+            ..where((tbl) => tbl.lawsuiteId.equals(lawsuiteId)))
+          .watch();
 
   // Updates
   Future<bool> updateLawsuite(Insertable<Lawsuite> lawsuite) =>

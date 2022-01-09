@@ -78,11 +78,11 @@ class _LawsuiteInformationTab extends StatelessWidget {
           return Container();
         }
 
-        return ValueListenableBuilder(
+        return ValueListenableBuilder<bool>(
           valueListenable: state.editNotifier,
           builder: (_, editMode, __) {
             _nameController.text = lawsuite.name;
-            if (!state.edit) {
+            if (!editMode) {
               // If loading data
               _codeController.text = lawsuite.code ?? '';
               _processNumberController.text = lawsuite.processNumber ?? '';
