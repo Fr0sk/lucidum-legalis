@@ -1,21 +1,12 @@
-import 'dart:io';
-
-import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lucidum_legalis/main.dart';
-import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/titled_card.dart';
 
-part 'updater_label.part.dart';
-part 'list_tile_application.part.dart';
-part 'list_tile_language.part.dart';
-
-class SettingsContainer extends StatelessWidget {
+class NotificationsContainer extends StatelessWidget {
   final double width;
   final void Function()? onDismiss;
 
-  const SettingsContainer({Key? key, this.onDismiss, required this.width})
+  const NotificationsContainer({Key? key, required this.width, this.onDismiss})
       : super(key: key);
 
   @override
@@ -39,18 +30,20 @@ class SettingsContainer extends StatelessWidget {
             SizedBox(
               width: width,
               child: TitledCard(
-                titleText: 'Settings'.tr(),
+                titleText: 'Notifications'.tr(),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
                     controller: ScrollController(),
                     child: Column(
-                      children: const [
-                        Divider(),
-                        _ListTileLanguage(),
-                        Divider(),
-                        _ListTileApplication(),
-                        Divider(),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'No new notifications'.tr(),
+                          style: Theme.of(context).textTheme.caption,
+                        ),
                       ],
                     ),
                   ),

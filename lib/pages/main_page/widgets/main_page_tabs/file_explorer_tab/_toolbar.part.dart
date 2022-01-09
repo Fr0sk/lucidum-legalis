@@ -52,7 +52,7 @@ class _Toolbar extends StatelessWidget {
             child:
                 IconButton(onPressed: onFileUpload, icon: AppIcons.fileUpload),
           ),
-          PopupMenuButton(
+          /*PopupMenuButton(
             tooltip: 'Add new file'.tr(),
             child: AppIcons.fileAdd,
             onSelected: (selected) {
@@ -82,7 +82,7 @@ class _Toolbar extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          ),*/
           const SizedBox(height: 20, child: VerticalDivider()), // Separator
           Tooltip(
             message: 'Copy'.tr(),

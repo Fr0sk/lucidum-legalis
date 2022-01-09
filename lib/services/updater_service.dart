@@ -11,10 +11,10 @@ import 'package:path/path.dart' as p;
 
 class UpdaterService {
   /// Creates the updater service for the corresponding platform
-  final _checkDuration = const Duration(seconds: 20);
+  final _checkDuration = const Duration(hours: 4);
   final hasUpdates = ValueNotifier<bool>(false);
   final lastCheck = ValueNotifier<DateTime?>(null);
-  final autoUpdater = ValueNotifier<bool>(false);
+  final autoUpdater = ValueNotifier<bool>(true);
   final downloadProgress = ValueNotifier<double?>(null);
 
   Timer? _timer;
@@ -44,8 +44,9 @@ class UpdaterService {
       return true;
     }
 
-    const pattern = 'Fr0sk/sample/releases/tag/';
-    final url = Uri.parse('https://github.com/Fr0sk/sample/releases/latest');
+    const pattern = 'Fr0sk/lucidum-legalis/releases/tag/';
+    final url =
+        Uri.parse('https://github.com/Fr0sk/lucidum-legalis/releases/latest');
 
     final response = await http.get(url);
 
@@ -74,7 +75,7 @@ class UpdaterService {
   /// Downloads update and decompresses it into the Update folder
   Future<void> downloadUpdate() async {
     final url = Platform.isWindows
-        ? 'https://github.com/Fr0sk/sample/releases/latest/download/lucidum_legalis_win64.zip'
+        ? 'https://github.com/Fr0sk/lucidum-legalis/releases/latest/download/lucidum_legalis_win64.zip'
         : throw 'Platform not supported';
 
     int total = 0;

@@ -69,9 +69,11 @@ class OmniboxController {
   void hide() => visibility.value = false;
 
   void setSearchClients(bool enabled) => searchClients.value = enabled;
+
   void setSearchLawsuites(bool enabled) => searchLawsuites.value = enabled;
 
   void toggleSearchClients() => searchClients.value = !searchClients.value;
+
   void toggleSearchLawsuites() =>
       searchLawsuites.value = !searchLawsuites.value;
 
@@ -86,7 +88,7 @@ class OmniboxController {
                 searchFilter.value.isEmpty ||
                 ListUtils.findMatches(
                         ':${"Client".tr()} ${c.name}'.toLowerCase().split(' '),
-                        searchFilterList) >
+                        searchFilterList) >=
                     searchFilterList.length)
             .map(
               (c) => OmniboxListTileClient(

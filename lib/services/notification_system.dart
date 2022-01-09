@@ -15,7 +15,7 @@ class AppNotifications {
         // Toast dismissed
       } else if (event is ToastActivated) {
         // Clicks on toast
-        print('TODO: Open notification panel');
+        //TODO: Interact with toast
       } else if (event is ToastInteracted) {
         // On toast action pressed
       }

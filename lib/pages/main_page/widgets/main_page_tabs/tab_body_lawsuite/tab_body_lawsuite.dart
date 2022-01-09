@@ -23,6 +23,8 @@ part '_state_menu.part.dart';
 part '_against_text_field.part.dart';
 part '_against_text_controller.part.dart';
 part '_identification_card.part.dart';
+part '_client_tab.part.dart';
+part '_client_row.part.dart';
 
 class TabBodyLawsuite extends TabBodyBase<Lawsuite> {
   final _LawsuiteInformationTab _lawsuiteInformationTab;
@@ -52,7 +54,14 @@ class TabBodyLawsuite extends TabBodyBase<Lawsuite> {
           ],
           bodies: [
             _lawsuiteInformationTab,
-            Container(color: Colors.orange),
+            StreamBuilder<List<Client>>(
+              stream: api.database.clientLawsuiteDao
+                  .watchClientsByLawsuiteId(state.id),
+              builder: (_, snapshot) => _ClientTab(
+                lawsuiteId: state.id,
+                clients: snapshot.data ?? [],
+              ),
+            ),
             ValueListenableBuilder<Lawsuite?>(
                 valueListenable: state.dataNotifier,
                 builder: (_, lawsuite, __) {

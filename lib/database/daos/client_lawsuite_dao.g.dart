@@ -10,4 +10,5 @@ mixin _$ClientLawsuiteDaoMixin on DatabaseAccessor<UserDatabase> {
   $ClientsLawsuitesTable get clientsLawsuites =>
       attachedDatabase.clientsLawsuites;
   $LawsuitesTable get lawsuites => attachedDatabase.lawsuites;
+  $ClientsTable get clients => attachedDatabase.clients;
 }

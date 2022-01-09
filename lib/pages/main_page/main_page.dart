@@ -1,9 +1,9 @@
 import 'package:badges/badges.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
+import 'package:lucidum_legalis/pages/main_page/notifications_container/notifications_container.dart';
 import 'package:lucidum_legalis/pages/main_page/settings_container/settings_container.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_client/tab_body_client.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_lawsuite/tab_body_lawsuite.dart';
@@ -18,6 +18,7 @@ class MainPage extends StatelessWidget {
   final _tabHeaderKey = GlobalKey();
   final _tabBodies = <TabState, Widget>{};
   final _showSettings = ValueNotifier<bool>(false);
+  final _showNotifications = ValueNotifier<bool>(false);
 
   MainPage({Key? key}) : super(key: key) {
     api.tabs.addListener(() {
@@ -67,7 +68,7 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Text('Welcome {}'.tr(args: ['Hehehe'])),
+            //Text('Welcome {}'.tr(args: [''])),
             const Spacer(),
             ActionChip(
                 backgroundColor: Theme.of(context).backgroundColor,
@@ -100,7 +101,8 @@ class MainPage extends StatelessWidget {
           StreamBuilder<List<AppNotification>>(
             stream: api.database.notificationDao.watchNotEmitted(),
             builder: (_, snapshot) => IconButton(
-              onPressed: () {},
+              onPressed: () =>
+                  _showNotifications.value = !_showNotifications.value,
               icon: NotificationBadge(
                 icon: AppIcons.notification,
                 count: snapshot.data?.length,
@@ -191,6 +193,16 @@ class MainPage extends StatelessWidget {
 
           // Omnibox
           omnibox,
+
+          // Notifications Panel
+          ValueListenableBuilder<bool>(
+              valueListenable: _showNotifications,
+              builder: (_, showNotifications, __) => showNotifications
+                  ? NotificationsContainer(
+                      width: 300,
+                      onDismiss: () => _showNotifications.value = false,
+                    )
+                  : Container()),
 
           // Settings Panel
           ValueListenableBuilder<bool>(

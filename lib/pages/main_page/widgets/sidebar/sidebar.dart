@@ -3,6 +3,7 @@ import 'package:lucidum_legalis/data/tab_state.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/sidebar/add_menu.dart';
+import 'package:lucidum_legalis/pages/main_page/widgets/sidebar/sidebar_controller.dart';
 import 'sidebar_bottom_navigation.dart';
 import 'sidebar_tab.dart';
 
@@ -16,7 +17,7 @@ class Siderbar extends StatefulWidget {
 enum Tabs { clients, lawsuites }
 
 class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
-  late final UserDatabase _db;
+  final controller = SidebarController();
   late final Stream<List<Client>> _clientsStream;
   late final Stream<List<Lawsuite>> _lawsuitesStream;
   late final _controller = AnimationController(
@@ -27,11 +28,9 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _db = api.database;
-
     // Creates the data stream for clients and lawsuites
-    _clientsStream = _db.clientDao.watchAllClients();
-    _lawsuitesStream = _db.lawsuiteDao.watchAllLawsuites();
+    _clientsStream = userDatabase.clientDao.watchAllClients();
+    _lawsuitesStream = userDatabase.lawsuiteDao.watchAllLawsuites();
 
     api.tabHistory.addListener(() {
       if (api.tabHistory.isEmpty) {
@@ -51,6 +50,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   void _showClients() {
     if (_selectedTab != Tabs.clients) {
       setState(() => _selectedTab = Tabs.clients);
+      controller.showClients();
     }
     _closeAddMenu();
   }
@@ -58,6 +58,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   void _showLawsuites() {
     if (_selectedTab != Tabs.lawsuites) {
       setState(() => _selectedTab = Tabs.lawsuites);
+      controller.showLawsuites();
     }
     _closeAddMenu();
   }
@@ -106,6 +107,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: SidebarBottomNavigation(
+        controller: controller,
         onClientsPressed: _showClients,
         onLawsuitesPressed: _showLawsuites,
         bottomMenu: AddMenu(

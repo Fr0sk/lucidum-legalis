@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 
@@ -6,7 +7,7 @@ import '../tables/clients_lawsuites.dart';
 
 part 'client_lawsuite_dao.g.dart';
 
-@DriftAccessor(tables: [ClientsLawsuites, Lawsuites])
+@DriftAccessor(tables: [ClientsLawsuites, Lawsuites, Clients])
 class ClientLawsuiteDao extends DatabaseAccessor<UserDatabase>
     with _$ClientLawsuiteDaoMixin {
   ClientLawsuiteDao(UserDatabase db) : super(db);
@@ -38,6 +39,18 @@ class ClientLawsuiteDao extends DatabaseAccessor<UserDatabase>
     return query
         .watch()
         .map((rows) => rows.map((row) => row.readTable(lawsuites)).toList());
+  }
+
+  Stream<List<Client>> watchClientsByLawsuiteId(int lawsuiteId) {
+    final query = (select(clientsLawsuites)
+          ..where((row) => row.lawsuiteId.equals(lawsuiteId)))
+        .join([
+      innerJoin(clients, clients.id.equalsExp(clientsLawsuites.clientId))
+    ]);
+
+    return query
+        .watch()
+        .map((rows) => rows.map((row) => row.readTable(clients)).toList());
   }
 
   // Updates

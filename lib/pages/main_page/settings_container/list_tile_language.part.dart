@@ -26,6 +26,5 @@ class _ListTileLanguage extends StatelessWidget {
         },
       ),
     );
-    ;
   }
 }

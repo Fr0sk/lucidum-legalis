@@ -1,19 +1,15 @@
-part of 'tab_body_client.dart';
+part of 'tab_body_lawsuite.dart';
 
-class _LawsuitesRow extends StatelessWidget {
-  final String id;
+class _ClientRow extends StatelessWidget {
   final String name;
-  final String processNumber;
   final String createdAt;
   final Widget? icon;
   final void Function()? onPressed;
   final void Function()? onDeletePressed;
 
-  const _LawsuitesRow({
+  const _ClientRow({
     Key? key,
-    required this.id,
     required this.name,
-    required this.processNumber,
     required this.createdAt,
     this.icon,
     this.onPressed,
@@ -30,11 +26,6 @@ class _LawsuitesRow extends StatelessWidget {
         height: 40,
         child: Row(
           children: [
-            SizedBox(
-              width: 70,
-              child: ListTile(title: Text(id)),
-            ),
-            const VerticalDivider(),
             Flexible(
               flex: 1,
               child: ListTile(
@@ -44,13 +35,6 @@ class _LawsuitesRow extends StatelessWidget {
                     Expanded(child: Text(name, softWrap: true)),
                   ],
                 ),
-              ),
-            ),
-            const VerticalDivider(),
-            Flexible(
-              flex: 1,
-              child: ListTile(
-                title: Text(processNumber, softWrap: true),
               ),
             ),
             const VerticalDivider(),
