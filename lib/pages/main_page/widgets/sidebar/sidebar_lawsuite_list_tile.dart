@@ -23,6 +23,7 @@ class SidebarLawsuiteListTile extends StatelessWidget {
           title: Text(lawsuite.name),
           onTap: onTap,
           leading: IconUtils.lawsuiteIcon(lawsuite.state),
+          subtitle: Text('# ${lawsuite.id}'),
           selected: selected,
           selectedTileColor: selected
               ? Theme.of(context).colorScheme.secondary.withAlpha(40)
