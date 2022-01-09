@@ -22,6 +22,8 @@ class UpdaterService {
   UpdaterService() {
     autoUpdater.addListener(checkForTimer);
     checkForTimer();
+
+    Future.delayed(const Duration(seconds: 5)).then((_) => checkForUpdates());
   }
 
   void checkForTimer() {
