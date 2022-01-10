@@ -27,15 +27,15 @@ class _AddressCard extends StatelessWidget {
                 readOnly: readOnly,
                 labelText: 'Street'.tr(),
               ),
+            ],
+          ),
+          Row(
+            children: [
               FlexibleTextField(
                 controller: zipCodeController,
                 readOnly: readOnly,
                 labelText: 'Zip Code'.tr(),
               ),
-            ],
-          ),
-          Row(
-            children: [
               FlexibleTextField(
                 controller: cityController,
                 readOnly: readOnly,
