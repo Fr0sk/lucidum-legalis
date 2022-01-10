@@ -12,6 +12,5 @@ class Clients extends Table {
   TextColumn get street => text().nullable()();
   TextColumn get zipCode => text().nullable()();
   TextColumn get city => text().nullable()();
-  TextColumn get county => text().nullable()();
   DateTimeColumn get createdAt => dateTime()();
 }

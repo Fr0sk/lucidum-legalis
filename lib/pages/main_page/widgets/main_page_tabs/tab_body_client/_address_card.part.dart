@@ -4,7 +4,6 @@ class _AddressCard extends StatelessWidget {
   final TextEditingController streetController;
   final TextEditingController zipCodeController;
   final TextEditingController cityController;
-  final TextEditingController countyController;
   final bool readOnly;
 
   const _AddressCard(
@@ -12,7 +11,6 @@ class _AddressCard extends StatelessWidget {
       required this.streetController,
       required this.zipCodeController,
       required this.cityController,
-      required this.countyController,
       required this.readOnly})
       : super(key: key);
 
@@ -42,11 +40,6 @@ class _AddressCard extends StatelessWidget {
                 controller: cityController,
                 readOnly: readOnly,
                 labelText: 'City'.tr(),
-              ),
-              FlexibleTextField(
-                controller: countyController,
-                readOnly: readOnly,
-                labelText: 'County'.tr(),
               ),
             ],
           )

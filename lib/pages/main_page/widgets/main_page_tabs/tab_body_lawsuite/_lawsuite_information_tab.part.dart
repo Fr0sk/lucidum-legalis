@@ -4,7 +4,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
   final TabState<Lawsuite> tabState;
 
   final _nameController = TextEditingController();
-  final _codeController = TextEditingController();
   final _processNumberController = TextEditingController();
   final _districtController = TextEditingController();
   final _courtController = TextEditingController();
@@ -21,7 +20,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
     if (lawsuite != null) {
       await api.saveLawsuite(lawsuite.copyWith(
         name: _nameController.text,
-        code: _codeController.text,
         processNumber: _processNumberController.text,
         district: _districtController.text,
         court: _courtController.text,
@@ -85,7 +83,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
             _nameController.text = lawsuite.name;
             if (!editMode) {
               // If loading data
-              _codeController.text = lawsuite.code ?? '';
               _processNumberController.text = lawsuite.processNumber ?? '';
               _districtController.text = lawsuite.district ?? '';
               _courtController.text = lawsuite.court ?? '';
@@ -122,7 +119,6 @@ class _LawsuiteInformationTab extends StatelessWidget {
                   ),
                   _IdentificationCard(
                     lawsuiteId: lawsuite.id,
-                    codeController: _codeController,
                     againstControllers: _againstControllers,
                     editMode: state.edit,
                   ),

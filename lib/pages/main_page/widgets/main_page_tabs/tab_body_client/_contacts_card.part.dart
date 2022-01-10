@@ -102,6 +102,18 @@ class _ContactsCard extends StatelessWidget {
             );
           }
 
+          if (children.isEmpty) {
+            children.add(
+              Text(
+                'No contacts'.tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    ?.copyWith(fontStyle: FontStyle.italic),
+              ),
+            );
+          }
+
           return CustomGrid(columns: 2, children: children);
         },
       ),

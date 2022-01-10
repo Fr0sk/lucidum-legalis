@@ -476,7 +476,6 @@ class Client extends DataClass implements Insertable<Client> {
   final String? street;
   final String? zipCode;
   final String? city;
-  final String? county;
   final DateTime createdAt;
   Client(
       {required this.id,
@@ -488,7 +487,6 @@ class Client extends DataClass implements Insertable<Client> {
       this.street,
       this.zipCode,
       this.city,
-      this.county,
       required this.createdAt});
   factory Client.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -511,8 +509,6 @@ class Client extends DataClass implements Insertable<Client> {
           .mapFromDatabaseResponse(data['${effectivePrefix}zip_code']),
       city: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}city']),
-      county: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}county']),
       createdAt: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
     );
@@ -544,9 +540,6 @@ class Client extends DataClass implements Insertable<Client> {
     if (!nullToAbsent || city != null) {
       map['city'] = Variable<String?>(city);
     }
-    if (!nullToAbsent || county != null) {
-      map['county'] = Variable<String?>(county);
-    }
     map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
@@ -571,8 +564,6 @@ class Client extends DataClass implements Insertable<Client> {
           ? const Value.absent()
           : Value(zipCode),
       city: city == null && nullToAbsent ? const Value.absent() : Value(city),
-      county:
-          county == null && nullToAbsent ? const Value.absent() : Value(county),
       createdAt: Value(createdAt),
     );
   }
@@ -590,7 +581,6 @@ class Client extends DataClass implements Insertable<Client> {
       street: serializer.fromJson<String?>(json['street']),
       zipCode: serializer.fromJson<String?>(json['zipCode']),
       city: serializer.fromJson<String?>(json['city']),
-      county: serializer.fromJson<String?>(json['county']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
@@ -607,7 +597,6 @@ class Client extends DataClass implements Insertable<Client> {
       'street': serializer.toJson<String?>(street),
       'zipCode': serializer.toJson<String?>(zipCode),
       'city': serializer.toJson<String?>(city),
-      'county': serializer.toJson<String?>(county),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
@@ -622,7 +611,6 @@ class Client extends DataClass implements Insertable<Client> {
           String? street,
           String? zipCode,
           String? city,
-          String? county,
           DateTime? createdAt}) =>
       Client(
         id: id ?? this.id,
@@ -634,7 +622,6 @@ class Client extends DataClass implements Insertable<Client> {
         street: street ?? this.street,
         zipCode: zipCode ?? this.zipCode,
         city: city ?? this.city,
-        county: county ?? this.county,
         createdAt: createdAt ?? this.createdAt,
       );
   @override
@@ -649,7 +636,6 @@ class Client extends DataClass implements Insertable<Client> {
           ..write('street: $street, ')
           ..write('zipCode: $zipCode, ')
           ..write('city: $city, ')
-          ..write('county: $county, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -657,7 +643,7 @@ class Client extends DataClass implements Insertable<Client> {
 
   @override
   int get hashCode => Object.hash(id, name, type, idNumber, taxNumber,
-      civilStatus, street, zipCode, city, county, createdAt);
+      civilStatus, street, zipCode, city, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -671,7 +657,6 @@ class Client extends DataClass implements Insertable<Client> {
           other.street == this.street &&
           other.zipCode == this.zipCode &&
           other.city == this.city &&
-          other.county == this.county &&
           other.createdAt == this.createdAt);
 }
 
@@ -685,7 +670,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
   final Value<String?> street;
   final Value<String?> zipCode;
   final Value<String?> city;
-  final Value<String?> county;
   final Value<DateTime> createdAt;
   const ClientsCompanion({
     this.id = const Value.absent(),
@@ -697,7 +681,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
     this.street = const Value.absent(),
     this.zipCode = const Value.absent(),
     this.city = const Value.absent(),
-    this.county = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
   ClientsCompanion.insert({
@@ -710,7 +693,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
     this.street = const Value.absent(),
     this.zipCode = const Value.absent(),
     this.city = const Value.absent(),
-    this.county = const Value.absent(),
     required DateTime createdAt,
   })  : name = Value(name),
         type = Value(type),
@@ -725,7 +707,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
     Expression<String?>? street,
     Expression<String?>? zipCode,
     Expression<String?>? city,
-    Expression<String?>? county,
     Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
@@ -738,7 +719,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
       if (street != null) 'street': street,
       if (zipCode != null) 'zip_code': zipCode,
       if (city != null) 'city': city,
-      if (county != null) 'county': county,
       if (createdAt != null) 'created_at': createdAt,
     });
   }
@@ -753,7 +733,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
       Value<String?>? street,
       Value<String?>? zipCode,
       Value<String?>? city,
-      Value<String?>? county,
       Value<DateTime>? createdAt}) {
     return ClientsCompanion(
       id: id ?? this.id,
@@ -765,7 +744,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
       street: street ?? this.street,
       zipCode: zipCode ?? this.zipCode,
       city: city ?? this.city,
-      county: county ?? this.county,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -801,9 +779,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
     if (city.present) {
       map['city'] = Variable<String?>(city.value);
     }
-    if (county.present) {
-      map['county'] = Variable<String?>(county.value);
-    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -822,7 +797,6 @@ class ClientsCompanion extends UpdateCompanion<Client> {
           ..write('street: $street, ')
           ..write('zipCode: $zipCode, ')
           ..write('city: $city, ')
-          ..write('county: $county, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -882,11 +856,6 @@ class $ClientsTable extends Clients with TableInfo<$ClientsTable, Client> {
   late final GeneratedColumn<String?> city = GeneratedColumn<String?>(
       'city', aliasedName, true,
       type: const StringType(), requiredDuringInsert: false);
-  final VerificationMeta _countyMeta = const VerificationMeta('county');
-  @override
-  late final GeneratedColumn<String?> county = GeneratedColumn<String?>(
-      'county', aliasedName, true,
-      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime?> createdAt = GeneratedColumn<DateTime?>(
@@ -903,7 +872,6 @@ class $ClientsTable extends Clients with TableInfo<$ClientsTable, Client> {
         street,
         zipCode,
         city,
-        county,
         createdAt
       ];
   @override
@@ -950,10 +918,6 @@ class $ClientsTable extends Clients with TableInfo<$ClientsTable, Client> {
     if (data.containsKey('city')) {
       context.handle(
           _cityMeta, city.isAcceptableOrUnknown(data['city']!, _cityMeta));
-    }
-    if (data.containsKey('county')) {
-      context.handle(_countyMeta,
-          county.isAcceptableOrUnknown(data['county']!, _countyMeta));
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -1490,7 +1454,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
   final String name;
   final LawsuiteState state;
   final String? against;
-  final String? code;
   final String? processNumber;
   final String? district;
   final String? court;
@@ -1503,7 +1466,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       required this.name,
       required this.state,
       this.against,
-      this.code,
       this.processNumber,
       this.district,
       this.court,
@@ -1522,8 +1484,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           .mapFromDatabaseResponse(data['${effectivePrefix}state']))!,
       against: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}against']),
-      code: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code']),
       processNumber: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}process_number']),
       district: const StringType()
@@ -1551,9 +1511,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
     }
     if (!nullToAbsent || against != null) {
       map['against'] = Variable<String?>(against);
-    }
-    if (!nullToAbsent || code != null) {
-      map['code'] = Variable<String?>(code);
     }
     if (!nullToAbsent || processNumber != null) {
       map['process_number'] = Variable<String?>(processNumber);
@@ -1585,7 +1542,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       against: against == null && nullToAbsent
           ? const Value.absent()
           : Value(against),
-      code: code == null && nullToAbsent ? const Value.absent() : Value(code),
       processNumber: processNumber == null && nullToAbsent
           ? const Value.absent()
           : Value(processNumber),
@@ -1613,7 +1569,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       name: serializer.fromJson<String>(json['name']),
       state: serializer.fromJson<LawsuiteState>(json['state']),
       against: serializer.fromJson<String?>(json['against']),
-      code: serializer.fromJson<String?>(json['code']),
       processNumber: serializer.fromJson<String?>(json['processNumber']),
       district: serializer.fromJson<String?>(json['district']),
       court: serializer.fromJson<String?>(json['court']),
@@ -1632,7 +1587,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
       'name': serializer.toJson<String>(name),
       'state': serializer.toJson<LawsuiteState>(state),
       'against': serializer.toJson<String?>(against),
-      'code': serializer.toJson<String?>(code),
       'processNumber': serializer.toJson<String?>(processNumber),
       'district': serializer.toJson<String?>(district),
       'court': serializer.toJson<String?>(court),
@@ -1648,7 +1602,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           String? name,
           LawsuiteState? state,
           String? against,
-          String? code,
           String? processNumber,
           String? district,
           String? court,
@@ -1661,7 +1614,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
         name: name ?? this.name,
         state: state ?? this.state,
         against: against ?? this.against,
-        code: code ?? this.code,
         processNumber: processNumber ?? this.processNumber,
         district: district ?? this.district,
         court: court ?? this.court,
@@ -1677,7 +1629,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           ..write('name: $name, ')
           ..write('state: $state, ')
           ..write('against: $against, ')
-          ..write('code: $code, ')
           ..write('processNumber: $processNumber, ')
           ..write('district: $district, ')
           ..write('court: $court, ')
@@ -1690,7 +1641,7 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
   }
 
   @override
-  int get hashCode => Object.hash(id, name, state, against, code, processNumber,
+  int get hashCode => Object.hash(id, name, state, against, processNumber,
       district, court, judgement, form, legalSupportNumber, createdAt);
   @override
   bool operator ==(Object other) =>
@@ -1700,7 +1651,6 @@ class Lawsuite extends DataClass implements Insertable<Lawsuite> {
           other.name == this.name &&
           other.state == this.state &&
           other.against == this.against &&
-          other.code == this.code &&
           other.processNumber == this.processNumber &&
           other.district == this.district &&
           other.court == this.court &&
@@ -1715,7 +1665,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
   final Value<String> name;
   final Value<LawsuiteState> state;
   final Value<String?> against;
-  final Value<String?> code;
   final Value<String?> processNumber;
   final Value<String?> district;
   final Value<String?> court;
@@ -1728,7 +1677,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     this.name = const Value.absent(),
     this.state = const Value.absent(),
     this.against = const Value.absent(),
-    this.code = const Value.absent(),
     this.processNumber = const Value.absent(),
     this.district = const Value.absent(),
     this.court = const Value.absent(),
@@ -1742,7 +1690,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     required String name,
     required LawsuiteState state,
     this.against = const Value.absent(),
-    this.code = const Value.absent(),
     this.processNumber = const Value.absent(),
     this.district = const Value.absent(),
     this.court = const Value.absent(),
@@ -1758,7 +1705,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     Expression<String>? name,
     Expression<LawsuiteState>? state,
     Expression<String?>? against,
-    Expression<String?>? code,
     Expression<String?>? processNumber,
     Expression<String?>? district,
     Expression<String?>? court,
@@ -1772,7 +1718,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
       if (name != null) 'name': name,
       if (state != null) 'state': state,
       if (against != null) 'against': against,
-      if (code != null) 'code': code,
       if (processNumber != null) 'process_number': processNumber,
       if (district != null) 'district': district,
       if (court != null) 'court': court,
@@ -1789,7 +1734,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
       Value<String>? name,
       Value<LawsuiteState>? state,
       Value<String?>? against,
-      Value<String?>? code,
       Value<String?>? processNumber,
       Value<String?>? district,
       Value<String?>? court,
@@ -1802,7 +1746,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
       name: name ?? this.name,
       state: state ?? this.state,
       against: against ?? this.against,
-      code: code ?? this.code,
       processNumber: processNumber ?? this.processNumber,
       district: district ?? this.district,
       court: court ?? this.court,
@@ -1828,9 +1771,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
     }
     if (against.present) {
       map['against'] = Variable<String?>(against.value);
-    }
-    if (code.present) {
-      map['code'] = Variable<String?>(code.value);
     }
     if (processNumber.present) {
       map['process_number'] = Variable<String?>(processNumber.value);
@@ -1863,7 +1803,6 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
           ..write('name: $name, ')
           ..write('state: $state, ')
           ..write('against: $against, ')
-          ..write('code: $code, ')
           ..write('processNumber: $processNumber, ')
           ..write('district: $district, ')
           ..write('court: $court, ')
@@ -1903,11 +1842,6 @@ class $LawsuitesTable extends Lawsuites
   @override
   late final GeneratedColumn<String?> against = GeneratedColumn<String?>(
       'against', aliasedName, true,
-      type: const StringType(), requiredDuringInsert: false);
-  final VerificationMeta _codeMeta = const VerificationMeta('code');
-  @override
-  late final GeneratedColumn<String?> code = GeneratedColumn<String?>(
-      'code', aliasedName, true,
       type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _processNumberMeta =
       const VerificationMeta('processNumber');
@@ -1952,7 +1886,6 @@ class $LawsuitesTable extends Lawsuites
         name,
         state,
         against,
-        code,
         processNumber,
         district,
         court,
@@ -1983,10 +1916,6 @@ class $LawsuitesTable extends Lawsuites
     if (data.containsKey('against')) {
       context.handle(_againstMeta,
           against.isAcceptableOrUnknown(data['against']!, _againstMeta));
-    }
-    if (data.containsKey('code')) {
-      context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
     }
     if (data.containsKey('process_number')) {
       context.handle(

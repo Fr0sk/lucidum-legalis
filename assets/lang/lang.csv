@@ -1,12 +1,13 @@
  keys,en,pt_PT
-Add against field,Add against field,Adicionar campo de parte contrária
+Add against field,Add opposing party field,Adicionar campo de parte contrária
 Add Client,Add Client,Adicionar Cliente
 Add contact,Add contact,Adicionar contacto
 Add Lawsuite,Add Lawsuite,Adicionar Processo
 Add new file,Add new file,Criar novo ficheiro
 Add new folder,Add new folder,Criar nova pasta
 Address,Address,Morada
-Against,Against,Parte Contrária
+Against,Opossing Party,Parte Contrária
+Against Identification,Opposing Parties Identification,Identificação das Partes Contrárias
 Application,Application,Aplicação
 Are you sure you want to permanently delete this file?,Are you sure you want to permanently delete this file?,Tem a certeza que pretente apagar permanentemente este ficheiro?
 Are you sure you want to permanently delete this folder?,Are you sure you want to permanently delete this folder?,Tem a certeza que pretente apagar permanentemente esta pasta?
@@ -25,12 +26,10 @@ Client,Client,Cliente
 Client: {},Client: {},Cliente: {}
 Clients,Clients,Clientes
 Closed,Closed,Fechado
-Code,Code,Código
 Colective,Colective,Coletivo
 Confirm,Confirm,Confirmar
 Contacts,Contacts,Contactos
 Copy,Copy,Copiar
-County,County,Distrito
 Court,Court,Juízo
 CreateAccount,Create Account,Criar Conta
 Created At,Created At,Criado Em
@@ -53,7 +52,6 @@ Exit,Exit,Sair
 Files,Files,Ficheiros
 Form,Form,Forma
 ID Number,ID Number,Número de Cartão de Cidadão
-Identification,Identification,Identificação
 Information,Information,Informação
 Invalid username,Invalid username,Nome de utilizador inválido
 Judge/Section,Judge,Juiz/Secção
@@ -74,7 +72,9 @@ New Folder,New Folder,Nova Pasta
 New Lawsuite,New Lawsuite,Novo Processo
 NewAccount?,New Account?,Nova Conta?
 No,No,Não
+No contacts,No contacts,Sem contactos
 No new notifications,No new notifications,Sem notificações novas
+No opposing party,No opposing party,Sem parte contrária
 Notes,Notes,Notas
 Notifications,Notifications,Notificações
 Open folder in explorer,Open folder in explorer,Abrir pasta no explorador

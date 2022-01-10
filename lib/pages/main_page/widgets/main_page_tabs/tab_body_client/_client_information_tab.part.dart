@@ -10,7 +10,6 @@ class _ClientInformationTab extends StatelessWidget {
   final _streetController = TextEditingController();
   final _zipCodeController = TextEditingController();
   final _cityController = TextEditingController();
-  final _countyController = TextEditingController();
   final _contactsControllers = <DynamicTextFieldController<ContactType>>[];
 
   _ClientInformationTab({Key? key, required this.tabState}) : super(key: key);
@@ -30,7 +29,6 @@ class _ClientInformationTab extends StatelessWidget {
           street: _streetController.text,
           zipCode: _zipCodeController.text,
           city: _cityController.text,
-          county: _countyController.text,
         ),
       );
 
@@ -96,7 +94,6 @@ class _ClientInformationTab extends StatelessWidget {
               _streetController.text = client.street ?? '';
               _zipCodeController.text = client.zipCode ?? '';
               _cityController.text = client.city ?? '';
-              _countyController.text = client.county ?? '';
             }
 
             return SingleChildScrollView(
@@ -135,7 +132,6 @@ class _ClientInformationTab extends StatelessWidget {
                     streetController: _streetController,
                     zipCodeController: _zipCodeController,
                     cityController: _cityController,
-                    countyController: _countyController,
                     readOnly: !state.edit,
                   ),
                   _ContactsCard(

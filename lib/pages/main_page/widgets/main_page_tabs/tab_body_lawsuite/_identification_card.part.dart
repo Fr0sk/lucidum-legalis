@@ -2,14 +2,12 @@ part of 'tab_body_lawsuite.dart';
 
 class _IdentificationCard extends StatelessWidget {
   final int lawsuiteId;
-  final TextEditingController codeController;
   final bool editMode;
   final List<DynamicTextFieldController> againstControllers;
 
   const _IdentificationCard({
     Key? key,
     required this.lawsuiteId,
-    required this.codeController,
     required this.againstControllers,
     this.editMode = false,
   }) : super(key: key);
@@ -19,7 +17,7 @@ class _IdentificationCard extends StatelessWidget {
     return TitledCard(
       title: Row(
         children: [
-          Text('Identification'.tr(),
+          Text('Against Identification'.tr(),
               style: Theme.of(context).textTheme.headline6),
           const Spacer(),
           if (editMode)
@@ -51,14 +49,7 @@ class _IdentificationCard extends StatelessWidget {
             }
 
             // Create children
-            final children = <Widget>[
-              FlexibleTextField(
-                controller: codeController,
-                readOnly: !editMode,
-                labelText: 'Code'.tr(),
-              ),
-            ];
-
+            final children = <Widget>[];
             for (var controller in againstControllers) {
               children.add(
                 DynamicTextField(
@@ -72,6 +63,18 @@ class _IdentificationCard extends StatelessWidget {
                     againstControllers
                         .removeWhere((c) => c.id == controller.id);
                   },
+                ),
+              );
+            }
+
+            if (children.isEmpty) {
+              children.add(
+                Text(
+                  'No opposing party'.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption
+                      ?.copyWith(fontStyle: FontStyle.italic),
                 ),
               );
             }
