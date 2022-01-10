@@ -6,8 +6,13 @@ import 'package:path_provider/path_provider.dart';
 
 class AppDirectories {
   static Future<void> ensureInitialized() async {
-    _appDocDir = Directory(
-        p.join((await getApplicationDocumentsDirectory()).path, App.title));
+    final portableFile = File('portable');
+    if (await portableFile.exists()) {
+      _appDocDir = Directory(p.join(runtimeDir.path, 'db'));
+    } else {
+      _appDocDir = Directory(
+          p.join((await getApplicationDocumentsDirectory()).path, App.title));
+    }
   }
 
   static late final Directory _appDocDir;
