@@ -12,7 +12,7 @@ class App {
   static const companyName = 'Fr0sk Labs';
   static const version = Version(1, 0, 1);
 
-  static const windowMinSize = Size(900, 600);
+  static const windowMinSize = Size(1150, 600);
   static const sidebarWidth = 250.0;
 
   static const tooltipWait = Duration(milliseconds: 800);
@@ -45,14 +45,30 @@ class AppIcons {
   static const addClient = Icon(MdiIcons.accountPlus);
 
   static const lawsuite = Icon(MdiIcons.fileDocumentOutline);
-  static const lawsuiteOpened = Icon(MdiIcons.fileDocumentOutline);
-  static const lawsuiteWaiting = Icon(MdiIcons.fileClockOutline);
-  static const lawsuiteClosed = Icon(MdiIcons.fileCertificateOutline);
-  static const lawsuiteAttention = Icon(MdiIcons.fileAlertOutline);
+  static const lawsuiteOpened = Icon(
+    MdiIcons.fileDocumentOutline,
+    color: Colors.blue,
+  );
+  static const lawsuiteWaiting = Icon(
+    MdiIcons.fileClockOutline,
+    color: Colors.grey,
+  );
+  static const lawsuiteClosed = Icon(
+    MdiIcons.fileCertificateOutline,
+    color: Colors.green,
+  );
+  static const lawsuiteAttention = Icon(
+    MdiIcons.fileAlertOutline,
+    color: Colors.orange,
+  );
   static const addLawsuite = Icon(MdiIcons.filePlus);
   static const lawsuiteSettings = Icon(MdiIcons.fileCog);
   static const lawsuiteSearch = Icon(MdiIcons.fileSearch);
   static const lawsuiteRemoveAssociation = Icon(MdiIcons.fileRemoveOutline);
+
+  static const reminderAdd = Icon(MdiIcons.clipboardTextClock);
+  static const reminderDeadline = Icon(MdiIcons.calendarClockOutline);
+  static const reminderRemainingTime = Icon(MdiIcons.timerOutline);
 
   static const information = Icon(MdiIcons.information);
   static const files = Icon(MdiIcons.folder);

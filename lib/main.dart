@@ -4,7 +4,7 @@ import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/services.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/pages/main_page/main_page.dart';
-import 'package:lucidum_legalis/services/alert_system.dart.dart';
+import 'package:lucidum_legalis/services/app_alerts.dart.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/services/notification_system.dart';
 import 'package:lucidum_legalis/services/updater_service.dart';

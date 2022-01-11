@@ -22,7 +22,7 @@ class AppNotifications {
     });
   }
 
-  Future<List<AppNotification>> getAll() =>
+  /*Future<List<AppNotification>> getAll() =>
       api.database.notificationDao.getAll();
 
   Future<List<AppNotification>> getUnread() =>
@@ -51,5 +51,5 @@ class AppNotifications {
   }
 
   Future<bool> markAsRead(AppNotification notification) =>
-      api.database.notificationDao.markEmitted(notification);
+      api.database.notificationDao.markEmitted(notification);*/
 }

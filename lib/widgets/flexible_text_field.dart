@@ -10,18 +10,22 @@ class FlexibleTextField extends StatelessWidget {
   final InputDecoration? decoration;
   final FocusNode? focusNode;
   final bool autofocus;
+  final int? minLines;
+  final int? maxLines;
 
-  const FlexibleTextField(
-      {Key? key,
-      this.controller,
-      this.labelText = '',
-      this.readOnly = false,
-      this.numberOnly = false,
-      this.decoration,
-      this.focusNode,
-      this.hintText,
-      this.autofocus = false})
-      : super(key: key);
+  const FlexibleTextField({
+    Key? key,
+    this.controller,
+    this.labelText = '',
+    this.readOnly = false,
+    this.numberOnly = false,
+    this.decoration,
+    this.focusNode,
+    this.hintText,
+    this.autofocus = false,
+    this.minLines,
+    this.maxLines,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,8 @@ class FlexibleTextField extends StatelessWidget {
           inputFormatters: numberOnly
               ? [FilteringTextInputFormatter.allow(RegExp('[0-9]+'))]
               : null,
+          minLines: minLines,
+          maxLines: maxLines,
         ),
       ),
     );

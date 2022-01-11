@@ -39,7 +39,8 @@ class TabHeader extends StatelessWidget {
               valueListenable: tabState.editNotifier,
               builder: (_, editMode, __) => _TabHeaderButton(
                 text: lawsuite.name,
-                icon: IconUtils.lawsuiteIcon(lawsuite.state),
+                icon:
+                    Icon((IconUtils.lawsuiteIcon(lawsuite.state) as Icon).icon),
                 isActive: tabState == api.tabHistory.last,
                 editMode: editMode,
                 onPressed: () => api.openLawsuite(id: lawsuite.id),

@@ -8,6 +8,7 @@ class InformationHeader extends StatelessWidget {
   final Widget icon;
   final Widget? child;
   final String? title;
+  final Widget? onRight;
   final void Function()? onEdit;
   final void Function()? onSave;
   final void Function()? onDelete;
@@ -22,6 +23,7 @@ class InformationHeader extends StatelessWidget {
     this.onSave,
     this.onDelete,
     this.title,
+    this.onRight,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ class InformationHeader extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6?.copyWith(
                     color: Colors.grey, fontStyle: FontStyle.italic)),
           const Spacer(),
+          if (onRight != null) onRight!,
           if (editMode)
             IconButton(
               onPressed: onSave,

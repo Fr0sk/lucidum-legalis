@@ -31,6 +31,9 @@ class AlertDao extends DatabaseAccessor<UserDatabase> with _$AlertDaoMixin {
         ..orderBy([(t) => OrderingTerm(expression: t.emitAt)]))
       .watch();
 
+  Future<Alert> getById(int id) =>
+      (select(alerts)..where((alert) => alert.id.equals(id))).getSingle();
+
   // Updates
   Future<bool> updateAlert(Insertable<Alert> alert) =>
       update(alerts).replace(alert);

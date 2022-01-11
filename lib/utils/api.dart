@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/data/tab_state.dart';
+import 'package:lucidum_legalis/database/tables/alerts.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
@@ -12,6 +13,7 @@ import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_controller.dart'
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/list_notifier.dart';
 import 'package:lucidum_legalis/utils/utils.dart';
+import 'package:lucidum_legalis/utils/extensions.dart';
 
 enum OpenTabBodyResult { success, unsavedChanges }
 
@@ -22,7 +24,7 @@ class Api {
   final tabs = ListNotifier<TabState>([]);
   final tabHistory = ListNotifier<TabState>([]);
   final selectedFiles = ListNotifier<FileSystemEntity>([]);
-  final showAlerts = ValueNotifier<bool>(false);
+  final openedReminder = ValueNotifier<Alert?>(null);
   var fileOperation = FileSystemOperation.none;
 
   Api()
@@ -193,4 +195,19 @@ class Api {
   Future<bool> deleteClientLawsuiteAssociation(
           Client client, Lawsuite lawsuite) =>
       deleteClientLawsuiteAssociationByIds(client.id, lawsuite.id);
+
+  Future<int> createLawsuiteReminder(int lawsuiteId) =>
+      database.alertDao.insertAlert(
+        AlertsCompanion.insert(
+          type: AlertType.lawsuite,
+          emitAt: DateTime.now().endDay,
+          createdAt: DateTime.now(),
+          metadata: Value(lawsuiteId.toString()),
+        ),
+      );
+
+  Future<void> openReminder(int id) async =>
+      openedReminder.value = await database.alertDao.getById(id);
+
+  void closeReminder() => openedReminder.value = null;
 }

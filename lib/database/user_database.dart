@@ -7,7 +7,6 @@ import 'package:lucidum_legalis/database/daos/alert_dao.dart';
 import 'package:lucidum_legalis/database/daos/client_dao.dart';
 import 'package:lucidum_legalis/database/daos/client_lawsuite_dao.dart';
 import 'package:lucidum_legalis/database/daos/lawsuite_dao.dart';
-import 'package:lucidum_legalis/database/daos/notification_dao.dart';
 import 'package:lucidum_legalis/database/tables/client_notes.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/clients_lawsuites.dart';
@@ -15,7 +14,6 @@ import 'package:lucidum_legalis/database/tables/contacts.dart';
 import 'package:lucidum_legalis/database/tables/lawsuite_againsts.dart';
 import 'package:lucidum_legalis/database/tables/lawsuite_notes.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
-import 'package:lucidum_legalis/database/tables/app_notifications.dart';
 import 'package:lucidum_legalis/database/tables/settings.dart';
 import 'package:lucidum_legalis/database/tables/alerts.dart';
 import 'package:sqlite3/open.dart';
@@ -31,14 +29,12 @@ part 'user_database.g.dart';
   LawsuiteNotes,
   Lawsuites,
   Settings,
-  AppNotifications,
   Alerts,
   LawsuiteAgainsts
 ], daos: [
   ClientDao,
   LawsuiteDao,
   AlertDao,
-  NotificationDao,
   ClientLawsuiteDao,
 ])
 class UserDatabase extends _$UserDatabase {
@@ -59,7 +55,7 @@ class UserDatabase extends _$UserDatabase {
       : super(_openConnection(userFolder: databaseDir.path));
 
   @override
-  int get schemaVersion => 2; // Database version
+  int get schemaVersion => 3; // Database version
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -70,9 +66,13 @@ class UserDatabase extends _$UserDatabase {
           return migrator.createAll();
         },
         onUpgrade: (migrator, from, to) async {
-          if (from == 1) {
-            migrator.alterTable(TableMigration(lawsuites));
-            migrator.alterTable(TableMigration(clients));
+          if (from <= 1) {
+            await migrator.alterTable(TableMigration(lawsuites));
+            await migrator.alterTable(TableMigration(clients));
+          }
+          if (from <= 2) {
+            await migrator.addColumn(alerts, alerts.metadata);
+            await migrator.deleteTable('app_notifications');
           }
         },
       );

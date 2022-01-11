@@ -1,6 +1,16 @@
+import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lucidum_legalis/widgets/titled_card.dart';
+import 'package:lucidum_legalis/database/tables/alerts.dart';
+import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/main.dart';
+import 'package:lucidum_legalis/utils/constants.dart';
+import 'package:lucidum_legalis/utils/utils.dart';
+import 'package:lucidum_legalis/widgets/flexible_text_field.dart';
+import 'package:lucidum_legalis/utils/extensions.dart';
+
+part '_reminder_edit_view.part.dart';
+part '_reminder_list_tile.part.dart';
 
 class NotificationsContainer extends StatelessWidget {
   final double width;
@@ -10,26 +20,35 @@ class NotificationsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: TitledCard(
-        titleText: 'Notifications'.tr(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            controller: ScrollController(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'No new notifications'.tr(),
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ],
-            ),
-          ),
+    return Material(
+      elevation: 5,
+      child: SizedBox(
+        width: width,
+        child: ValueListenableBuilder<Alert?>(
+          valueListenable: api.openedReminder,
+          builder: (_, reminder, __) {
+            if (reminder != null) {
+              return _ReminderEditView(reminder: reminder);
+            }
+
+            return StreamBuilder<List<Alert>>(
+              stream: userDatabase.alertDao.watchNotEmitted(),
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                  // Whlie loading
+                  return Container();
+                }
+
+                return ListView.separated(
+                  controller: ScrollController(),
+                  separatorBuilder: (_, __) => const Divider(height: 0),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (_, idx) =>
+                      _ReminderListTile(reminder: snapshot.data![idx]),
+                );
+              },
+            );
+          },
         ),
       ),
     );

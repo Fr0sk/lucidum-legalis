@@ -1,25 +1,28 @@
  keys,en,pt_PT
+{} days,{} days,{} dias
+{} hours,{} hours,{} horas
 Add against field,Add opposing party field,Adicionar campo de parte contrária
 Add Client,Add Client,Adicionar Cliente
 Add contact,Add contact,Adicionar contacto
-Add Lawsuite,Add Lawsuite,Adicionar Processo
+Add Lawsuite,Add Lawsuit,Adicionar Processo
 Add new file,Add new file,Criar novo ficheiro
 Add new folder,Add new folder,Criar nova pasta
+Add reminder,Add reminder,Adicionar lembrete
 Address,Address,Morada
 Against,Opossing Party,Parte Contrária
 Against Identification,Opposing Parties Identification,Identificação das Partes Contrárias
 Application,Application,Aplicação
 Are you sure you want to permanently delete this file?,Are you sure you want to permanently delete this file?,Tem a certeza que pretente apagar permanentemente este ficheiro?
 Are you sure you want to permanently delete this folder?,Are you sure you want to permanently delete this folder?,Tem a certeza que pretente apagar permanentemente esta pasta?
-Associate Existing Lawsuite,Associate Existing Lawsuite,Associar Processo Existente
-Associate Lawsuite,Associate Lawsuite,Associar Processo
-Associate New Lawsuite,Associate New Lawsuite,Associar Novo Processo
+Associate Existing Lawsuite,Associate Existing Lawsuit,Associar Processo Existente
+Associate Lawsuite,Associate Lawsuit,Associar Processo
+Associate New Lawsuite,Associate New Lawsuit,Associar Novo Processo
 Automatic check and download updates,Automatic check and download updates,Procurar por atualizações automaticamente
 Back,Back,Voltar
 Cancel,Cancel,Cancelar
 Change Name,Change Name,Alterar Nome
 Check for updates,Check for updates,Procurar por atualizações
-Choose Lawsuite to Associate,Choose Lawsuite to Associate,Escolher Processo para Associar
+Choose Lawsuite to Associate,Choose Lawsuit to Associate,Escolher Processo para Associar
 City,City,Cidade
 Civil Status,Civil Status,Estado Civil
 Client,Client,Cliente
@@ -40,6 +43,7 @@ Delete,Delete,Apagar
 Delete {}?,Delete {}?,Apagar {}?
 Delete File,Delete File,Apagar Ficheiro
 Delete Folder,Delete Folder,Delete Pasta
+Description,Description,Descrição
 Dismiss,Dismiss,Ignorar
 District,District,Comarca
 Drop Files Here,Drop Files Here,Largar Ficheiros Aqui
@@ -58,9 +62,9 @@ Invalid username,Invalid username,Nome de utilizador inválido
 Judge/Section,Judge,Juiz/Secção
 Judgement,Judgement,Juízo
 Language,Language,Idioma
-Lawsuite,Lawsuite,Processo
-Lawsuite: {},Lawsuite: {},Processo: {}
-Lawsuites,Lawsuites,Processos
+Lawsuite,Lawsuit,Processo
+Lawsuite: {},Lawsuit: {},Processo: {}
+Lawsuites,Lawsuits,Processos
 Leave,Leave,Sair
 Legal Support Number,Legal Support Number,Processo de Apoio Judiciário nº 
 Login,Login,Entrar
@@ -70,7 +74,7 @@ Name,Name,Nome
 New,New,Novo
 New Client,New Client,Novo Cliente
 New Folder,New Folder,Nova Pasta
-New Lawsuite,New Lawsuite,Novo Processo
+New Lawsuite,New Lawsuit,Novo Processo
 NewAccount?,New Account?,Nova Conta?
 No,No,Não
 No contacts,No contacts,Sem contactos
@@ -80,12 +84,14 @@ Notes,Notes,Notas
 Notifications,Notifications,Notificações
 Open folder in explorer,Open folder in explorer,Abrir pasta no explorador
 Opened,Opened,Aberto
+Overdue!,Overdue!,Em Atraso!
 Password,Password,Palavra Passe
 PasswordConfirmOptional,Confirm Password (Optional),Confirmar Palavra-passe (Opcional)
 PasswordOptional,Password (Optional),Palavra-passe (Opcional)
 Passwords do not match,Passwords do not match,As palavras-passe não são iguais
 Paste,Paste,Colar
 Phone,Phone,Telefone
+Pick date,Pick date,Escolher data
 Process Number,Process Number,Número de Processo
 Remove Association,Remove Association,Remover Associação
 Remove this field,Remove this field,Remover este campo
@@ -94,6 +100,7 @@ Restart,Restart,Reiniciar
 Restart to install the latest update,Restart to install the latest update,Reinicia para instalar a última atualização
 Save,Save,Guardar
 Search Anything,Search Anything,Procurar Tudo
+Set deadline,Set deadline,Alterar prazo de entrega
 Settings,Settings,Definições
 Singular,Singular,Singular
 State,State,Estado
@@ -101,8 +108,9 @@ Street,Street,Rua
 Tax Number,Tax Number,Número de Contribuinte
 Tax Number Company,Tax Number,Número de Identificação de Pessoa Coletiva
 This action will also delete all the files associated with this client.,This action will also delete all the files associated with this client.,Esta ação também irá apagar todos os ficheiros associados a este cliente.
-This action will also delete all the files associated with this lawsuite.,This action will also delete all the files associated with this lawsuite.,Esta ação também irá apagar todos os ficheiros associados a este processo.
+This action will also delete all the files associated with this lawsuite.,This action will also delete all the files associated with this lawsuit.,Esta ação também irá apagar todos os ficheiros associados a este processo.
 This folder is empty,This folder is empty,Esta pasta está vazia
+Title,Title,Título
 Type,Type,Tipo
 Unlock,Unlock,Desbloquear
 Updated. Last check: {},Updated. Last check: {},Atualizado. Ultima verificação: {}

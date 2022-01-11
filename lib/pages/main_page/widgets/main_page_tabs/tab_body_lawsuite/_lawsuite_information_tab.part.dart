@@ -109,6 +109,16 @@ class _LawsuiteInformationTab extends StatelessWidget {
                     onEdit: state.toggleEdit,
                     onSave: _onSave,
                     onDelete: () => _onDelete(context),
+                    onRight: Tooltip(
+                      message: 'Add reminder'.tr(),
+                      child: IconButton(
+                          onPressed: () async {
+                            final reminderId =
+                                await api.createLawsuiteReminder(lawsuite.id);
+                            await api.openReminder(reminderId);
+                          },
+                          icon: AppIcons.reminderAdd),
+                    ),
                     child: Row(
                       children: [
                         FlexibleTextField(
