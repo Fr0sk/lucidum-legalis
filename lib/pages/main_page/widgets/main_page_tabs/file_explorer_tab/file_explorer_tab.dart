@@ -159,9 +159,20 @@ class FileExplorerTab extends StatelessWidget {
                 folderIcon: AppIcons.folderColored,
                 defaultFileIcon: AppIcons.fileUnkown,
                 fileIcons: Mappings.filesIcons,
-                emptyFolderWidget: Text(
-                  'This folder is empty'.tr(),
-                  style: const TextStyle(fontStyle: FontStyle.italic),
+                emptyFolderWidget: Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'This folder is empty'.tr(),
+                            style: const TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

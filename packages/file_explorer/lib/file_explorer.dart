@@ -44,7 +44,10 @@ class FileExplorer extends StatelessWidget {
             if (e1 is! Directory && e2 is Directory) {
               return 1;
             } else {
-              return e1.path.compareTo(e2.path);
+              final s1 = FileStat.statSync(e1.path);
+              final s2 = FileStat.statSync(e2.path);
+              return s1.changed.isBefore(s2.changed) ? 1 : -1;
+              // Filter by name: return e1.path.compareTo(e2.path);
             }
           },
         );

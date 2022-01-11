@@ -9,7 +9,6 @@ import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_body_lawsuite/tab_body_lawsuite.dart';
 import 'package:lucidum_legalis/pages/main_page/widgets/main_page_tabs/tab_header.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
-import 'package:lucidum_legalis/widgets/notification_badge.dart';
 import 'package:lucidum_legalis/widgets/tab_panel.dart';
 import 'omnibox/omnibox.dart';
 import 'widgets/sidebar/sidebar.dart';

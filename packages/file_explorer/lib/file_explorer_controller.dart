@@ -11,8 +11,6 @@ class FileExplorerController extends ValueNotifier<String> {
   final selected = ListNotifier<FileSystemEntity>([]);
   final void Function(File f)? fileSelected;
   final void Function(Link e)? linkSelected;
-  //final void Function(FileSystemEntity entity)? onRename;
-  //final void Function(FileSystemEntity entity)? onDelete;
 
   StreamSubscription? _dirWatchStream;
 
@@ -22,8 +20,6 @@ class FileExplorerController extends ValueNotifier<String> {
     this.watch = false,
     this.fileSelected,
     this.linkSelected,
-    //this.onRename,
-    //this.onDelete,
   }) : super(Directory(startPath).path) {
     if (watch) {
       _watchDir();
