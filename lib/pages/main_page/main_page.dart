@@ -18,7 +18,6 @@ class MainPage extends StatelessWidget {
   final _tabHeaderKey = GlobalKey();
   final _tabBodies = <TabState, Widget>{};
   final _showSettings = ValueNotifier<bool>(false);
-  final _showNotifications = ValueNotifier<bool>(false);
 
   MainPage({Key? key}) : super(key: key) {
     api.tabs.addListener(() {
@@ -97,18 +96,6 @@ class MainPage extends StatelessWidget {
           ],
         ),
         actions: [
-          // Notifications Button
-          StreamBuilder<List<AppNotification>>(
-            stream: api.database.notificationDao.watchNotEmitted(),
-            builder: (_, snapshot) => IconButton(
-              onPressed: () =>
-                  _showNotifications.value = !_showNotifications.value,
-              icon: NotificationBadge(
-                icon: AppIcons.notification,
-                count: snapshot.data?.length,
-              ),
-            ),
-          ),
           IconButton(
             onPressed: () => _showSettings.value = !_showSettings.value,
             icon: ValueListenableBuilder<bool>(
@@ -179,6 +166,8 @@ class MainPage extends StatelessWidget {
                   ],
                 ),
               ),
+              // Notifications Panel
+              const NotificationsContainer(width: 300),
             ],
           ),
           // Sidebar
@@ -193,16 +182,6 @@ class MainPage extends StatelessWidget {
 
           // Omnibox
           omnibox,
-
-          // Notifications Panel
-          ValueListenableBuilder<bool>(
-              valueListenable: _showNotifications,
-              builder: (_, showNotifications, __) => showNotifications
-                  ? NotificationsContainer(
-                      width: 300,
-                      onDismiss: () => _showNotifications.value = false,
-                    )
-                  : Container()),
 
           // Settings Panel
           ValueListenableBuilder<bool>(

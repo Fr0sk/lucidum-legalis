@@ -7,8 +7,6 @@ import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_lawsui
 import 'package:lucidum_legalis/utils/utils.dart';
 
 class OmniboxController {
-  //final Stream<Client> clientStream;
-  //final Stream<Lawsuite> lawsuiteSteam;
   final _clients = <Client>[];
   final _lawsuites = <Lawsuite>[];
   final searchClients = ValueNotifier<bool>(true);

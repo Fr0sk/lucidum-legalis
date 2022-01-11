@@ -11,6 +11,7 @@ class _ClientInformationTab extends StatelessWidget {
   final _zipCodeController = TextEditingController();
   final _cityController = TextEditingController();
   final _contactsControllers = <DynamicTextFieldController<ContactType>>[];
+  final _nameTextFieldFocusNode = FocusNode();
 
   _ClientInformationTab({Key? key, required this.tabState}) : super(key: key);
 
@@ -94,6 +95,11 @@ class _ClientInformationTab extends StatelessWidget {
               _streetController.text = client.street ?? '';
               _zipCodeController.text = client.zipCode ?? '';
               _cityController.text = client.city ?? '';
+            } else {
+              // On edit select name text
+              _nameController.selection = TextSelection(
+                  baseOffset: 0, extentOffset: _nameController.text.length);
+              _nameTextFieldFocusNode.requestFocus();
             }
 
             return SingleChildScrollView(
@@ -113,6 +119,7 @@ class _ClientInformationTab extends StatelessWidget {
                           controller: _nameController,
                           readOnly: !state.edit,
                           decoration: InputDecoration(labelText: 'Name'.tr()),
+                          focusNode: _nameTextFieldFocusNode,
                         ),
                         _TypeMenu(
                           type: client.type,

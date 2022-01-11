@@ -11,6 +11,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
   final _formController = TextEditingController();
   final _legalSupportController = TextEditingController();
   final _againstControllers = <DynamicTextFieldController>[];
+  final _nameTextFieldFocusNode = FocusNode();
 
   _LawsuiteInformationTab({Key? key, required this.tabState}) : super(key: key);
 
@@ -90,6 +91,11 @@ class _LawsuiteInformationTab extends StatelessWidget {
               _formController.text = lawsuite.form ?? '';
               _legalSupportController.text = lawsuite.legalSupportNumber ?? '';
               _againstControllers.clear();
+            } else {
+              // On edit select name text
+              _nameController.selection = TextSelection(
+                  baseOffset: 0, extentOffset: _nameController.text.length);
+              _nameTextFieldFocusNode.requestFocus();
             }
 
             return SingleChildScrollView(
@@ -109,6 +115,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
                           controller: _nameController,
                           readOnly: !state.edit,
                           decoration: InputDecoration(labelText: 'Name'.tr()),
+                          focusNode: _nameTextFieldFocusNode,
                         ),
                         _StateMenu(
                           state: lawsuite.state,

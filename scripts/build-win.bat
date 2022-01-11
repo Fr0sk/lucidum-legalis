@@ -1,8 +1,8 @@
 :: Prompt for app version check
 @echo off
 setlocal
-::SET /P VERSIONBUMP=Do not forget to update the app version. Continue (Y/[N])?
-::if /I "%VERSIONBUMP%" NEQ "Y" GOTO END
+SET /P VERSIONBUMP=Do not forget to update the app version. Continue (Y/[N])?
+if /I "%VERSIONBUMP%" NEQ "Y" GOTO END
 
 
 :: START BUILD SCRIPT

@@ -22,14 +22,14 @@ class Omnibox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.searchFilter.value = '';
-
     return ValueListenableBuilder<bool>(
       valueListenable: controller.visibility,
       builder: (_, isVisible, __) {
         if (!isVisible) {
           return Container();
         }
+
+        controller.searchFilter.value = '';
         return SizedBox.expand(
           child: Container(
             color: AppColors.backdropColor,

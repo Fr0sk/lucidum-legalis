@@ -9,6 +9,7 @@ class FlexibleTextField extends StatelessWidget {
   final TextEditingController? controller;
   final InputDecoration? decoration;
   final FocusNode? focusNode;
+  final bool autofocus;
 
   const FlexibleTextField(
       {Key? key,
@@ -18,7 +19,8 @@ class FlexibleTextField extends StatelessWidget {
       this.numberOnly = false,
       this.decoration,
       this.focusNode,
-      this.hintText})
+      this.hintText,
+      this.autofocus = false})
       : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class FlexibleTextField extends StatelessWidget {
           controller: controller,
           readOnly: readOnly,
           focusNode: focusNode,
+          autofocus: autofocus,
           decoration: decoration ??
               InputDecoration(labelText: labelText, hintText: hintText),
           inputFormatters: numberOnly
