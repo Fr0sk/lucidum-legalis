@@ -18,7 +18,8 @@ class ClientDao extends DatabaseAccessor<UserDatabase> with _$ClientDaoMixin {
 
   // Reads
   Future<List<Client>> getAll() => select(clients).get();
-  Stream<List<Client>> watchAllClients() => select(clients).watch();
+  Stream<List<Client>> watchAllClients() =>
+      (select(clients)..orderBy([(c) => OrderingTerm.asc(c.name)])).watch();
 
   Stream<Client> watchClientById(int id) =>
       (select(clients)..where((client) => client.id.equals(id))).watchSingle();
