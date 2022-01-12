@@ -55,7 +55,7 @@ class UserDatabase extends _$UserDatabase {
       : super(_openConnection(userFolder: databaseDir.path));
 
   @override
-  int get schemaVersion => 3; // Database version
+  int get schemaVersion => 4; // Database version
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -71,8 +71,12 @@ class UserDatabase extends _$UserDatabase {
             await migrator.alterTable(TableMigration(clients));
           }
           if (from <= 2) {
-            await migrator.addColumn(alerts, alerts.metadata);
+            await migrator.addColumn(lawsuiteAgainsts, lawsuiteAgainsts.vat);
             await migrator.deleteTable('app_notifications');
+          }
+          if (from <= 3) {
+            await migrator.addColumn(
+                lawsuiteAgainsts, lawsuiteAgainsts.address);
           }
         },
       );

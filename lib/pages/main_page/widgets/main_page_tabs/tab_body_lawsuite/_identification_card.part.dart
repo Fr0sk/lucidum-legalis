@@ -3,7 +3,7 @@ part of 'tab_body_lawsuite.dart';
 class _IdentificationCard extends StatelessWidget {
   final int lawsuiteId;
   final bool editMode;
-  final List<DynamicTextFieldController> againstControllers;
+  final List<_AgainstController> againstControllers;
 
   const _IdentificationCard({
     Key? key,
@@ -43,28 +43,47 @@ class _IdentificationCard extends StatelessWidget {
               }
               if (againstControllers.indexWhere((c) => c.id == against.id) ==
                   -1) {
-                againstControllers.add(DynamicTextFieldController(
-                    id: against.id, text: against.against));
+                againstControllers.add(
+                  _AgainstController(
+                      id: against.id,
+                      againstText: against.against,
+                      vatText: against.vat,
+                      addressText: against.address),
+                );
               }
             }
 
             // Create children
             final children = <Widget>[];
             for (var controller in againstControllers) {
-              children.add(
-                DynamicTextField(
-                  controller: controller,
-                  readOnly: !editMode,
-                  label: 'Against'.tr(),
-                  deleteTooltip: 'Remove this field'.tr(),
-                  onDelete: () async {
-                    await userDatabase.lawsuiteDao
-                        .deleteAgainstById(controller.id);
-                    againstControllers
-                        .removeWhere((c) => c.id == controller.id);
-                  },
-                ),
-              );
+              children.add(Row(
+                children: [
+                  FlexibleTextField(
+                    controller: controller.against,
+                    readOnly: !editMode,
+                    labelText: 'Against'.tr(),
+                    flex: 2,
+                  ),
+                  FlexibleTextField(
+                    controller: controller.address,
+                    readOnly: !editMode,
+                    labelText: 'Address'.tr(),
+                    flex: 2,
+                  ),
+                  DynamicTextField(
+                    controller: controller.vat,
+                    readOnly: !editMode,
+                    label: 'Tax Number'.tr(),
+                    deleteTooltip: 'Remove this field'.tr(),
+                    onDelete: () async {
+                      await userDatabase.lawsuiteDao
+                          .deleteAgainstById(controller.id);
+                      againstControllers
+                          .removeWhere((c) => c.id == controller.id);
+                    },
+                  ),
+                ],
+              ));
             }
 
             if (children.isEmpty) {
@@ -78,8 +97,8 @@ class _IdentificationCard extends StatelessWidget {
                 ),
               );
             }
-
-            return CustomGrid(columns: 2, children: children);
+            return Column(children: children);
+            //return CustomGrid(columns: 2, children: children);
           }),
     );
   }

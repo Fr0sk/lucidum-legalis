@@ -8,6 +8,7 @@ class DynamicTextField extends StatelessWidget {
   final bool readOnly;
   final String? deleteTooltip;
   final void Function()? onDelete;
+  final int flex;
 
   const DynamicTextField({
     Key? key,
@@ -16,11 +17,13 @@ class DynamicTextField extends StatelessWidget {
     this.label = '',
     this.readOnly = false,
     this.deleteTooltip,
+    this.flex = 1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
+      flex: flex,
       child: Row(
         children: [
           FlexibleTextField(

@@ -26,6 +26,7 @@ part '_state_menu.part.dart';
 part '_identification_card.part.dart';
 part '_client_tab.part.dart';
 part '_client_row.part.dart';
+part '_against_controller.part.dart';
 
 class TabBodyLawsuite extends TabBodyBase<Lawsuite> {
   final _LawsuiteInformationTab _lawsuiteInformationTab;

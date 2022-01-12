@@ -2573,8 +2573,15 @@ class $AlertsTable extends Alerts with TableInfo<$AlertsTable, Alert> {
 class LawsuiteAgainst extends DataClass implements Insertable<LawsuiteAgainst> {
   final int id;
   final String? against;
+  final String? vat;
+  final String? address;
   final int lawsuiteId;
-  LawsuiteAgainst({required this.id, this.against, required this.lawsuiteId});
+  LawsuiteAgainst(
+      {required this.id,
+      this.against,
+      this.vat,
+      this.address,
+      required this.lawsuiteId});
   factory LawsuiteAgainst.fromData(Map<String, dynamic> data,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -2583,6 +2590,10 @@ class LawsuiteAgainst extends DataClass implements Insertable<LawsuiteAgainst> {
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       against: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}against']),
+      vat: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}vat']),
+      address: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}address']),
       lawsuiteId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}lawsuite_id'])!,
     );
@@ -2594,6 +2605,12 @@ class LawsuiteAgainst extends DataClass implements Insertable<LawsuiteAgainst> {
     if (!nullToAbsent || against != null) {
       map['against'] = Variable<String?>(against);
     }
+    if (!nullToAbsent || vat != null) {
+      map['vat'] = Variable<String?>(vat);
+    }
+    if (!nullToAbsent || address != null) {
+      map['address'] = Variable<String?>(address);
+    }
     map['lawsuite_id'] = Variable<int>(lawsuiteId);
     return map;
   }
@@ -2604,6 +2621,10 @@ class LawsuiteAgainst extends DataClass implements Insertable<LawsuiteAgainst> {
       against: against == null && nullToAbsent
           ? const Value.absent()
           : Value(against),
+      vat: vat == null && nullToAbsent ? const Value.absent() : Value(vat),
+      address: address == null && nullToAbsent
+          ? const Value.absent()
+          : Value(address),
       lawsuiteId: Value(lawsuiteId),
     );
   }
@@ -2614,6 +2635,8 @@ class LawsuiteAgainst extends DataClass implements Insertable<LawsuiteAgainst> {
     return LawsuiteAgainst(
       id: serializer.fromJson<int>(json['id']),
       against: serializer.fromJson<String?>(json['against']),
+      vat: serializer.fromJson<String?>(json['vat']),
+      address: serializer.fromJson<String?>(json['address']),
       lawsuiteId: serializer.fromJson<int>(json['lawsuiteId']),
     );
   }
@@ -2623,14 +2646,23 @@ class LawsuiteAgainst extends DataClass implements Insertable<LawsuiteAgainst> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'against': serializer.toJson<String?>(against),
+      'vat': serializer.toJson<String?>(vat),
+      'address': serializer.toJson<String?>(address),
       'lawsuiteId': serializer.toJson<int>(lawsuiteId),
     };
   }
 
-  LawsuiteAgainst copyWith({int? id, String? against, int? lawsuiteId}) =>
+  LawsuiteAgainst copyWith(
+          {int? id,
+          String? against,
+          String? vat,
+          String? address,
+          int? lawsuiteId}) =>
       LawsuiteAgainst(
         id: id ?? this.id,
         against: against ?? this.against,
+        vat: vat ?? this.vat,
+        address: address ?? this.address,
         lawsuiteId: lawsuiteId ?? this.lawsuiteId,
       );
   @override
@@ -2638,53 +2670,73 @@ class LawsuiteAgainst extends DataClass implements Insertable<LawsuiteAgainst> {
     return (StringBuffer('LawsuiteAgainst(')
           ..write('id: $id, ')
           ..write('against: $against, ')
+          ..write('vat: $vat, ')
+          ..write('address: $address, ')
           ..write('lawsuiteId: $lawsuiteId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, against, lawsuiteId);
+  int get hashCode => Object.hash(id, against, vat, address, lawsuiteId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is LawsuiteAgainst &&
           other.id == this.id &&
           other.against == this.against &&
+          other.vat == this.vat &&
+          other.address == this.address &&
           other.lawsuiteId == this.lawsuiteId);
 }
 
 class LawsuiteAgainstsCompanion extends UpdateCompanion<LawsuiteAgainst> {
   final Value<int> id;
   final Value<String?> against;
+  final Value<String?> vat;
+  final Value<String?> address;
   final Value<int> lawsuiteId;
   const LawsuiteAgainstsCompanion({
     this.id = const Value.absent(),
     this.against = const Value.absent(),
+    this.vat = const Value.absent(),
+    this.address = const Value.absent(),
     this.lawsuiteId = const Value.absent(),
   });
   LawsuiteAgainstsCompanion.insert({
     this.id = const Value.absent(),
     this.against = const Value.absent(),
+    this.vat = const Value.absent(),
+    this.address = const Value.absent(),
     required int lawsuiteId,
   }) : lawsuiteId = Value(lawsuiteId);
   static Insertable<LawsuiteAgainst> custom({
     Expression<int>? id,
     Expression<String?>? against,
+    Expression<String?>? vat,
+    Expression<String?>? address,
     Expression<int>? lawsuiteId,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (against != null) 'against': against,
+      if (vat != null) 'vat': vat,
+      if (address != null) 'address': address,
       if (lawsuiteId != null) 'lawsuite_id': lawsuiteId,
     });
   }
 
   LawsuiteAgainstsCompanion copyWith(
-      {Value<int>? id, Value<String?>? against, Value<int>? lawsuiteId}) {
+      {Value<int>? id,
+      Value<String?>? against,
+      Value<String?>? vat,
+      Value<String?>? address,
+      Value<int>? lawsuiteId}) {
     return LawsuiteAgainstsCompanion(
       id: id ?? this.id,
       against: against ?? this.against,
+      vat: vat ?? this.vat,
+      address: address ?? this.address,
       lawsuiteId: lawsuiteId ?? this.lawsuiteId,
     );
   }
@@ -2698,6 +2750,12 @@ class LawsuiteAgainstsCompanion extends UpdateCompanion<LawsuiteAgainst> {
     if (against.present) {
       map['against'] = Variable<String?>(against.value);
     }
+    if (vat.present) {
+      map['vat'] = Variable<String?>(vat.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String?>(address.value);
+    }
     if (lawsuiteId.present) {
       map['lawsuite_id'] = Variable<int>(lawsuiteId.value);
     }
@@ -2709,6 +2767,8 @@ class LawsuiteAgainstsCompanion extends UpdateCompanion<LawsuiteAgainst> {
     return (StringBuffer('LawsuiteAgainstsCompanion(')
           ..write('id: $id, ')
           ..write('against: $against, ')
+          ..write('vat: $vat, ')
+          ..write('address: $address, ')
           ..write('lawsuiteId: $lawsuiteId')
           ..write(')'))
         .toString();
@@ -2732,6 +2792,16 @@ class $LawsuiteAgainstsTable extends LawsuiteAgainsts
   late final GeneratedColumn<String?> against = GeneratedColumn<String?>(
       'against', aliasedName, true,
       type: const StringType(), requiredDuringInsert: false);
+  final VerificationMeta _vatMeta = const VerificationMeta('vat');
+  @override
+  late final GeneratedColumn<String?> vat = GeneratedColumn<String?>(
+      'vat', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
+  final VerificationMeta _addressMeta = const VerificationMeta('address');
+  @override
+  late final GeneratedColumn<String?> address = GeneratedColumn<String?>(
+      'address', aliasedName, true,
+      type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _lawsuiteIdMeta = const VerificationMeta('lawsuiteId');
   @override
   late final GeneratedColumn<int?> lawsuiteId = GeneratedColumn<int?>(
@@ -2740,7 +2810,7 @@ class $LawsuiteAgainstsTable extends LawsuiteAgainsts
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES lawsuites(id)');
   @override
-  List<GeneratedColumn> get $columns => [id, against, lawsuiteId];
+  List<GeneratedColumn> get $columns => [id, against, vat, address, lawsuiteId];
   @override
   String get aliasedName => _alias ?? 'lawsuite_againsts';
   @override
@@ -2756,6 +2826,14 @@ class $LawsuiteAgainstsTable extends LawsuiteAgainsts
     if (data.containsKey('against')) {
       context.handle(_againstMeta,
           against.isAcceptableOrUnknown(data['against']!, _againstMeta));
+    }
+    if (data.containsKey('vat')) {
+      context.handle(
+          _vatMeta, vat.isAcceptableOrUnknown(data['vat']!, _vatMeta));
+    }
+    if (data.containsKey('address')) {
+      context.handle(_addressMeta,
+          address.isAcceptableOrUnknown(data['address']!, _addressMeta));
     }
     if (data.containsKey('lawsuite_id')) {
       context.handle(

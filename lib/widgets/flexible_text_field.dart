@@ -12,6 +12,7 @@ class FlexibleTextField extends StatelessWidget {
   final bool autofocus;
   final int? minLines;
   final int? maxLines;
+  final int flex;
 
   const FlexibleTextField({
     Key? key,
@@ -25,11 +26,13 @@ class FlexibleTextField extends StatelessWidget {
     this.autofocus = false,
     this.minLines,
     this.maxLines,
+    this.flex = 1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
+      flex: flex,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
         child: TextField(

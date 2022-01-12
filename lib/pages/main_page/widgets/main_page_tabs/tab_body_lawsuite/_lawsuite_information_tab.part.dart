@@ -10,7 +10,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
   final _judgementController = TextEditingController();
   final _formController = TextEditingController();
   final _legalSupportController = TextEditingController();
-  final _againstControllers = <DynamicTextFieldController>[];
+  final _againstControllers = <_AgainstController>[];
   final _nameTextFieldFocusNode = FocusNode();
 
   _LawsuiteInformationTab({Key? key, required this.tabState}) : super(key: key);
@@ -33,7 +33,9 @@ class _LawsuiteInformationTab extends StatelessWidget {
         await userDatabase.lawsuiteDao.updateAgainst(
           LawsuiteAgainstsCompanion(
             id: drift.Value(controller.id),
-            against: drift.Value(controller.text),
+            against: drift.Value(controller.against.text),
+            vat: drift.Value(controller.vat.text),
+            address: drift.Value(controller.against.text),
             lawsuiteId: drift.Value(lawsuite.id),
           ),
         );
