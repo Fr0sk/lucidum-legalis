@@ -1,9 +1,6 @@
 import 'package:desktoasts/desktoasts.dart';
-import 'package:drift/drift.dart';
-import 'package:lucidum_legalis/database/user_database.dart';
-import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
-import 'dart:io' show Platform;
+//import 'dart:io' show Platform;
 
 class AppNotifications {
   final service = ToastService(
