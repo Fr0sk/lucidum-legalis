@@ -140,6 +140,7 @@ class _ClientInformationTab extends StatelessWidget {
                     zipCodeController: _zipCodeController,
                     cityController: _cityController,
                     readOnly: !state.edit,
+                    type: client.type,
                   ),
                   _ContactsCard(
                       clientId: state.id,

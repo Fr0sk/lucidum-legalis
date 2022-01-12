@@ -4,6 +4,7 @@ class _AddressCard extends StatelessWidget {
   final TextEditingController streetController;
   final TextEditingController zipCodeController;
   final TextEditingController cityController;
+  final ClientType type;
   final bool readOnly;
 
   const _AddressCard(
@@ -11,13 +12,15 @@ class _AddressCard extends StatelessWidget {
       required this.streetController,
       required this.zipCodeController,
       required this.cityController,
-      required this.readOnly})
+      required this.readOnly,
+      required this.type})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TitledCard(
-      titleText: 'Address'.tr(),
+      titleText:
+          type == ClientType.company ? 'Headquarters'.tr() : 'Address'.tr(),
       child: Column(
         children: [
           Row(
