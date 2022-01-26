@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lucidum_legalis/database/daos/alert_dao.dart';
 import 'package:lucidum_legalis/database/daos/client_dao.dart';
 import 'package:lucidum_legalis/database/daos/client_lawsuite_dao.dart';
@@ -46,6 +47,17 @@ class UserDatabase extends _$UserDatabase {
         OperatingSystem.windows, () => DynamicLibrary.open('sqlite3.dll'));
   }
 
+  static Future<void> backup({required Directory databaseDir}) async {
+    final bakupFolder = Directory(p.join(databaseDir.path, 'backup'));
+    await bakupFolder.create();
+
+    final dbFile = File(p.join(databaseDir.path, 'app.db'));
+    final dbBackFileName =
+        DateFormat('yyyy-MM-dd_hh-mm-ss').format(DateTime.now());
+
+    await dbFile.copy(p.join(bakupFolder.path, 'app_$dbBackFileName.db'));
+  }
+
   static QueryExecutor _openConnection({required String userFolder}) {
     final file = File(p.join(userFolder, 'app.db'));
     return NativeDatabase(file);
@@ -55,7 +67,7 @@ class UserDatabase extends _$UserDatabase {
       : super(_openConnection(userFolder: databaseDir.path));
 
   @override
-  int get schemaVersion => 4; // Database version
+  int get schemaVersion => 5; // Database version
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -77,6 +89,9 @@ class UserDatabase extends _$UserDatabase {
           if (from <= 3) {
             await migrator.addColumn(
                 lawsuiteAgainsts, lawsuiteAgainsts.address);
+          }
+          if (from <= 4) {
+            await migrator.addColumn(lawsuiteAgainsts, lawsuiteAgainsts.vat);
           }
         },
       );

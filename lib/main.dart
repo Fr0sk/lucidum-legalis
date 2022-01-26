@@ -28,6 +28,7 @@ Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await AppDirectories.ensureInitialized();
+  await UserDatabase.backup(databaseDir: AppDirectories.appDocDir);
   UserDatabase.setupSqlitePlatformOverrides();
 
   userDatabase = UserDatabase(databaseDir: AppDirectories.appDocDir);
