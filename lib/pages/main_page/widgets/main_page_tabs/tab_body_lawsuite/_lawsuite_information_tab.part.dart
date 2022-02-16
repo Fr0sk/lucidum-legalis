@@ -35,7 +35,7 @@ class _LawsuiteInformationTab extends StatelessWidget {
             id: drift.Value(controller.id),
             against: drift.Value(controller.against.text),
             vat: drift.Value(controller.vat.text),
-            address: drift.Value(controller.against.text),
+            address: drift.Value(controller.address.text),
             lawsuiteId: drift.Value(lawsuite.id),
           ),
         );

@@ -48,14 +48,23 @@ class UserDatabase extends _$UserDatabase {
   }
 
   static Future<void> backup({required Directory databaseDir}) async {
+    final dbFile = File(p.join(databaseDir.path, 'app.db'));
+    if (!await dbFile.exists()) {
+      return;
+    }
+
     final bakupFolder = Directory(p.join(databaseDir.path, 'backup'));
     await bakupFolder.create();
 
-    final dbFile = File(p.join(databaseDir.path, 'app.db'));
-    final dbBackFileName =
-        DateFormat('yyyy-MM-dd_hh-mm-ss').format(DateTime.now());
-
-    await dbFile.copy(p.join(bakupFolder.path, 'app_$dbBackFileName.db'));
+    final now = DateTime.now();
+    final dbBackFileName = 'app_'
+        '${now.year}-'
+        '${now.month.toString().padLeft(2, '0')}-'
+        '${now.month.toString().padLeft(2, '0')}_'
+        '${now.hour.toString().padLeft(2, '0')}-'
+        '${now.minute.toString().padLeft(2, '0')}-'
+        '${now.second.toString().padLeft(2, '0')}.db';
+    await dbFile.copy(p.join(bakupFolder.path, dbBackFileName));
   }
 
   static QueryExecutor _openConnection({required String userFolder}) {
@@ -67,7 +76,7 @@ class UserDatabase extends _$UserDatabase {
       : super(_openConnection(userFolder: databaseDir.path));
 
   @override
-  int get schemaVersion => 5; // Database version
+  int get schemaVersion => 4; // Database version
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -89,9 +98,6 @@ class UserDatabase extends _$UserDatabase {
           if (from <= 3) {
             await migrator.addColumn(
                 lawsuiteAgainsts, lawsuiteAgainsts.address);
-          }
-          if (from <= 4) {
-            await migrator.addColumn(lawsuiteAgainsts, lawsuiteAgainsts.vat);
           }
         },
       );

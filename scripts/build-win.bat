@@ -22,6 +22,9 @@ call flutter build windows
 :: Copy the sqlite3.dll to the build directory
 copy /y sqlite3.dll build\windows\runner\Release\sqlite3.dll
 
+:: Creates the build\out dir
+mkdir build\out
+
 :: Create zip file and move it to out directory
 powershell Compress-Archive -Force build\windows\runner\Release\* build\out\lucidum_legalis_win64.zip
 

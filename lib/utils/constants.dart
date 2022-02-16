@@ -136,6 +136,7 @@ class Mappings {
     '.pdf': AppIcons.filePdfColored,
     '.png': AppIcons.fileImageColored,
     '.jpg': AppIcons.fileImageColored,
+    '.jpeg': AppIcons.fileImageColored,
     '.bmp': AppIcons.fileImageColored,
     '.mp3': AppIcons.fileMusicColored,
     '.wav': AppIcons.fileMusicColored,
