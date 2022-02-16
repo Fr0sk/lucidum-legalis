@@ -5,8 +5,16 @@ class _LawsuitesTabHeader extends StatelessWidget {
   final int attention;
   final int waiting;
   final int closed;
+  final bool openedEnabled;
+  final bool attentionEnabled;
+  final bool waitingEnabled;
+  final bool closedEnabled;
   final void Function()? onAddNewLawsuite;
   final void Function()? onAssociateLawsuite;
+  final void Function()? onOpenedPressed;
+  final void Function()? onAttentionPressed;
+  final void Function()? onWaitingPressed;
+  final void Function()? onClosedPressed;
 
   const _LawsuitesTabHeader(
       {Key? key,
@@ -15,7 +23,15 @@ class _LawsuitesTabHeader extends StatelessWidget {
       required this.waiting,
       required this.closed,
       this.onAddNewLawsuite,
-      this.onAssociateLawsuite})
+      this.onAssociateLawsuite,
+      this.onOpenedPressed,
+      this.onAttentionPressed,
+      this.onWaitingPressed,
+      this.onClosedPressed,
+      this.openedEnabled = true,
+      this.attentionEnabled = true,
+      this.waitingEnabled = true,
+      this.closedEnabled = true})
       : super(key: key);
 
   @override
@@ -25,41 +41,61 @@ class _LawsuitesTabHeader extends StatelessWidget {
         children: [
           Tooltip(
             message: 'Opened'.tr(),
-            child: Row(
-              children: [
-                AppIcons.lawsuiteOpened,
-                Text('$opened'),
-              ],
+            child: InkWell(
+              onTap: onOpenedPressed,
+              child: Row(
+                children: [
+                  openedEnabled
+                      ? AppIcons.lawsuiteOpened
+                      : AppIcons.lawsuiteOpenedDisabled,
+                  Text('$opened'),
+                ],
+              ),
             ),
           ),
           const Spacer(),
           Tooltip(
             message: 'Requires Attention'.tr(),
-            child: Row(
-              children: [
-                AppIcons.lawsuiteAttention,
-                Text('$attention'),
-              ],
+            child: InkWell(
+              onTap: onAttentionPressed,
+              child: Row(
+                children: [
+                  attentionEnabled
+                      ? AppIcons.lawsuiteAttention
+                      : AppIcons.lawsuiteAttentionDisabled,
+                  Text('$attention'),
+                ],
+              ),
             ),
           ),
           const Spacer(),
           Tooltip(
             message: 'Waiting'.tr(),
-            child: Row(
-              children: [
-                AppIcons.lawsuiteWaiting,
-                Text('$waiting'),
-              ],
+            child: InkWell(
+              onTap: onWaitingPressed,
+              child: Row(
+                children: [
+                  waitingEnabled
+                      ? AppIcons.lawsuiteWaiting
+                      : AppIcons.lawsuiteWaitingDisabled,
+                  Text('$waiting'),
+                ],
+              ),
             ),
           ),
           const Spacer(),
           Tooltip(
             message: 'Closed'.tr(),
-            child: Row(
-              children: [
-                AppIcons.lawsuiteClosed,
-                Text('$closed'),
-              ],
+            child: InkWell(
+              onTap: onClosedPressed,
+              child: Row(
+                children: [
+                  closedEnabled
+                      ? AppIcons.lawsuiteClosed
+                      : AppIcons.lawsuiteClosedDisabled,
+                  Text('$closed'),
+                ],
+              ),
             ),
           ),
           const Spacer(),

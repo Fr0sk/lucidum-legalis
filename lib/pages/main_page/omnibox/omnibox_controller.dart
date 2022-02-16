@@ -14,7 +14,6 @@ class OmniboxController {
   final searchClients = ValueNotifier<bool>(true);
   final searchLawsuites = ValueNotifier<bool>(true);
   final searchResults = ListNotifier<OmniboxListTileBase>([]);
-  //final searchFilter = ValueNotifier<String>('');
   final visibility = ValueNotifier<bool>(false);
   final hintText = ValueNotifier<String>('');
   final allowClients = ValueNotifier<bool>(true);

@@ -1,6 +1,6 @@
 part of 'tab_body_client.dart';
 
-class _LawsuitesTab extends StatelessWidget {
+class _LawsuitesTab extends StatefulWidget {
   final int clientId;
   final List<Lawsuite> lawsuites;
 
@@ -8,9 +8,19 @@ class _LawsuitesTab extends StatelessWidget {
       {Key? key, this.lawsuites = const [], required this.clientId})
       : super(key: key);
 
+  @override
+  State<_LawsuitesTab> createState() => _LawsuitesTabState();
+}
+
+class _LawsuitesTabState extends State<_LawsuitesTab> {
+  var showOpened = true;
+  var showAttention = true;
+  var showWaiting = true;
+  var showClosed = true;
+
   void onAddNewLawsuite() async {
     final lawsuiteId = await api.createLawsuite();
-    api.associateClientLawsuiteByIds(clientId, lawsuiteId);
+    api.associateClientLawsuiteByIds(widget.clientId, lawsuiteId);
     api.openLawsuite(id: lawsuiteId, editMode: true);
   }
 
@@ -22,7 +32,7 @@ class _LawsuitesTab extends StatelessWidget {
         searchClients: false,
         onLawsuiteSelected: (lawsuite) {
           api.closeOmnibox();
-          api.associateClientLawsuiteByIds(clientId, lawsuite.id);
+          api.associateClientLawsuiteByIds(widget.clientId, lawsuite.id);
         });
   }
 
@@ -31,24 +41,33 @@ class _LawsuitesTab extends StatelessWidget {
     return Column(
       children: [
         _LawsuitesTabHeader(
-          opened: lawsuites
+          opened: widget.lawsuites
               .where((l) => l.state == LawsuiteState.open)
               .toList()
               .length,
-          attention: lawsuites
+          attention: widget.lawsuites
               .where((l) => l.state == LawsuiteState.requiresAttention)
               .toList()
               .length,
-          waiting: lawsuites
+          waiting: widget.lawsuites
               .where((l) => l.state == LawsuiteState.waiting)
               .toList()
               .length,
-          closed: lawsuites
+          closed: widget.lawsuites
               .where((l) => l.state == LawsuiteState.closed)
               .toList()
               .length,
+          openedEnabled: showOpened,
+          attentionEnabled: showAttention,
+          waitingEnabled: showWaiting,
+          closedEnabled: showClosed,
           onAddNewLawsuite: onAddNewLawsuite,
           onAssociateLawsuite: onAssociateLawsuite,
+          onOpenedPressed: () => setState(() => showOpened = !showOpened),
+          onAttentionPressed: () =>
+              setState(() => showAttention = !showAttention),
+          onWaitingPressed: () => setState(() => showWaiting = !showWaiting),
+          onClosedPressed: () => setState(() => showClosed = !showClosed),
         ),
         _LawsuitesRow(
           id: 'No.',
@@ -60,9 +79,18 @@ class _LawsuitesTab extends StatelessWidget {
         Expanded(
           child: ListView.builder(
               controller: ScrollController(),
-              itemCount: lawsuites.length,
+              itemCount: widget.lawsuites.length,
               itemBuilder: (_, idx) {
-                var lawsuite = lawsuites[idx];
+                var lawsuite = widget.lawsuites[idx];
+                if (lawsuite.state == LawsuiteState.open && !showOpened ||
+                    lawsuite.state == LawsuiteState.requiresAttention &&
+                        !showAttention ||
+                    lawsuite.state == LawsuiteState.waiting && !showWaiting ||
+                    lawsuite.state == LawsuiteState.closed && !showClosed) {
+                  // Don't show lawsuites with disabled state
+                  return Container();
+                }
+
                 return _LawsuitesRow(
                   id: '${lawsuite.id}',
                   name: lawsuite.name,
@@ -74,7 +102,7 @@ class _LawsuitesTab extends StatelessWidget {
                   onPressed: () => api.openLawsuite(id: lawsuite.id),
                   onDeletePressed: () =>
                       api.deleteClientLawsuiteAssociationByIds(
-                          clientId, lawsuite.id),
+                          widget.clientId, lawsuite.id),
                 );
               }),
         )

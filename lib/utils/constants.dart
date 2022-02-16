@@ -51,7 +51,7 @@ class AppIcons {
   );
   static const lawsuiteWaiting = Icon(
     MdiIcons.fileClockOutline,
-    color: Colors.grey,
+    color: Colors.blueGrey,
   );
   static const lawsuiteClosed = Icon(
     MdiIcons.fileCertificateOutline,
@@ -60,6 +60,22 @@ class AppIcons {
   static const lawsuiteAttention = Icon(
     MdiIcons.fileAlertOutline,
     color: Colors.orange,
+  );
+  static const lawsuiteOpenedDisabled = Icon(
+    MdiIcons.fileDocumentOutline,
+    color: Colors.grey,
+  );
+  static const lawsuiteWaitingDisabled = Icon(
+    MdiIcons.fileClockOutline,
+    color: Colors.grey,
+  );
+  static const lawsuiteClosedDisabled = Icon(
+    MdiIcons.fileCertificateOutline,
+    color: Colors.grey,
+  );
+  static const lawsuiteAttentionDisabled = Icon(
+    MdiIcons.fileAlertOutline,
+    color: Colors.grey,
   );
   static const addLawsuite = Icon(MdiIcons.filePlus);
   static const lawsuiteSettings = Icon(MdiIcons.fileCog);
