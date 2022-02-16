@@ -14,7 +14,7 @@ class OmniboxController {
   final searchClients = ValueNotifier<bool>(true);
   final searchLawsuites = ValueNotifier<bool>(true);
   final searchResults = ListNotifier<OmniboxListTileBase>([]);
-  final searchFilter = ValueNotifier<String>('');
+  //final searchFilter = ValueNotifier<String>('');
   final visibility = ValueNotifier<bool>(false);
   final hintText = ValueNotifier<String>('');
   final allowClients = ValueNotifier<bool>(true);
@@ -43,7 +43,8 @@ class OmniboxController {
 
     searchClients.addListener(_rebuildSearchResults);
     searchLawsuites.addListener(_rebuildSearchResults);
-    searchFilter.addListener(_rebuildSearchResults);
+    textController.addListener(_rebuildSearchResults);
+
     selected.addListener(_selectWidget);
   }
 
@@ -121,7 +122,7 @@ class OmniboxController {
 
   void _rebuildSearchResults() {
     final tempSearchResults = <OmniboxListTileBase>[];
-    final pattern = searchFilter.value;
+    final pattern = textController.text;
 
     if (searchClients.value) {
       for (var c in _clients) {

@@ -29,7 +29,7 @@ class Omnibox extends StatelessWidget {
           return Container();
         }
 
-        controller.searchFilter.value = '';
+        controller.textController.text = '';
         controller.selected.value = 0;
 
         return SizedBox.expand(
@@ -68,8 +68,6 @@ class Omnibox extends StatelessWidget {
                                       hintText: hint,
                                     ),
                                     focusNode: _focusNode..requestFocus(),
-                                    onChanged: (filter) =>
-                                        controller.searchFilter.value = filter,
                                   ),
                                 ),
                               ),
