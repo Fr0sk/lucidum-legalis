@@ -40,6 +40,8 @@ class Omnibox extends StatelessWidget {
                   child: InkWell(
                     hoverColor: const Color.fromARGB(0, 0, 0, 0),
                     onTap: controller.hide,
+                    splashFactory: NoSplash.splashFactory,
+                    highlightColor: Colors.transparent,
                   ),
                 ),
                 Column(
@@ -130,6 +132,8 @@ class Omnibox extends StatelessWidget {
                         child: InkWell(
                           hoverColor: const Color.fromARGB(0, 0, 0, 0),
                           onTap: controller.hide,
+                          splashFactory: NoSplash.splashFactory,
+                          highlightColor: Colors.transparent,
                         ),
                       ),
                     ),
@@ -140,6 +144,8 @@ class Omnibox extends StatelessWidget {
                   child: InkWell(
                     hoverColor: const Color.fromARGB(0, 0, 0, 0),
                     onTap: controller.hide,
+                    splashFactory: NoSplash.splashFactory,
+                    highlightColor: Colors.transparent,
                   ),
                 ),
               ],
