@@ -1,24 +1,25 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:file_explorer/list_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:lucidum_legalis/database/tables/clients.dart';
+import 'package:flutter/services.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_base.dart';
 import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_client.dart';
 import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_lawsuite.dart';
-import 'package:lucidum_legalis/utils/utils.dart';
 import 'package:lucidum_legalis/utils/extensions.dart';
 
 class OmniboxController {
   final _clients = <Client>[];
   final _lawsuites = <Lawsuite>[];
+  final selected = ValueNotifier<int>(0);
   final searchClients = ValueNotifier<bool>(true);
   final searchLawsuites = ValueNotifier<bool>(true);
-  final searchResults = ListNotifier<Widget>([]);
+  final searchResults = ListNotifier<OmniboxListTileBase>([]);
   final searchFilter = ValueNotifier<String>('');
   final visibility = ValueNotifier<bool>(false);
   final hintText = ValueNotifier<String>('');
   final allowClients = ValueNotifier<bool>(true);
   final allowLawsuites = ValueNotifier<bool>(true);
+  final textController = TextEditingController();
   void Function(Client client)? onClientSelected;
   void Function(Lawsuite lawsuite)? onLawsuiteSelected;
 
@@ -29,6 +30,7 @@ class OmniboxController {
         ..clear()
         ..addAll(clients);
       _rebuildSearchResults();
+      _selectWidget();
     });
 
     lawsuiteSteam.listen((lawsuites) {
@@ -36,11 +38,13 @@ class OmniboxController {
         ..clear()
         ..addAll(lawsuites);
       _rebuildSearchResults();
+      _selectWidget();
     });
 
     searchClients.addListener(_rebuildSearchResults);
     searchLawsuites.addListener(_rebuildSearchResults);
     searchFilter.addListener(_rebuildSearchResults);
+    selected.addListener(_selectWidget);
   }
 
   void show({
@@ -77,8 +81,46 @@ class OmniboxController {
   void toggleSearchLawsuites() =>
       searchLawsuites.value = !searchLawsuites.value;
 
+  void onKeyPressed(RawKeyEvent e) {
+    if (searchResults.isEmpty) {
+      return;
+    }
+
+    if (e.isKeyPressed(LogicalKeyboardKey.enter)) {
+      _openSelected();
+      return;
+    }
+
+    var delta = 0;
+    if (e.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
+      delta = 1;
+    } else if (e.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
+      delta = -1;
+    }
+
+    if (delta == 0) {
+      return;
+    }
+
+    final currentSelection = textController.selection;
+    Future.delayed(Duration.zero).then((value) {
+      textController.selection = currentSelection;
+    });
+
+    selected.value =
+        (selected.value + delta).clamp(0, searchResults.length - 1);
+  }
+
+  void _selectWidget() {
+    for (var i = 0; i < searchResults.length; i++) {
+      searchResults[i].selected.value = selected.value == i;
+    }
+  }
+
+  void _openSelected() => searchResults[selected.value].onPressed?.call();
+
   void _rebuildSearchResults() {
-    final tempSearchResults = <Widget>[];
+    final tempSearchResults = <OmniboxListTileBase>[];
     final pattern = searchFilter.value;
 
     if (searchClients.value) {
@@ -120,5 +162,7 @@ class OmniboxController {
     }
 
     searchResults.replace(tempSearchResults);
+    selected.value = 0;
+    _selectWidget();
   }
 }
