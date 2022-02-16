@@ -23,7 +23,13 @@ class _OmniboxChip extends StatelessWidget {
       builder: (__, canToggle, _) => ValueListenableBuilder<bool>(
         valueListenable: valueListenable,
         builder: (_, enabled, __) => ActionChip(
-          avatar: avatar,
+          labelStyle: DefaultTextStyle.of(context)
+              .style
+              .copyWith(color: enabled ? Theme.of(context).cardColor : null),
+          avatar: IconTheme(
+              data: IconThemeData(
+                  color: enabled ? Theme.of(context).cardColor : null),
+              child: avatar),
           label: label,
           backgroundColor: enabled ? Theme.of(context).primaryColor : null,
           onPressed: canToggle ? onPressed : () {},

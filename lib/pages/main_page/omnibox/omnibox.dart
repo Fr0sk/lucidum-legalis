@@ -29,7 +29,9 @@ class Omnibox extends StatelessWidget {
           return Container();
         }
 
-        controller.searchFilter.value = '';
+        controller.textController.text = '';
+        controller.selected.value = 0;
+
         return SizedBox.expand(
           child: Container(
             color: AppColors.backdropColor,
@@ -40,6 +42,8 @@ class Omnibox extends StatelessWidget {
                   child: InkWell(
                     hoverColor: const Color.fromARGB(0, 0, 0, 0),
                     onTap: controller.hide,
+                    splashFactory: NoSplash.splashFactory,
+                    highlightColor: Colors.transparent,
                   ),
                 ),
                 Column(
@@ -53,26 +57,20 @@ class Omnibox extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              /*child: RawKeyboardListener(
-                            focusNode: FocusNode(),
-                            onKey: (e) {
-                              // DONT FORGET TO ESC -> Close Omnibox too
-                              if (e.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
-                                selected.value = selected.value + 1;
-                              }
-                            },*/
-                              child: ValueListenableBuilder<String>(
-                                valueListenable: controller.hintText,
-                                builder: (_, hint, __) => TextField(
-                                  decoration: InputDecoration(
-                                    hintText: hint,
+                              child: RawKeyboardListener(
+                                focusNode: FocusNode(),
+                                onKey: controller.onKeyPressed,
+                                child: ValueListenableBuilder<String>(
+                                  valueListenable: controller.hintText,
+                                  builder: (_, hint, __) => TextField(
+                                    controller: controller.textController,
+                                    decoration: InputDecoration(
+                                      hintText: hint,
+                                    ),
+                                    focusNode: _focusNode..requestFocus(),
                                   ),
-                                  focusNode: _focusNode..requestFocus(),
-                                  onChanged: (filter) =>
-                                      controller.searchFilter.value = filter,
                                 ),
                               ),
-                              //),
                             ),
                             Flexible(
                               child: ValueListenableBuilder<List<Widget>>(
@@ -130,6 +128,8 @@ class Omnibox extends StatelessWidget {
                         child: InkWell(
                           hoverColor: const Color.fromARGB(0, 0, 0, 0),
                           onTap: controller.hide,
+                          splashFactory: NoSplash.splashFactory,
+                          highlightColor: Colors.transparent,
                         ),
                       ),
                     ),
@@ -140,6 +140,8 @@ class Omnibox extends StatelessWidget {
                   child: InkWell(
                     hoverColor: const Color.fromARGB(0, 0, 0, 0),
                     onTap: controller.hide,
+                    splashFactory: NoSplash.splashFactory,
+                    highlightColor: Colors.transparent,
                   ),
                 ),
               ],

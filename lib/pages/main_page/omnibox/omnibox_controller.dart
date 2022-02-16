@@ -1,22 +1,25 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:file_explorer/list_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_base.dart';
 import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_client.dart';
 import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_lawsuite.dart';
-import 'package:lucidum_legalis/utils/utils.dart';
+import 'package:lucidum_legalis/utils/extensions.dart';
 
 class OmniboxController {
   final _clients = <Client>[];
   final _lawsuites = <Lawsuite>[];
+  final selected = ValueNotifier<int>(0);
   final searchClients = ValueNotifier<bool>(true);
   final searchLawsuites = ValueNotifier<bool>(true);
-  final searchResults = ListNotifier<Widget>([]);
-  final searchFilter = ValueNotifier<String>('');
+  final searchResults = ListNotifier<OmniboxListTileBase>([]);
+  //final searchFilter = ValueNotifier<String>('');
   final visibility = ValueNotifier<bool>(false);
   final hintText = ValueNotifier<String>('');
   final allowClients = ValueNotifier<bool>(true);
   final allowLawsuites = ValueNotifier<bool>(true);
+  final textController = TextEditingController();
   void Function(Client client)? onClientSelected;
   void Function(Lawsuite lawsuite)? onLawsuiteSelected;
 
@@ -27,6 +30,7 @@ class OmniboxController {
         ..clear()
         ..addAll(clients);
       _rebuildSearchResults();
+      _selectWidget();
     });
 
     lawsuiteSteam.listen((lawsuites) {
@@ -34,11 +38,14 @@ class OmniboxController {
         ..clear()
         ..addAll(lawsuites);
       _rebuildSearchResults();
+      _selectWidget();
     });
 
     searchClients.addListener(_rebuildSearchResults);
     searchLawsuites.addListener(_rebuildSearchResults);
-    searchFilter.addListener(_rebuildSearchResults);
+    textController.addListener(_rebuildSearchResults);
+
+    selected.addListener(_selectWidget);
   }
 
   void show({
@@ -75,48 +82,88 @@ class OmniboxController {
   void toggleSearchLawsuites() =>
       searchLawsuites.value = !searchLawsuites.value;
 
+  void onKeyPressed(RawKeyEvent e) {
+    if (searchResults.isEmpty) {
+      return;
+    }
+
+    if (e.isKeyPressed(LogicalKeyboardKey.enter)) {
+      _openSelected();
+      return;
+    }
+
+    var delta = 0;
+    if (e.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
+      delta = 1;
+    } else if (e.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
+      delta = -1;
+    }
+
+    if (delta == 0) {
+      return;
+    }
+
+    final currentSelection = textController.selection;
+    Future.delayed(Duration.zero).then((value) {
+      textController.selection = currentSelection;
+    });
+
+    selected.value =
+        (selected.value + delta).clamp(0, searchResults.length - 1);
+  }
+
+  void _selectWidget() {
+    for (var i = 0; i < searchResults.length; i++) {
+      searchResults[i].selected.value = selected.value == i;
+    }
+  }
+
+  void _openSelected() => searchResults[selected.value].onPressed?.call();
+
   void _rebuildSearchResults() {
-    final tempSearchResults = <Widget>[];
-    final searchFilterList = searchFilter.value.toLowerCase().split(' ');
+    final tempSearchResults = <OmniboxListTileBase>[];
+    final pattern = textController.text;
 
     if (searchClients.value) {
-      tempSearchResults.addAll(
-        _clients
-            .where((c) =>
-                searchFilter.value.isEmpty ||
-                ListUtils.findMatches(
-                        ':${"Client".tr()} ${c.name}'.toLowerCase().split(' '),
-                        searchFilterList) >=
-                    searchFilterList.length)
-            .map(
-              (c) => OmniboxListTileClient(
-                client: c,
-                onPressed: () => onClientSelected?.call(c),
-              ),
+      for (var c in _clients) {
+        final matches = c.name.search(pattern);
+        if (pattern.isEmpty || matches.isNotEmpty) {
+          tempSearchResults.add(
+            OmniboxListTileClient(
+              client: c,
+              matches: matches,
+              onPressed: () => onClientSelected?.call(c),
             ),
-      );
+          );
+        }
+      }
     }
 
     if (searchLawsuites.value) {
-      tempSearchResults.addAll(
-        _lawsuites
-            .where((l) =>
-                searchFilter.value.isEmpty ||
-                ListUtils.findMatches(
-                        ':${"Lawsuite".tr()} ${l.name} ${l.id} ${l.processNumber ?? ""}'
-                            .toLowerCase()
-                            .split(' '),
-                        searchFilterList) >=
-                    searchFilterList.length)
-            .map(
-              (l) => OmniboxListTileLawsuite(
-                lawsuite: l,
-                onPressed: () => onLawsuiteSelected?.call(l),
-              ),
+      for (var l in _lawsuites) {
+        final nameMatches = l.name.search(pattern);
+        final idMatches = '# ${l.id}'.search(pattern);
+        final processNumberMatches = l.processNumber?.search(pattern) ?? [];
+
+        if (pattern.isEmpty ||
+            nameMatches.isNotEmpty ||
+            idMatches.isNotEmpty ||
+            processNumberMatches.isNotEmpty) {
+          tempSearchResults.add(
+            OmniboxListTileLawsuite(
+              lawsuite: l,
+              onPressed: () => onLawsuiteSelected?.call(l),
+              nameMatches: nameMatches,
+              idMatches: idMatches,
+              processNumberMatches: processNumberMatches,
             ),
-      );
+          );
+        }
+      }
     }
 
     searchResults.replace(tempSearchResults);
+    selected.value = 0;
+    _selectWidget();
   }
 }
