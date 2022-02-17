@@ -64,6 +64,7 @@ class Omnibox extends StatelessWidget {
                                   valueListenable: controller.hintText,
                                   builder: (_, hint, __) => TextField(
                                     controller: controller.textController,
+                                    onChanged: controller.onTextChanged,
                                     decoration: InputDecoration(
                                       hintText: hint,
                                     ),

@@ -29,7 +29,7 @@ class OmniboxController {
         ..clear()
         ..addAll(clients);
       _rebuildSearchResults();
-      _selectWidget();
+      _highlightSelectedWidget();
     });
 
     lawsuiteSteam.listen((lawsuites) {
@@ -37,14 +37,12 @@ class OmniboxController {
         ..clear()
         ..addAll(lawsuites);
       _rebuildSearchResults();
-      _selectWidget();
+      _highlightSelectedWidget();
     });
 
     searchClients.addListener(_rebuildSearchResults);
     searchLawsuites.addListener(_rebuildSearchResults);
-    textController.addListener(_rebuildSearchResults);
-
-    selected.addListener(_selectWidget);
+    selected.addListener(_highlightSelectedWidget);
   }
 
   void show({
@@ -81,6 +79,12 @@ class OmniboxController {
   void toggleSearchLawsuites() =>
       searchLawsuites.value = !searchLawsuites.value;
 
+  void onTextChanged(String text) {
+    _rebuildSearchResults();
+    selected.value = 0;
+    _highlightSelectedWidget();
+  }
+
   void onKeyPressed(RawKeyEvent e) {
     if (searchResults.isEmpty) {
       return;
@@ -111,7 +115,7 @@ class OmniboxController {
         (selected.value + delta).clamp(0, searchResults.length - 1);
   }
 
-  void _selectWidget() {
+  void _highlightSelectedWidget() {
     for (var i = 0; i < searchResults.length; i++) {
       searchResults[i].selected.value = selected.value == i;
     }
@@ -162,7 +166,5 @@ class OmniboxController {
     }
 
     searchResults.replace(tempSearchResults);
-    selected.value = 0;
-    _selectWidget();
   }
 }
