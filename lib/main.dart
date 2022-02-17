@@ -23,6 +23,7 @@ late final AppSettings appSettings;
 late final AppAlerts appAlerts;
 late final UpdaterService updaterService;
 
+//flutter run -d windows --dart-entrypoint-args showReleaseNotes
 Future<void> main(List<String> args) async {
   // Shows splash screen while app is loading
   //runApp(SplashScreen());

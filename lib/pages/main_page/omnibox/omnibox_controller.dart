@@ -13,11 +13,13 @@ class OmniboxController {
   final selected = ValueNotifier<int>(0);
   final searchClients = ValueNotifier<bool>(true);
   final searchLawsuites = ValueNotifier<bool>(true);
+  final searchFiles = ValueNotifier<bool>(true);
   final searchResults = ListNotifier<OmniboxListTileBase>([]);
   final visibility = ValueNotifier<bool>(false);
   final hintText = ValueNotifier<String>('');
   final allowClients = ValueNotifier<bool>(true);
   final allowLawsuites = ValueNotifier<bool>(true);
+  final allowFiles = ValueNotifier<bool>(true);
   final textController = TextEditingController();
   void Function(Client client)? onClientSelected;
   void Function(Lawsuite lawsuite)? onLawsuiteSelected;
@@ -49,8 +51,10 @@ class OmniboxController {
     String hint = '',
     bool allowClients = true,
     bool allowLawsuites = true,
+    bool allowFiles = true,
     bool searchClients = true,
     bool searchLawsuites = true,
+    bool searchFiles = true,
     void Function(Client client)? onClientSelected,
     void Function(Lawsuite lawsuite)? onLawsuiteSelected,
   }) {
@@ -58,9 +62,11 @@ class OmniboxController {
 
     this.allowClients.value = allowClients;
     this.allowLawsuites.value = allowLawsuites;
+    this.allowFiles.value = allowFiles;
 
     this.searchClients.value = searchClients;
     this.searchLawsuites.value = searchLawsuites;
+    this.searchFiles.value = searchFiles;
 
     this.onClientSelected = onClientSelected;
     this.onLawsuiteSelected = onLawsuiteSelected;
@@ -78,6 +84,8 @@ class OmniboxController {
 
   void toggleSearchLawsuites() =>
       searchLawsuites.value = !searchLawsuites.value;
+
+  void toggleSearchFiles() => searchFiles.value = !searchFiles.value;
 
   void onTextChanged(String text) {
     _rebuildSearchResults();

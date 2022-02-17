@@ -29,7 +29,9 @@ class _LawsuitesTabState extends State<_LawsuitesTab> {
         hint: 'Choose Lawsuite to Associate'.tr(),
         allowClients: false,
         allowLawsuites: false,
+        allowFiles: false,
         searchClients: false,
+        searchFiles: false,
         onLawsuiteSelected: (lawsuite) {
           api.closeOmnibox();
           api.associateClientLawsuiteByIds(widget.clientId, lawsuite.id);

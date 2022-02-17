@@ -115,6 +115,17 @@ class Omnibox extends StatelessWidget {
                                     },
                                   ),
                                   const Spacer(),
+                                  _OmniboxChip(
+                                    valueListenable: controller.searchFiles,
+                                    canToggleListenable: controller.allowFiles,
+                                    avatar: AppIcons.files,
+                                    label: Text('Files'.tr()),
+                                    onPressed: () {
+                                      controller.toggleSearchFiles();
+                                      _focusNode.requestFocus();
+                                    },
+                                  ),
+                                  const Spacer(),
                                 ],
                               ),
                             ),
