@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:badges/badges.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:lucidum_legalis/dialogs/release_notes_dialog.dart';
 import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/titled_card.dart';
@@ -45,12 +46,17 @@ class SettingsContainer extends StatelessWidget {
                   child: SingleChildScrollView(
                     controller: ScrollController(),
                     child: Column(
-                      children: const [
+                      children: [
                         Divider(),
                         _ListTileLanguage(),
                         Divider(),
                         _ListTileApplication(),
                         Divider(),
+                        ElevatedButton(
+                          onPressed: () =>
+                              ReleaseNotesDialog.show(context: context),
+                          child: Text('Release Notes'),
+                        ),
                       ],
                     ),
                   ),
