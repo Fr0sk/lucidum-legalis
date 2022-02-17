@@ -5,46 +5,43 @@ import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lucidum_legalis/data/version.dart';
+import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:path/path.dart' as p;
 
 class UpdaterService {
   /// Creates the updater service for the corresponding platform
-  final _checkDuration = const Duration(hours: 4);
+  final _checkDuration = const Duration(seconds: 10);
   final hasUpdates = ValueNotifier<bool>(false);
   final lastCheck = ValueNotifier<DateTime?>(null);
-  final autoUpdater = ValueNotifier<bool>(true);
   final downloadProgress = ValueNotifier<double?>(null);
 
   Timer? _timer;
 
   UpdaterService() {
-    autoUpdater.addListener(checkForTimer);
-    checkForTimer();
-
-    Future.delayed(const Duration(seconds: 5)).then((_) => checkForUpdates());
-  }
-
-  void checkForTimer() {
-    if (autoUpdater.value && !hasUpdates.value) {
-      // Autoupdate is on
-      _timer ??= Timer.periodic(_checkDuration, (_) => checkForUpdates());
-    } else {
-      // Autoupdate is off
-      _timer?.cancel();
-      _timer = null;
+    // If auto check for updates is enabled, check on startup
+    if (appSettings.checkForUpdates.value) {
+      Future.delayed(const Duration(seconds: 2)).then((_) => checkForUpdates());
     }
+
+    // Start background timer to check for updates
+    _timer = Timer.periodic(_checkDuration, (_) {
+      if (appSettings.checkForUpdates.value) {
+        checkForUpdates();
+      }
+    });
   }
 
   /// Checks if there is a new version available
   Future<bool> checkForUpdates() async {
-    downloadProgress.value = -1;
-
     if (hasUpdates.value) {
       _timer?.cancel();
+      downloadProgress.value = null;
       return true;
     }
+
+    downloadProgress.value = -1;
 
     const pattern = 'Fr0sk/lucidum-legalis/releases/tag/';
     final url =
@@ -65,6 +62,7 @@ class UpdaterService {
     if (onlineVersion > App.version) {
       await downloadUpdate();
       hasUpdates.value = true;
+      _timer?.cancel();
     } else {
       hasUpdates.value = false;
     }

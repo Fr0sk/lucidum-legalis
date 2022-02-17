@@ -6,6 +6,7 @@ import 'package:lucidum_legalis/database/user_database.dart';
 import 'package:lucidum_legalis/pages/main_page/main_page.dart';
 import 'package:lucidum_legalis/services/app_alerts.dart.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
+import 'package:lucidum_legalis/services/app_settings.dart';
 import 'package:lucidum_legalis/services/notification_system.dart';
 import 'package:lucidum_legalis/services/updater_service.dart';
 import 'package:lucidum_legalis/utils/api.dart';
@@ -17,6 +18,7 @@ import 'package:window_size/window_size.dart';
 late final UserDatabase userDatabase;
 late final Api api;
 late final AppNotifications appNotifications;
+late final AppSettings appSettings;
 late final AppAlerts appAlerts;
 late final UpdaterService updaterService;
 
@@ -33,6 +35,8 @@ Future<void> main(List<String> args) async {
 
   userDatabase = UserDatabase(databaseDir: AppDirectories.appDocDir);
   api = Api();
+  appSettings = AppSettings();
+  await appSettings.ensureInitialized();
   appNotifications = AppNotifications();
   appAlerts = AppAlerts();
   updaterService = UpdaterService();

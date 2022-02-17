@@ -16,7 +16,7 @@ class _ListTileApplication extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: ValueListenableBuilder<bool>(
-                  valueListenable: updaterService.autoUpdater,
+                  valueListenable: appSettings.checkForUpdates,
                   builder: (_, autoUpdaterEnabled, child) => SizedBox(
                     width: 400,
                     child: CheckboxListTile(
@@ -24,8 +24,8 @@ class _ListTileApplication extends StatelessWidget {
                             Text('Automatic check and download updates'.tr()),
                         //controlAffinity: ListTileControlAffinity.leading,
                         value: autoUpdaterEnabled,
-                        onChanged: (enabled) => updaterService
-                            .autoUpdater.value = enabled ?? false),
+                        onChanged: (enabled) => appSettings
+                            .checkForUpdates.value = enabled ?? false),
                   ),
                 ),
               ),

@@ -2878,6 +2878,7 @@ abstract class _$UserDatabase extends GeneratedDatabase {
   late final AlertDao alertDao = AlertDao(this as UserDatabase);
   late final ClientLawsuiteDao clientLawsuiteDao =
       ClientLawsuiteDao(this as UserDatabase);
+  late final SettingsDao settingsDao = SettingsDao(this as UserDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
