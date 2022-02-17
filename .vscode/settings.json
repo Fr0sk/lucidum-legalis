@@ -2,5 +2,12 @@
     "cmake.sourceDirectory": "${workspaceFolder}/windows",
     "files.associations": {
         "*.yaml": "home-assistant"
+    },
+    "files.exclude": {
+        ".*": true,
+        "android": true,
+        "build": true,
+        "ios": true,
+        "web": true
     }
 }
