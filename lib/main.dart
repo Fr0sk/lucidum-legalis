@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/services.dart';
 import 'package:lucidum_legalis/database/user_database.dart';
+import 'package:lucidum_legalis/dialogs/release_notes_dialog.dart';
 import 'package:lucidum_legalis/pages/main_page/main_page.dart';
 import 'package:lucidum_legalis/services/app_alerts.dart.dart';
 import 'package:lucidum_legalis/services/app_directories.dart';
@@ -54,7 +55,9 @@ Future<void> main(List<String> args) async {
       fallbackLocale: const Locale('en'),
       path: 'assets/lang/lang.csv',
       assetLoader: CsvAssetLoader(),
-      child: const MyApp(),
+      child: MyApp(
+        showReleaseNotes: args.contains('showReleaseNotes'),
+      ),
     ),
   );
 }
@@ -82,7 +85,8 @@ class SplashScreen extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool showReleaseNotes;
+  const MyApp({Key? key, this.showReleaseNotes = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +110,15 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: MainPage(),
+        home: Builder(builder: (context) {
+          // Show release notes on startup
+          if (showReleaseNotes) {
+            WidgetsBinding.instance?.addPostFrameCallback(
+                (timeStamp) => ReleaseNotesDialog.show(context: context));
+          }
+
+          return MainPage();
+        }),
       ),
     );
   }

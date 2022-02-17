@@ -42,7 +42,7 @@ Future<void> extractUpdate() async {
 
 Future<void> launchApp() async {
   if (Platform.isWindows) {
-    await Process.start('lucidum_legalis.exe', [],
+    await Process.start('lucidum_legalis.exe', ['showReleaseNotes'],
         mode: ProcessStartMode.detached);
   } else {
     print('Platform not supported');

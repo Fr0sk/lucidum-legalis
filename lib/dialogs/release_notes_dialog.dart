@@ -8,7 +8,6 @@ import 'package:lucidum_legalis/utils/constants.dart';
 class ReleaseNotesDialog {
   static Future<void> show({required BuildContext context}) async {
     var notes = '';
-
     if (EasyLocalization.of(context)?.currentLocale == Locales.pt) {
       notes = await rootBundle.loadString('assets/release_notes/pt_PT.md');
     } else {
