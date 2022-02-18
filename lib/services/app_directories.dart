@@ -28,13 +28,12 @@ class AppDirectories {
   }
 
   // Lawsuites related directories
-  static Directory get lawsuitesDir =>
-      Directory('${_appDocDir.path}/lawsuites');
+  static Directory get lawsuitsDir => Directory('${_appDocDir.path}/lawsuites');
 
   static Directory getLawsuiteDir({Lawsuite? lawsuite, int? id}) {
     assert(lawsuite != null || id != null);
     id = id ?? lawsuite?.id;
-    return Directory('${lawsuitesDir.path}/$id');
+    return Directory('${lawsuitsDir.path}/$id');
   }
 
   static Directory get runtimeDir =>

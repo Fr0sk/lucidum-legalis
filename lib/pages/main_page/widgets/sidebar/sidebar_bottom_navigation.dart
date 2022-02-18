@@ -52,7 +52,7 @@ class _SidebarBottomNavigationState extends State<SidebarBottomNavigation> {
             BottomNavigationBarItem(
                 icon: constants.AppIcons.client, label: 'Clients'.tr()),
             BottomNavigationBarItem(
-                icon: constants.AppIcons.lawsuite, label: 'Lawsuites'.tr())
+                icon: constants.AppIcons.lawsuit, label: 'Lawsuites'.tr())
           ],
           currentIndex: _selectedIndex,
           onTap: _onTabSelected,

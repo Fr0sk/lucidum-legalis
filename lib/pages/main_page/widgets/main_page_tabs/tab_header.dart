@@ -43,7 +43,7 @@ class TabHeader extends StatelessWidget {
                     Icon((IconUtils.lawsuiteIcon(lawsuite.state) as Icon).icon),
                 isActive: tabState == api.tabHistory.last,
                 editMode: editMode,
-                onPressed: () => api.openLawsuite(id: lawsuite.id),
+                onPressed: () => api.openLawsuit(id: lawsuite.id),
                 onClosed: () => api.closeTab(tabState: tabState),
               ),
             );

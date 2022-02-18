@@ -23,7 +23,7 @@ class _ReminderListTile extends StatelessWidget {
         builder: (context, snapshot) =>
             Text('#${snapshot.data?.id ?? ""} - ${snapshot.data?.name ?? ""}'),
       );
-      onTap = () => api.openLawsuite(id: metadataId);
+      onTap = () => api.openLawsuit(id: metadataId);
     }
 
     return ListTile(

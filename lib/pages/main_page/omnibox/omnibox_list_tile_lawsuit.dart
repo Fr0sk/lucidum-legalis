@@ -5,15 +5,15 @@ import 'package:lucidum_legalis/pages/main_page/omnibox/omnibox_list_tile_base.d
 import 'package:lucidum_legalis/utils/utils.dart';
 import 'package:lucidum_legalis/widgets/matched_text.dart';
 
-class OmniboxListTileLawsuite extends OmniboxListTileBase {
-  final Lawsuite lawsuite;
+class OmniboxListTileLawsuit extends OmniboxListTileBase {
+  final Lawsuite lawsuit;
   final List<StringMatch> nameMatches;
   final List<StringMatch> idMatches;
   final List<StringMatch> processNumberMatches;
 
-  OmniboxListTileLawsuite({
+  OmniboxListTileLawsuit({
     Key? key,
-    required this.lawsuite,
+    required this.lawsuit,
     void Function()? onPressed,
     this.nameMatches = const [],
     this.idMatches = const [],
@@ -25,18 +25,18 @@ class OmniboxListTileLawsuite extends OmniboxListTileBase {
     return ValueListenableBuilder<bool>(
       valueListenable: selected,
       builder: (_, isSelected, child) => ListTile(
-        leading: IconUtils.lawsuiteIcon(lawsuite.state),
-        title: MatchedText(text: lawsuite.name, matches: nameMatches),
+        leading: IconUtils.lawsuiteIcon(lawsuit.state),
+        title: MatchedText(text: lawsuit.name, matches: nameMatches),
         subtitle: child,
         onTap: onPressed,
         tileColor: isSelected ? Theme.of(context).selectedRowColor : null,
       ),
       child: Row(
         children: [
-          MatchedText(text: '# ${lawsuite.id}', matches: idMatches),
+          MatchedText(text: '# ${lawsuit.id}', matches: idMatches),
           const VerticalDivider(),
           MatchedText(
-            text: '${lawsuite.processNumber}',
+            text: '${lawsuit.processNumber}',
             matches: processNumberMatches,
           ),
         ],

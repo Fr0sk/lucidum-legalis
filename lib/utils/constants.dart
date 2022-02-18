@@ -44,7 +44,7 @@ class AppIcons {
   static const clientCompanySettings = Icon(MdiIcons.officeBuildingCog);
   static const addClient = Icon(MdiIcons.accountPlus);
 
-  static const lawsuite = Icon(MdiIcons.fileDocumentOutline);
+  static const lawsuit = Icon(MdiIcons.fileDocumentOutline);
   static const lawsuiteOpened = Icon(
     MdiIcons.fileDocumentOutline,
     color: Colors.blue,
@@ -139,6 +139,10 @@ class AppIcons {
     MdiIcons.folderOpen,
     color: Colors.amber,
   );
+  static const textFileColored = Icon(
+    MdiIcons.stickerTextOutline,
+    color: Colors.blueGrey,
+  );
 }
 
 class Mappings {
@@ -156,5 +160,6 @@ class Mappings {
     '.bmp': AppIcons.fileImageColored,
     '.mp3': AppIcons.fileMusicColored,
     '.wav': AppIcons.fileMusicColored,
+    '.txt': AppIcons.textFileColored,
   };
 }

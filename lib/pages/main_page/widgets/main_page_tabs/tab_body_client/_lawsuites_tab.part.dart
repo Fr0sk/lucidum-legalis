@@ -21,18 +21,18 @@ class _LawsuitesTabState extends State<_LawsuitesTab> {
   void onAddNewLawsuite() async {
     final lawsuiteId = await api.createLawsuite();
     api.associateClientLawsuiteByIds(widget.clientId, lawsuiteId);
-    api.openLawsuite(id: lawsuiteId, editMode: true);
+    api.openLawsuit(id: lawsuiteId, editMode: true);
   }
 
   void onAssociateLawsuite() {
     api.omniboxController.show(
         hint: 'Choose Lawsuite to Associate'.tr(),
         allowClients: false,
-        allowLawsuites: false,
+        allowLawsuits: false,
         allowFiles: false,
         searchClients: false,
         searchFiles: false,
-        onLawsuiteSelected: (lawsuite) {
+        onLawsuitSelected: (lawsuite) {
           api.closeOmnibox();
           api.associateClientLawsuiteByIds(widget.clientId, lawsuite.id);
         });
@@ -101,7 +101,7 @@ class _LawsuitesTabState extends State<_LawsuitesTab> {
                     lawsuite.createdAt,
                   ),
                   icon: IconUtils.lawsuiteIcon(lawsuite.state),
-                  onPressed: () => api.openLawsuite(id: lawsuite.id),
+                  onPressed: () => api.openLawsuit(id: lawsuite.id),
                   onDeletePressed: () =>
                       api.deleteClientLawsuiteAssociationByIds(
                           widget.clientId, lawsuite.id),

@@ -28,9 +28,7 @@ class Omnibox extends StatelessWidget {
         if (!isVisible) {
           return Container();
         }
-
-        controller.textController.text = '';
-        controller.selected.value = 0;
+        controller.clearTextField();
 
         return SizedBox.expand(
           child: Container(
@@ -104,13 +102,13 @@ class Omnibox extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   _OmniboxChip(
-                                    valueListenable: controller.searchLawsuites,
+                                    valueListenable: controller.searchLawsuits,
                                     canToggleListenable:
-                                        controller.allowLawsuites,
-                                    avatar: AppIcons.lawsuite,
+                                        controller.allowLawsuits,
+                                    avatar: AppIcons.lawsuit,
                                     label: Text('Lawsuites'.tr()),
                                     onPressed: () {
-                                      controller.toggleSearchLawsuites();
+                                      controller.toggleSearchLawsuits();
                                       _focusNode.requestFocus();
                                     },
                                   ),

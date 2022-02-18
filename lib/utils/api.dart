@@ -14,6 +14,7 @@ import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/list_notifier.dart';
 import 'package:lucidum_legalis/utils/utils.dart';
 import 'package:lucidum_legalis/utils/extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum OpenTabBodyResult { success, unsavedChanges }
 
@@ -42,9 +43,9 @@ class Api {
           closeOmnibox();
           openClient(id: client.id);
         },
-        onLawsuiteSelected: (lawsuite) {
+        onLawsuitSelected: (lawsuite) {
           closeOmnibox();
-          openLawsuite(id: lawsuite.id);
+          openLawsuit(id: lawsuite.id);
         });
   }
 
@@ -109,6 +110,8 @@ class Api {
     return id;
   }
 
+  Future<bool> openFile({required String file}) => launch(file);
+
   Future<void> openClient({required int id, bool editMode = false}) async {
     // Checks if there is a client tab with the same ID opened and
     // retreives it's index
@@ -133,7 +136,7 @@ class Api {
     tabHistory.add(tabs[idx]);
   }
 
-  Future<void> openLawsuite({required int id, bool editMode = false}) async {
+  Future<void> openLawsuit({required int id, bool editMode = false}) async {
     // Checks if there is a Lawsuite tab with the same ID opened and
     // retreives it's index
     var idx = tabs.indexWhere((ts) => ts is TabState<Lawsuite> && ts.id == id);

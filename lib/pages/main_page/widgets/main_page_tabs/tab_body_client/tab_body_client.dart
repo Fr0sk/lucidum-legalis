@@ -50,7 +50,7 @@ class TabBodyClient extends TabBodyBase<Client> {
               label: Text('Information'.tr()),
             ),
             ButtonGroupItem(
-              icon: AppIcons.lawsuite,
+              icon: AppIcons.lawsuit,
               label: Text('Lawsuites'.tr()),
             ),
             ButtonGroupItem(

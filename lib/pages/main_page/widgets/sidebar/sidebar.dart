@@ -71,7 +71,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
 
   Future<void> _addLawsuite() async {
     final id = await api.createLawsuite();
-    api.openLawsuite(id: id, editMode: true);
+    api.openLawsuit(id: id, editMode: true);
     _closeAddMenu();
   }
 
@@ -80,7 +80,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
   }
 
   void _lawsuiteSelected(int id) async {
-    await api.openLawsuite(id: id);
+    await api.openLawsuit(id: id);
   }
 
   void _closeAddMenu() {
