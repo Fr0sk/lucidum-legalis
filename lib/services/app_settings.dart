@@ -7,11 +7,13 @@ class AppSettings {
   static const saveOpenTabsKey = 'saveOpenTabs';
   static const openTabsKey = 'openTabs';
   static const openTabsHistoryKey = 'openTabsHistory';
+  static const isWindowMaximizedKey = 'isWindowMaximized';
 
   late final checkForUpdates = ValueNotifier<bool>(true);
   late final saveOpenTabs = ValueNotifier<bool>(true);
   late final openTabs = ValueNotifier<String>('');
   late final openTabsHistory = ValueNotifier<String>('');
+  late final isWindowMaximized = ValueNotifier<bool>(false);
   late final UserDatabase db;
 
   var _isInitialized = false;
@@ -56,6 +58,10 @@ class AppSettings {
           value: openTabsHistory.value,
         ));
 
+    // Is window maximized
+    isWindowMaximized.value = await _getBool(key: isWindowMaximizedKey);
+    isWindowMaximized.addListener(() async => await _putBool(
+        key: isWindowMaximizedKey, value: isWindowMaximized.value));
     _isInitialized = true;
   }
 

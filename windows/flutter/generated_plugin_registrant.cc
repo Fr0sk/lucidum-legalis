@@ -9,7 +9,7 @@
 #include <desktoasts/desktoasts_plugin.h>
 #include <desktop_drop/desktop_drop_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
-#include <window_size/window_size_plugin.h>
+#include <window_manager/window_manager_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   DesktoastsPluginRegisterWithRegistrar(
@@ -18,6 +18,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("DesktopDropPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
-  WindowSizePluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("WindowSizePlugin"));
+  WindowManagerPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("WindowManagerPlugin"));
 }

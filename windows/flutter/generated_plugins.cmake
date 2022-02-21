@@ -6,7 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktoasts
   desktop_drop
   url_launcher_windows
-  window_size
+  window_manager
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

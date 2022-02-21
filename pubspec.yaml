@@ -42,13 +42,10 @@ dependencies:
   file_picker: ^4.3.0                       # File picker
   http: ^0.13.4                             # HTTP Requests
   archive: ^3.1.8                           # Extract update.zip 
+  window_manager: ^0.1.6                    # Handles Window settings and listeners 
   file_explorer:
     path: 'packages/file_explorer'
-  window_size:
-    git:
-      url: git://github.com/google/flutter-desktop-embedding.git
-      path: plugins/window_size
-      ref: 03d957e
+  
   flutter_markdown: ^0.6.9
 
 dev_dependencies:

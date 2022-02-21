@@ -10,11 +10,12 @@ import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/services/app_settings.dart';
 import 'package:lucidum_legalis/services/notification_system.dart';
 import 'package:lucidum_legalis/services/updater_service.dart';
+import 'package:lucidum_legalis/services/window_service.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:window_size/window_size.dart';
+import 'package:window_manager/window_manager.dart';
 
 late final UserDatabase userDatabase;
 late final Api api;
@@ -31,6 +32,7 @@ Future<void> main(List<String> args) async {
   // Initializes application
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await windowManager.ensureInitialized();
   await AppDirectories.ensureInitialized();
   await UserDatabase.backup(databaseDir: AppDirectories.appDocDir);
   UserDatabase.setupSqlitePlatformOverrides();
@@ -44,10 +46,9 @@ Future<void> main(List<String> args) async {
   updaterService = UpdaterService();
 
   // Sets window settings
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowTitle(App.title);
-    setWindowMinSize(App.windowMinSize);
-  }
+  windowManager.waitUntilReadyToShow().then((_) async {
+    await WindowService().ensureInitialized();
+  });
 
   // Run the application
   runApp(
