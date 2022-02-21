@@ -10,7 +10,7 @@ class Fonts {
 class App {
   static const title = 'Lucidum Legalis';
   static const companyName = 'Fr0sk Labs';
-  static const version = Version(1, 1, 1);
+  static const version = Version(1, 2, 0);
 
   static const windowMinSize = Size(1150, 600);
   static const sidebarWidth = 250.0;

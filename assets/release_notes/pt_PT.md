@@ -1,8 +1,31 @@
 # Notas de Lançamento:
 
+## Procura-me!
+
+> ###### Versão: 1.2.0 | Lançada em: 21/02/2022 
+
+**Novas Funcionalidades**
+- Pesquisa melhorada com indicação visual das correspondências
+- Agora é possível pesquisar por ficheiros associados a clientes e processos
+- Navegação pelos itens de pesquisa pelo teclado (setas para selecionar e ENTER para abrir)
+- A aplicação agora tem a capacidade de memorizar os separadores abertos e restaurar na próxima sessão
+
+**Pequenas Melhorias**
+- A ver os processos de um cliente, agora é possível filtrar pelos tipos de processo carregando no ícone correspondente
+- Apresentação das alterações à aplicação após uma atualização (yay, é sobre mim!)
+- A aplicação inicia maximizada se tiver sido fechada assim
+- A barra lateral dos clientes mostra os processos que estão em aberto, requer atenção, em espera e fechados
+- Ao inserir ficheiros com o mesmo nome pede por confirmação antes de substituir
+- Cópias de segurança da base de dados automáticas ao iniciar a aplicação
+
+**Correção de erros**
+- Definições ficam guardadas entre utilizações
+- Ao apagar vários ficheiros de uma vez, pede apenas uma confirmação em vez de uma por ficheiro
+___
+
 ## Melhorias e correção de erros
 
-> ###### Versão: 1.1.0 | Lançada em: 11/01/2022 
+> ###### Versão: 1.1.1 | Lançada em: 11/01/2022 
 
 **Pequenas Melhorias**
 - Adicionado campos de número de contribuinte e morada na parte contrária
@@ -38,7 +61,7 @@ ___
 
 **Novas Funcionalidades**
 - Adicionado contactos a clientes
-- Adicionado o ID do processo no menu lateral
+- Adicionado o ID do processo no barra lateral
 - Implementado modo portátil (base de dados dentro da pasta do programa)
 
 **Pequenas Melhorias**
