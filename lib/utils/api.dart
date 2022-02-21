@@ -93,12 +93,13 @@ class Api {
     selectedFiles.replaceAll(files);
   }
 
-  Future<void> pasteFiles(Directory newDirectory) async {
+  Future<void> pasteFiles(Directory newDirectory, BuildContext context) async {
     if (selectedFiles.isEmpty || fileOperation == FileSystemOperation.none) {
       return;
     }
 
-    await Copy.list(selectedFiles.map((e) => e.path).toList(), newDirectory);
+    await Copy.list(
+        selectedFiles.map((e) => e.path).toList(), newDirectory, context);
     if (fileOperation == FileSystemOperation.move) {
       for (var e in selectedFiles.value) {
         await e.delete(recursive: true);

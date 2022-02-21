@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/database/tables/clients.dart';
 import 'package:lucidum_legalis/database/tables/lawsuites.dart';
+import 'package:lucidum_legalis/dialogs/text_input_dialog.dart';
+import 'package:lucidum_legalis/dialogs/yes_no_dialog.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:path/path.dart' as p;
 
@@ -19,14 +22,40 @@ class Copy {
     }
   }
 
-  static Future<void> file(File source, Directory destination) async {
-    await source.copy(p.join(destination.path, p.basename(source.path)));
+  static Future<void> file(
+      File source, Directory destination, BuildContext context) async {
+    File dest = File(p.join(destination.path, p.basename(source.path)));
+
+    while (await dest.exists()) {
+      final replace = await YesNoDialog.show(
+        context: context,
+        title: 'Replace File?'.tr(),
+        description: 'The destination already has a file named {}. Replace it?'
+            .tr(args: [p.basename(dest.path)]),
+      );
+      if (replace) {
+        break;
+      }
+
+      final newName = await TextInputDialog.show(
+        context: context,
+        defaultText: p.basename(source.path),
+        title: 'Enter a new name for {}'.tr(args: [p.basename(source.path)]),
+      );
+      if (newName == null || newName.isEmpty) {
+        return;
+      }
+
+      dest = File(p.join(destination.path, p.basename(newName)));
+    }
+    await source.copy(dest.path);
   }
 
-  static Future<void> list(List<String> paths, Directory destination) async {
+  static Future<void> list(
+      List<String> paths, Directory destination, BuildContext context) async {
     for (var path in paths) {
       if (await File(path).exists()) {
-        await Copy.file(File(path), destination);
+        await Copy.file(File(path), destination, context);
       } else if (await Directory(path).exists()) {
         var newDirectory =
             Directory(p.join(destination.absolute.path, p.basename(path)));

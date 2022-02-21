@@ -51,6 +51,7 @@ District,District,Comarca
 Drop Files Here,Drop Files Here,Largar Ficheiros Aqui
 Edit,Edit,Editar
 Email,Email,Email
+Enter a new name for {},Enter a new name for {},Introduza um novo nome para {}
 Enter the password to unlock the database:,Enter the password to unlock the database:,Introduza a palavra-passe para desbloquear a base de dados:
 Error creating user,Error creating user,Erro a criar o utilizador
 Error loading user,Error loading user,Erro a carregar o utilizador
@@ -100,6 +101,7 @@ Pick date,Pick date,Escolher data
 Process Number,Process Number,Número de Processo
 Remove Association,Remove Association,Remover Associação
 Remove this field,Remove this field,Remover este campo
+Replace File?,Replace File?,Substituir Ficheiro?
 Requires Attention,Requires Attention,Requer Atenção
 Restart,Restart,Reiniciar
 Restart to install the latest update,Restart to install the latest update,Reinicia para instalar a última atualização
@@ -113,6 +115,7 @@ State,State,Estado
 Street,Street,Rua
 Tax Number,Tax Number,Número de Contribuinte
 Tax Number Company,Tax Number,Número de Identificação de Pessoa Coletiva
+The destination already has a file named {}. Replace it?, The destination already has a file named {}. Replace it?,O destino já tem um ficheiro com o nome {}. Deseja substituí-lo?
 This action will also delete all the files associated with this client.,This action will also delete all the files associated with this client.,Esta ação também irá apagar todos os ficheiros associados a este cliente.
 This action will also delete all the files associated with this lawsuite.,This action will also delete all the files associated with this lawsuit.,Esta ação também irá apagar todos os ficheiros associados a este processo.
 This folder is empty,This folder is empty,Esta pasta está vazia

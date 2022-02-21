@@ -94,7 +94,7 @@ class FileExplorerTab extends StatelessWidget {
   }
 
   Future<void> onPaste(BuildContext context) async {
-    await api.pasteFiles(_controller.directory);
+    await api.pasteFiles(_controller.directory, context);
   }
 
   Future<void> onDelete(BuildContext context) async {
@@ -133,7 +133,7 @@ class FileExplorerTab extends StatelessWidget {
       }
 
       if (paths.isNotEmpty) {
-        Copy.list(paths, _controller.directory);
+        Copy.list(paths, _controller.directory, context);
       }
     }
   }
@@ -167,7 +167,7 @@ class FileExplorerTab extends StatelessWidget {
             child: AnimatedDropTarget(
               onDragDone: (details) {
                 Copy.list(details.files.map((e) => e.path).toList(),
-                    _controller.directory);
+                    _controller.directory, context);
               },
               child: FileExplorer(
                 controller: _controller,
