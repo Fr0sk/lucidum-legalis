@@ -14,6 +14,7 @@ Against Identification,Opposing Parties Identification,Identificação das Parte
 Application,Application,Aplicação
 Are you sure you want to permanently delete this file?,Are you sure you want to permanently delete this file?,Tem a certeza que pretente apagar permanentemente este ficheiro?
 Are you sure you want to permanently delete this folder?,Are you sure you want to permanently delete this folder?,Tem a certeza que pretente apagar permanentemente esta pasta?
+Are you sure you want to permanently delete selected files and folders?,Are you sure you want to permanently delete selected files and folders?,Tem a certeza que pretente apagar permanentemente os ficheiros e pastas selecionados?
 Associate Existing Lawsuite,Associate Existing Lawsuit,Associar Processo Existente
 Associate Lawsuite,Associate Lawsuit,Associar Processo
 Associate New Lawsuite,Associate New Lawsuit,Associar Novo Processo
@@ -43,6 +44,7 @@ Delete,Delete,Apagar
 Delete {}?,Delete {}?,Apagar {}?
 Delete File,Delete File,Apagar Ficheiro
 Delete Folder,Delete Folder,Delete Pasta
+Delete {} Files?,Delete {} Files?,Apagar {} Ficheiros?
 Description,Description,Descrição
 Dismiss,Dismiss,Ignorar
 District,District,Comarca

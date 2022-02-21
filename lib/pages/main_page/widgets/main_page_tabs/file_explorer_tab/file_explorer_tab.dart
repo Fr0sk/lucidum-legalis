@@ -45,7 +45,9 @@ class FileExplorerTab extends StatelessWidget {
   }
 
   Future<void> onEntityDelete(
-      BuildContext context, FileSystemEntity entity) async {
+    BuildContext context,
+    FileSystemEntity entity,
+  ) async {
     bool confirm = false;
 
     if (await File(entity.path).exists()) {
@@ -96,9 +98,27 @@ class FileExplorerTab extends StatelessWidget {
   }
 
   Future<void> onDelete(BuildContext context) async {
-    for (var e in _controller.selected.value) {
-      await onEntityDelete(context, e);
+    if (_controller.selected.isEmpty) {
+      return;
     }
+
+    final confirm = await YesNoDialog.show(
+      context: context,
+      title:
+          'Delete {} Files?'.tr(args: [_controller.selected.length.toString()]),
+      description: 'Are you sure you want to permanently '
+              'delete selected files and folders?'
+          .tr(),
+    );
+
+    if (!confirm) {
+      return;
+    }
+
+    for (var e in _controller.selected.value) {
+      await e.delete(recursive: true);
+    }
+    _controller.selected.value = [];
   }
 
   Future<void> onFileUpload(BuildContext context) async {
