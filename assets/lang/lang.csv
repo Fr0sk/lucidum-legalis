@@ -102,6 +102,7 @@ Requires Attention,Requires Attention,Requer Atenção
 Restart,Restart,Reiniciar
 Restart to install the latest update,Restart to install the latest update,Reinicia para instalar a última atualização
 Save,Save,Guardar
+Save tabs on exit,Save tabs on exit,Guardar separadores abertos ao sair
 Search Anything,Search Anything,Procurar Tudo
 Set deadline,Set deadline,Alterar prazo de entrega
 Settings,Settings,Definições
@@ -117,11 +118,13 @@ Title,Title,Título
 Type,Type,Tipo
 Unlock,Unlock,Desbloquear
 Updated. Last check: {},Updated. Last check: {},Atualizado. Ultima verificação: {}
+Updates,Updates,Atualizações
 Upload files,Upload files,Carregar ficheiros
 Username,Username,Nome de Utilizador
 Username already exists,Username already exists,Nome de utilizador já existe
 Username is required,Username is required,Nome de utilizador é obrigatório
 Username not found,Username not found,Nome de utilizador não encontrado
+View Release Notes,View Release Notes,Ver Notas de Lançamento
 Waiting,Waiting,Em Espera
 Welcome {},Welcome {},Olá {}
 Yes,Yes,Sim

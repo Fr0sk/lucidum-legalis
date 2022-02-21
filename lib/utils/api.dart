@@ -27,11 +27,33 @@ class Api {
   final selectedFiles = ListNotifier<FileSystemEntity>([]);
   final openedReminder = ValueNotifier<Alert?>(null);
   var fileOperation = FileSystemOperation.none;
+  var _loadingTabs = false;
 
   Api()
       : omniboxController = OmniboxController(
-            userDatabase.clientDao.watchAllClients(),
-            userDatabase.lawsuiteDao.watchAllLawsuites());
+          userDatabase.clientDao.watchAllClients(),
+          userDatabase.lawsuiteDao.watchAllLawsuites(),
+        ) {
+    tabs.addListener(() {
+      if (!_loadingTabs) {
+        _saveTabs();
+      }
+    });
+    tabHistory.addListener(() {
+      if (!_loadingTabs) {
+        _saveTabsHistory();
+      }
+    });
+    appSettings.saveOpenTabs.addListener(() {
+      if (appSettings.saveOpenTabs.value) {
+        _saveTabs();
+        _saveTabsHistory();
+      } else {
+        appSettings.openTabs.value = '';
+        appSettings.openTabsHistory.value = '';
+      }
+    });
+  }
 
   UserDatabase get database => userDatabase;
   TabState? get openTabState => tabHistory.isEmpty ? null : tabHistory.last;
@@ -164,6 +186,60 @@ class Api {
     if (tabs.contains(tabState)) {
       tabs.remove(tabState);
       tabHistory.remove(tabState);
+    }
+  }
+
+  Future<void> loadTabs() async {
+    _loadingTabs = true;
+    final history = appSettings.openTabsHistory.value;
+    await _openTabListFromString(appSettings.openTabs.value);
+    await _openTabListFromString(history);
+    _loadingTabs = false;
+  }
+
+  void _saveTabs() {
+    if (appSettings.saveOpenTabs.value) {
+      appSettings.openTabs.value = _getTabListAsString(tabs.value);
+    }
+  }
+
+  void _saveTabsHistory() {
+    if (appSettings.saveOpenTabs.value) {
+      appSettings.openTabsHistory.value = _getTabListAsString(tabHistory.value);
+    }
+  }
+
+  String _getTabListAsString(List<TabState> tabList) {
+    var tabsStr = '';
+
+    for (var tab in tabList) {
+      if (tabsStr.isNotEmpty) {
+        tabsStr += '|'; // Divider
+      }
+
+      var type = 'u'; // Unknown
+      if (tab is TabState<Client>) {
+        type = 'c'; // Client
+      } else if (tab is TabState<Lawsuite>) {
+        type = 'l'; // Lawsuite
+      }
+      tabsStr += '$type:${tab.id}';
+    }
+
+    return tabsStr;
+  }
+
+  Future<void> _openTabListFromString(String tabListStr) async {
+    for (var tabStateStr in tabListStr.split('|')) {
+      final components = tabStateStr.split(':');
+      final type = components[0];
+      final id = int.parse(components[1]);
+
+      if (type == 'c') {
+        await openClient(id: id);
+      } else if (type == 'l') {
+        await openLawsuit(id: id);
+      }
     }
   }
 

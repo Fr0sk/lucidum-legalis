@@ -36,9 +36,9 @@ Future<void> main(List<String> args) async {
   UserDatabase.setupSqlitePlatformOverrides();
 
   userDatabase = UserDatabase(databaseDir: AppDirectories.appDocDir);
-  api = Api();
   appSettings = AppSettings();
   await appSettings.ensureInitialized();
+  api = Api();
   appNotifications = AppNotifications();
   appAlerts = AppAlerts();
   updaterService = UpdaterService();
@@ -116,6 +116,11 @@ class MyApp extends StatelessWidget {
           if (showReleaseNotes) {
             WidgetsBinding.instance?.addPostFrameCallback(
                 (timeStamp) => ReleaseNotesDialog.show(context: context));
+          }
+
+          if (appSettings.saveOpenTabs.value) {
+            WidgetsBinding.instance?.addPostFrameCallback(
+                (timeStamp) async => await api.loadTabs());
           }
 
           return MainPage();

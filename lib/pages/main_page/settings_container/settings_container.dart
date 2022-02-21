@@ -9,8 +9,9 @@ import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/widgets/titled_card.dart';
 
 part 'updater_label.part.dart';
-part 'list_tile_application.part.dart';
+part 'list_tile_updates.part.dart';
 part 'list_tile_language.part.dart';
+part 'list_tile_application.part.dart';
 
 class SettingsContainer extends StatelessWidget {
   final double width;
@@ -46,17 +47,14 @@ class SettingsContainer extends StatelessWidget {
                   child: SingleChildScrollView(
                     controller: ScrollController(),
                     child: Column(
-                      children: [
+                      children: const [
                         Divider(),
                         _ListTileLanguage(),
                         Divider(),
                         _ListTileApplication(),
                         Divider(),
-                        ElevatedButton(
-                          onPressed: () =>
-                              ReleaseNotesDialog.show(context: context),
-                          child: Text('Release Notes'),
-                        ),
+                        _ListTileUpdates(),
+                        Divider(),
                       ],
                     ),
                   ),
