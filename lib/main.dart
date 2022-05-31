@@ -14,7 +14,7 @@ import 'package:lucidum_legalis/services/window_service.dart';
 import 'package:lucidum_legalis/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:window_manager/window_manager.dart';
 
 late final UserDatabase userDatabase;
@@ -68,7 +68,7 @@ Future<void> restart() async {
   if (updaterService.hasUpdates.value) {
     await updaterService.doUpdate();
   } else {
-    final launched = await launch(Platform.resolvedExecutable);
+    final launched = await canLaunchUrlString(Platform.resolvedExecutable);
     if (launched) {
       exit(0);
     }
@@ -115,12 +115,12 @@ class MyApp extends StatelessWidget {
         home: Builder(builder: (context) {
           // Show release notes on startup
           if (showReleaseNotes) {
-            WidgetsBinding.instance?.addPostFrameCallback(
+            WidgetsBinding.instance.addPostFrameCallback(
                 (timeStamp) => ReleaseNotesDialog.show(context: context));
           }
 
           if (appSettings.saveOpenTabs.value) {
-            WidgetsBinding.instance?.addPostFrameCallback(
+            WidgetsBinding.instance.addPostFrameCallback(
                 (timeStamp) async => await api.loadTabs());
           }
 

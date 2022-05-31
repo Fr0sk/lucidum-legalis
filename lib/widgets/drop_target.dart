@@ -14,7 +14,7 @@ class AnimatedDropTarget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AnimatedDropTargetState createState() => _AnimatedDropTargetState();
+  State<AnimatedDropTarget> createState() => _AnimatedDropTargetState();
 }
 
 class _AnimatedDropTargetState extends State<AnimatedDropTarget> {

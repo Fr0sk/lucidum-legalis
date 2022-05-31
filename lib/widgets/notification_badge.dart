@@ -18,8 +18,8 @@ class NotificationBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     if (count == null) {
       return Badge(
-        child: icon,
         showBadge: showBadge,
+        child: icon,
       );
     }
 

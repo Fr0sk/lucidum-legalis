@@ -11,12 +11,12 @@ class _ListTileLanguage extends StatelessWidget {
         value: context.locale,
         items: const [
           DropdownMenuItem(
-            child: Text('English'),
             value: Locales.en,
+            child: Text('English'),
           ),
           DropdownMenuItem(
-            child: Text('Português'),
             value: Locales.pt,
+            child: Text('Português'),
           ),
         ],
         onChanged: (newLocale) {

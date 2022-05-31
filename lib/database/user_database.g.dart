@@ -6,7 +6,7 @@ part of 'user_database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: type=lint
 class ClientNote extends DataClass implements Insertable<ClientNote> {
   final int id;
   final String? title;
@@ -181,9 +181,10 @@ class ClientNotesCompanion extends UpdateCompanion<ClientNote> {
 
 class $ClientNotesTable extends ClientNotes
     with TableInfo<$ClientNotesTable, ClientNote> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ClientNotesTable(this._db, [this._alias]);
+  $ClientNotesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -249,7 +250,7 @@ class $ClientNotesTable extends ClientNotes
 
   @override
   $ClientNotesTable createAlias(String alias) {
-    return $ClientNotesTable(_db, alias);
+    return $ClientNotesTable(attachedDatabase, alias);
   }
 }
 
@@ -397,9 +398,10 @@ class ClientsLawsuitesCompanion extends UpdateCompanion<ClientLawsuite> {
 
 class $ClientsLawsuitesTable extends ClientsLawsuites
     with TableInfo<$ClientsLawsuitesTable, ClientLawsuite> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ClientsLawsuitesTable(this._db, [this._alias]);
+  $ClientsLawsuitesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -462,7 +464,7 @@ class $ClientsLawsuitesTable extends ClientsLawsuites
 
   @override
   $ClientsLawsuitesTable createAlias(String alias) {
-    return $ClientsLawsuitesTable(_db, alias);
+    return $ClientsLawsuitesTable(attachedDatabase, alias);
   }
 }
 
@@ -804,9 +806,10 @@ class ClientsCompanion extends UpdateCompanion<Client> {
 }
 
 class $ClientsTable extends Clients with TableInfo<$ClientsTable, Client> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ClientsTable(this._db, [this._alias]);
+  $ClientsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -938,7 +941,7 @@ class $ClientsTable extends Clients with TableInfo<$ClientsTable, Client> {
 
   @override
   $ClientsTable createAlias(String alias) {
-    return $ClientsTable(_db, alias);
+    return $ClientsTable(attachedDatabase, alias);
   }
 
   static TypeConverter<ClientType, int> $converter0 =
@@ -1127,9 +1130,10 @@ class ContactsCompanion extends UpdateCompanion<Contact> {
 }
 
 class $ContactsTable extends Contacts with TableInfo<$ContactsTable, Contact> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ContactsTable(this._db, [this._alias]);
+  $ContactsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -1194,7 +1198,7 @@ class $ContactsTable extends Contacts with TableInfo<$ContactsTable, Contact> {
 
   @override
   $ContactsTable createAlias(String alias) {
-    return $ContactsTable(_db, alias);
+    return $ContactsTable(attachedDatabase, alias);
   }
 
   static TypeConverter<ContactType, int> $converter0 =
@@ -1375,9 +1379,10 @@ class LawsuiteNotesCompanion extends UpdateCompanion<LawsuiteNote> {
 
 class $LawsuiteNotesTable extends LawsuiteNotes
     with TableInfo<$LawsuiteNotesTable, LawsuiteNote> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $LawsuiteNotesTable(this._db, [this._alias]);
+  $LawsuiteNotesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -1445,7 +1450,7 @@ class $LawsuiteNotesTable extends LawsuiteNotes
 
   @override
   $LawsuiteNotesTable createAlias(String alias) {
-    return $LawsuiteNotesTable(_db, alias);
+    return $LawsuiteNotesTable(attachedDatabase, alias);
   }
 }
 
@@ -1817,9 +1822,10 @@ class LawsuitesCompanion extends UpdateCompanion<Lawsuite> {
 
 class $LawsuitesTable extends Lawsuites
     with TableInfo<$LawsuitesTable, Lawsuite> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $LawsuitesTable(this._db, [this._alias]);
+  $LawsuitesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -1964,7 +1970,7 @@ class $LawsuitesTable extends Lawsuites
 
   @override
   $LawsuitesTable createAlias(String alias) {
-    return $LawsuitesTable(_db, alias);
+    return $LawsuitesTable(attachedDatabase, alias);
   }
 
   static TypeConverter<LawsuiteState, int> $converter0 =
@@ -2112,9 +2118,10 @@ class SettingsCompanion extends UpdateCompanion<Setting> {
 }
 
 class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $SettingsTable(this._db, [this._alias]);
+  $SettingsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -2171,7 +2178,7 @@ class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
 
   @override
   $SettingsTable createAlias(String alias) {
-    return $SettingsTable(_db, alias);
+    return $SettingsTable(attachedDatabase, alias);
   }
 }
 
@@ -2457,9 +2464,10 @@ class AlertsCompanion extends UpdateCompanion<Alert> {
 }
 
 class $AlertsTable extends Alerts with TableInfo<$AlertsTable, Alert> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $AlertsTable(this._db, [this._alias]);
+  $AlertsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -2563,7 +2571,7 @@ class $AlertsTable extends Alerts with TableInfo<$AlertsTable, Alert> {
 
   @override
   $AlertsTable createAlias(String alias) {
-    return $AlertsTable(_db, alias);
+    return $AlertsTable(attachedDatabase, alias);
   }
 
   static TypeConverter<AlertType, int> $converter0 =
@@ -2777,9 +2785,10 @@ class LawsuiteAgainstsCompanion extends UpdateCompanion<LawsuiteAgainst> {
 
 class $LawsuiteAgainstsTable extends LawsuiteAgainsts
     with TableInfo<$LawsuiteAgainstsTable, LawsuiteAgainst> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $LawsuiteAgainstsTable(this._db, [this._alias]);
+  $LawsuiteAgainstsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -2856,7 +2865,7 @@ class $LawsuiteAgainstsTable extends LawsuiteAgainsts
 
   @override
   $LawsuiteAgainstsTable createAlias(String alias) {
-    return $LawsuiteAgainstsTable(_db, alias);
+    return $LawsuiteAgainstsTable(attachedDatabase, alias);
   }
 }
 

@@ -29,7 +29,7 @@ class TabPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (selected >= 0 && selected < _tabs.length) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) => _scrollTo(selected));
+      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollTo(selected));
     }
 
     return Listener(
@@ -48,14 +48,14 @@ class TabPanel extends StatelessWidget {
         controller: _scrollController,
         radius: Radius.zero,
         thickness: 4,
-        isAlwaysShown: true,
+        thumbVisibility: true,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           controller: _scrollController,
           child: Center(
             child: Row(
-              children: _tabs,
               mainAxisSize: MainAxisSize.max,
+              children: _tabs,
             ),
           ),
         ),

@@ -11,7 +11,7 @@ class Siderbar extends StatefulWidget {
   const Siderbar({Key? key}) : super(key: key);
 
   @override
-  _SiderbarState createState() => _SiderbarState();
+  State<Siderbar> createState() => _SiderbarState();
 }
 
 enum Tabs { clients, lawsuites }
@@ -120,7 +120,7 @@ class _SiderbarState extends State<Siderbar> with TickerProviderStateMixin {
       ),
       // Sidebar tabs
       body: Scrollbar(
-        isAlwaysShown: true,
+        thumbVisibility: true,
         child: SidebarTab(
           dataStream:
               _selectedTab == Tabs.clients ? _clientsStream : _lawsuitesStream,

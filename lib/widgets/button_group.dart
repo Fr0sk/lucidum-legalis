@@ -17,7 +17,7 @@ class ButtonGroup extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ButtonGroupState createState() => _ButtonGroupState();
+  State<ButtonGroup> createState() => _ButtonGroupState();
 }
 
 class _ButtonGroupState extends State<ButtonGroup> {

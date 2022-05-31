@@ -11,8 +11,8 @@ import 'package:lucidum_legalis/main.dart';
 import 'package:lucidum_legalis/utils/constants.dart';
 import 'package:lucidum_legalis/utils/utils.dart';
 import 'package:lucidum_legalis/widgets/drop_target.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:path/path.dart' as p;
+import 'package:url_launcher/url_launcher_string.dart';
 
 part '_toolbar.part.dart';
 
@@ -26,7 +26,7 @@ class FileExplorerTab extends StatelessWidget {
             startPath: path,
             watch: true,
             fileSelected: (file) async {
-              launch(file.path);
+              launchUrlString(file.path);
             }),
         super(key: key);
 

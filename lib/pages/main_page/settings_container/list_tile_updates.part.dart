@@ -50,8 +50,8 @@ class _ListTileUpdates extends StatelessWidget {
                   valueListenable: updaterService.hasUpdates,
                   builder: (_, hasUpdates, child) => Badge(
                     position: const BadgePosition(top: -5, end: 0),
-                    child: child,
                     showBadge: hasUpdates,
+                    child: child,
                   ),
                   child: SizedBox(
                     width: 125,

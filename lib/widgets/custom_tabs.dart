@@ -17,7 +17,7 @@ class CustomTabs extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CustomTabsState createState() => _CustomTabsState();
+  State<CustomTabs> createState() => _CustomTabsState();
 }
 
 class _CustomTabsState extends State<CustomTabs> {

@@ -12,7 +12,7 @@ import 'package:path/path.dart' as p;
 
 class UpdaterService {
   /// Creates the updater service for the corresponding platform
-  final _checkDuration = const Duration(seconds: 10);
+  final _checkDuration = const Duration(hours: 1);
   final hasUpdates = ValueNotifier<bool>(false);
   final lastCheck = ValueNotifier<DateTime?>(null);
   final downloadProgress = ValueNotifier<double?>(null);

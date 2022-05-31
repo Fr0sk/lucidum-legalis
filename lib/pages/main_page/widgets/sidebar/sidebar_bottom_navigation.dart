@@ -18,7 +18,7 @@ class SidebarBottomNavigation extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SidebarBottomNavigationState createState() =>
+  State<SidebarBottomNavigation> createState() =>
       _SidebarBottomNavigationState();
 }
 

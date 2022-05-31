@@ -14,7 +14,7 @@ import 'package:lucidum_legalis/services/app_directories.dart';
 import 'package:lucidum_legalis/utils/list_notifier.dart';
 import 'package:lucidum_legalis/utils/utils.dart';
 import 'package:lucidum_legalis/utils/extensions.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 enum OpenTabBodyResult { success, unsavedChanges }
 
@@ -133,7 +133,7 @@ class Api {
     return id;
   }
 
-  Future<bool> openFile({required String file}) => launch(file);
+  Future<bool> openFile({required String file}) => launchUrlString(file);
 
   Future<void> openClient({required int id, bool editMode = false}) async {
     // Checks if there is a client tab with the same ID opened and
@@ -231,6 +231,10 @@ class Api {
   }
 
   Future<void> _openTabListFromString(String tabListStr) async {
+    if (tabListStr.isEmpty) {
+      return;
+    }
+
     for (var tabStateStr in tabListStr.split('|')) {
       final components = tabStateStr.split(':');
       final type = components[0];

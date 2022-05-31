@@ -39,7 +39,7 @@ class _Toolbar extends StatelessWidget {
           Tooltip(
             message: 'Open folder in explorer'.tr(),
             child: IconButton(
-                onPressed: () => launch(controller.directory.path),
+                onPressed: () => launchUrlString(controller.directory.path),
                 icon: AppIcons.folderOpenColored),
           ),
           Tooltip(
