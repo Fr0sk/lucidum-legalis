@@ -82,7 +82,7 @@ class FileExplorerTab extends StatelessWidget {
     }
 
     await dir.create(recursive: true);
-    onEntityRename(context, dir);
+    await onEntityRename(context, dir);
   }
 
   Future<void> onCopy(BuildContext context) async {
@@ -133,7 +133,7 @@ class FileExplorerTab extends StatelessWidget {
       }
 
       if (paths.isNotEmpty) {
-        Copy.list(paths, _controller.directory, context);
+        await Copy.list(paths, _controller.directory, context);
       }
     }
   }
